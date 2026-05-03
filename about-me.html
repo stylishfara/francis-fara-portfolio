@@ -2467,10 +2467,30 @@
       return document.getElementById(`${base}${scope}`);
     }
 
+    function playToggleSound(isDark) {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.type = 'sine';
+        // dark: low soft thud; light: bright soft chime
+        osc.frequency.setValueAtTime(isDark ? 280 : 520, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(isDark ? 160 : 680, ctx.currentTime + 0.12);
+        gain.gain.setValueAtTime(0.18, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.18);
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 0.18);
+        osc.onended = () => ctx.close();
+      } catch (_) {}
+    }
+
     function toggleGbDark() {
       const shell = document.getElementById('gbShell');
       const icon = document.getElementById('gbDarkIcon');
       const isDark = shell.classList.toggle('gb-dark');
+      playToggleSound(isDark);
       icon.innerHTML = isDark
         ? '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>'
         : '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>';
