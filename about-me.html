@@ -1627,6 +1627,11 @@
       to { transform: translateY(0); }
     }
 
+    @keyframes gb-marquee-rtl {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
     .gb-all-grid,
     .gb-grid {
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1942,6 +1947,9 @@
       .guestbook-left { position: static; top: auto; }
       .guestbook-right { max-height: none; }
 
+      /* Shell must clip the bleed strip */
+      #guestbook-full .guestbook-shell { overflow: hidden; }
+
       /* Stamp preview — right-to-left marquee on mobile */
       #guestbook-full .gb-preview-grid {
         display: block !important;
@@ -1954,23 +1962,18 @@
       }
       #guestbook-full .gb-preview-grid::before,
       #guestbook-full .gb-preview-grid::after { display: none !important; }
-      /* Horizontal marquee track */
+      /* Horizontal marquee track — no transform:none so animation works */
       #guestbook-full .gb-stamp2-vertical-track {
         display: flex !important;
         flex-direction: row !important;
         gap: 10px !important;
         animation: gb-marquee-rtl 20s linear infinite !important;
-        transform: none !important;
         height: 100%;
         align-items: center;
         width: max-content;
       }
       #guestbook-full #gbPreviewGridFull:hover .gb-stamp2-vertical-track {
         animation-play-state: paused !important;
-      }
-      @keyframes gb-marquee-rtl {
-        from { transform: translateX(0); }
-        to   { transform: translateX(-50%); }
       }
       /* Cards in the marquee strip */
       #guestbook-full .gb-preview-grid .gb-card {
@@ -1988,8 +1991,23 @@
         z-index: auto !important;
         margin: 0 !important;
       }
-      #guestbook-full .gb-preview-grid .gb-card-msg { font-size: 13px !important; line-height: 1.2; }
-      #guestbook-full .gb-preview-grid .gb-card-name { font-size: 9px !important; }
+      /* Truncate long text inside tiny stamp cards */
+      #guestbook-full .gb-preview-grid .gb-card-msg {
+        font-size: 11px !important;
+        line-height: 1.2;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 4 !important;
+        line-clamp: 4 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
+        word-break: break-word;
+      }
+      #guestbook-full .gb-preview-grid .gb-card-name {
+        font-size: 9px !important;
+        overflow: hidden !important;
+        white-space: nowrap !important;
+        text-overflow: ellipsis !important;
+      }
       /* Show duplicate cards — needed for seamless loop */
       #guestbook-full .gb-preview-grid .gb-card[aria-hidden="true"] { display: block !important; }
 
