@@ -1936,8 +1936,9 @@
       .guestbook-shell { width: 100%; padding: 24px 20px; }
       .guestbook-intro { align-items: flex-start; flex-direction: column; width: 100%; }
 
-      /* Guestbook split — stack form above stamps */
-      .guestbook-split { grid-template-columns: 1fr; gap: 20px; }
+      /* Guestbook split — stack form above stamps (override ID-specificity rule) */
+      #guestbook-full .guestbook-split,
+      .guestbook-split { grid-template-columns: 1fr !important; gap: 20px; }
       .guestbook-left { position: static; top: auto; }
       .guestbook-right { max-height: none; }
 
