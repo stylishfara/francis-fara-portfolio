@@ -698,245 +698,6 @@
       cursor: pointer;
     }
 
-    /* ── MUSIC ── */
-    .spotify-player {
-      background: #1a1a1a;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    .sp-header {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      padding: 16px 16px 0;
-      position: relative;
-    }
-
-    .sp-album-art {
-      width: 80px;
-      height: 80px;
-      border-radius: 6px;
-      flex-shrink: 0;
-      background: linear-gradient(145deg, #c0390a 0%, #e85a20 40%, #d04010 100%);
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      padding: 7px 9px;
-      position: relative;
-    }
-
-    .sp-album-badge {
-      font-size: 7.5px;
-      font-weight: 600;
-      color: rgba(255,255,255,0.85);
-      line-height: 1.3;
-    }
-
-    .sp-album-badge .sp-spot-dot {
-      display: inline-block;
-      width: 7px;
-      height: 7px;
-      background: #1ed760;
-      border-radius: 50%;
-      margin-right: 3px;
-      vertical-align: middle;
-    }
-
-    .sp-info { flex: 1; }
-
-    .sp-title {
-      font-size: 19px;
-      font-weight: 700;
-      color: #fff;
-      line-height: 1.2;
-      margin-bottom: 2px;
-    }
-
-    .sp-artist {
-      font-size: 12px;
-      color: rgba(255,255,255,0.55);
-      margin-bottom: 8px;
-    }
-
-    .sp-saved {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      color: rgba(255,255,255,0.65);
-    }
-
-    .sp-check-circle {
-      width: 15px;
-      height: 15px;
-      background: #1ed760;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .sp-check-circle svg { width: 9px; height: 9px; }
-
-    .sp-spotify-logo {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-    }
-
-    .sp-spotify-logo svg { width: 20px; height: 20px; fill: white; }
-
-    .sp-controls {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 16px 10px;
-    }
-
-    .sp-controls-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .sp-badge {
-      font-size: 9px;
-      color: rgba(255,255,255,0.55);
-      border: 1px solid rgba(255,255,255,0.25);
-      padding: 2px 7px;
-      border-radius: 3px;
-    }
-
-    .sp-ctrl {
-      font-size: 15px;
-      color: rgba(255,255,255,0.55);
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .sp-play {
-      width: 38px;
-      height: 38px;
-      background: #ffffff;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-
-    .sp-play svg { width: 14px; height: 14px; fill: #1a1a1a; margin-left: 2px; }
-
-    .sp-tracks { padding: 0 16px 14px; }
-
-    .sp-track {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 8px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .sp-track:last-child { border-bottom: none; }
-
-    .sp-tnum {
-      font-size: 12px;
-      color: rgba(255,255,255,0.35);
-      width: 14px;
-      text-align: center;
-      flex-shrink: 0;
-    }
-
-    .sp-tinfo { flex: 1; }
-
-    .sp-tname {
-      font-size: 14px;
-      color: rgba(255,255,255,0.88);
-    }
-
-    .sp-tartist {
-      font-size: 11px;
-      color: rgba(255,255,255,0.4);
-    }
-
-    .sp-tdur {
-      font-size: 12px;
-      color: rgba(255,255,255,0.4);
-    }
-
-    /* ── TO DO LIST ── */
-    .todo-list {
-      display: flex;
-      flex-direction: column;
-      gap: 22px;
-      margin-top: 24px;
-    }
-
-    .todo-item {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      font-size: 16px;
-      color: var(--text);
-      cursor: pointer;
-      position: relative;
-    }
-
-    .todo-item.done {
-      color: var(--text-muted);
-    }
-
-    .todo-item.done .todo-text {
-      text-decoration: line-through;
-    }
-
-    .todo-tooltip {
-      position: absolute;
-      left: 50%;
-      bottom: calc(100% + 8px);
-      transform: translateX(-50%) scale(0.9);
-      background: var(--text);
-      color: #fff;
-      font-size: 12px;
-      font-weight: 400;
-      white-space: nowrap;
-      padding: 5px 12px;
-      border-radius: 6px;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.15s ease, transform 0.15s ease;
-    }
-
-    .todo-tooltip::after {
-      content: '';
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      border: 5px solid transparent;
-      border-top-color: var(--text);
-    }
-
-    .todo-item.show-tip .todo-tooltip {
-      opacity: 1;
-      transform: translateX(-50%) scale(1);
-    }
-
-    .todo-circle {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      border: 1.5px solid #cccccc;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .todo-circle svg { width: 11px; height: 11px; }
 
     /* ── BRAND DESIGN GRID ── */
     .brand-grid {
@@ -1427,7 +1188,7 @@
 
           <a href="walletwise.html" class="proj-card">
             <div class="proj-media pm-lavender">
-              <img src="images/wallletwise.webp" alt="WalletWise Mobile App" />
+              <img src="images/wallletwise.webp" alt="WalletWise Mobile App" loading="lazy" />
             </div>
             <div class="proj-body">
               <p class="proj-title">WalletWise Mobile App</p>
@@ -1441,7 +1202,7 @@
 
           <a href="pesawise.html" class="proj-card">
             <div class="proj-media pm-teal">
-              <img src="images/pesaweise mobile app.webp" alt="Pesawise Mobile App" />
+              <img src="images/pesaweise mobile app.webp" alt="Pesawise Mobile App" loading="lazy" />
             </div>
             <div class="proj-body">
               <p class="proj-title">Pesawise Mobile App</p>
@@ -1455,7 +1216,7 @@
 
           <a href="dash-merchant.html" class="proj-card">
             <div class="proj-media pm-peach">
-              <img src="images/dash merchat" alt="Dash Merchant Dashboard" onerror="this.style.display='none'" />
+              <img src="images/dash-merchant.webp" alt="Dash Merchant Dashboard" loading="lazy" />
             </div>
             <div class="proj-body">
               <p class="proj-title">Dash Merchant Dashboard</p>
@@ -1469,7 +1230,7 @@
 
           <a href="ajotek.html" class="proj-card">
             <div class="proj-media pm-sky">
-              <img src="images/ajotek.webp" alt="Ajotek" />
+              <img src="images/ajotek.webp" alt="Ajotek" loading="lazy" />
             </div>
             <div class="proj-body">
               <p class="proj-title">Ajotek</p>
@@ -1483,7 +1244,7 @@
 
           <a href="form-creation-dashboard.html" class="proj-card">
             <div class="proj-media pm-sage">
-              <img src="images/form creation.webp" alt="Form Creation Dashboard" />
+              <img src="images/form creation.webp" alt="Form Creation Dashboard" loading="lazy" />
             </div>
             <div class="proj-body">
               <p class="proj-title">Form Creation Dashboard</p>
@@ -1497,7 +1258,7 @@
 
           <a href="healthcare-appointment-booking-platform.html" class="proj-card">
             <div class="proj-media pm-rose">
-              <img src="images/helath appointment form.webp" alt="Healthcare Appointment Booking App" />
+              <img src="images/helath appointment form.webp" alt="Healthcare Appointment Booking App" loading="lazy" />
             </div>
             <div class="proj-body">
               <p class="proj-title">Healthcare Appointment Booking App</p>
@@ -1511,7 +1272,7 @@
 
           <a href="pesawise-website.html" class="proj-card">
             <div class="proj-media pm-warm">
-              <img src="images/pesawisewebsite.webp" alt="Pesawise Website" />
+              <img src="images/pesawisewebsite.webp" alt="Pesawise Website" loading="lazy" />
             </div>
             <div class="proj-body">
               <p class="proj-title">Pesawise Website</p>
@@ -1532,7 +1293,7 @@
 
           <div class="cool-card" onclick="openCoolModal('form-creation')">
             <div class="cool-card-media">
-              <img src="images/form-builder-hero.png" alt="Form Creation Dashboard" />
+              <img src="images/form-builder-hero.webp" alt="Form Creation Dashboard" loading="lazy" />
             </div>
             <div class="cool-card-body">
               <p class="cool-card-title">Form Creation Dashboard</p>
@@ -1831,12 +1592,12 @@
         chips: ['Design', 'Figma', 'SaaS', '2025'],
         desc: 'A configurable compliance form builder that lets teams collect structured subject data, trigger PEP, sanctions, and adverse media screening, and generate an automated risk score.',
         images: [
-          'long/22form builder.jpg',
-          'long/D@4x.jpg',
-          'images/form-builder-hero.png',
+          'long/22form-builder.webp',
+          'long/D@4x.webp',
+          'images/form-builder-hero.webp',
           'images/form-builder-form.webp',
-          'images/form-builder-screening.png',
-          'images/form-builder-risk.png',
+          'images/form-builder-screening.webp',
+          'images/form-builder-risk.webp',
         ]
       }
     };
