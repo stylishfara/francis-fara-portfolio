@@ -280,6 +280,47 @@
       display: block;
     }
 
+    .cool-card-media--logofolio {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      background: #f5f5f5;
+    }
+
+    .cool-card-media--logofolio img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 12px;
+      background: #f5f5f5;
+      border: 0.5px solid #e8e8e8;
+    }
+
+    /* Logofolio modal scroll strip */
+    .logofolio-scroll {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: #e8e8e8;
+      overflow-y: auto;
+      max-height: 58vh;
+    }
+
+    .logofolio-scroll-item {
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: 1;
+      padding: 20px;
+    }
+
+    .logofolio-scroll-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
     .cool-card-body {
       padding: 20px 22px 24px;
       display: flex;
@@ -389,9 +430,9 @@
     }
 
     .cool-modal-close {
-      position: absolute;
-      top: 14px;
-      right: 14px;
+      position: fixed;
+      top: 20px;
+      right: 24px;
       width: 32px;
       height: 32px;
       background: rgba(0,0,0,0.45);
@@ -1314,6 +1355,22 @@
             </div>
           </div>
 
+          <div class="cool-card" onclick="openCoolModal('logofolio')">
+            <div class="cool-card-media cool-card-media--logofolio">
+              <img src="cool/Asset 1@4x.png" alt="Logofolio" loading="lazy" />
+              <img src="cool/Asset 3@4x.png" alt="Logofolio" loading="lazy" />
+              <img src="cool/Asset 5@4x.png" alt="Logofolio" loading="lazy" />
+              <img src="cool/Asset 8@4x.png" alt="Logofolio" loading="lazy" />
+            </div>
+            <div class="cool-card-body">
+              <p class="cool-card-title">Logofolio</p>
+              <div class="cool-card-meta">
+                <span>Brand Design • Ongoing</span>
+              </div>
+              <p class="cool-card-desc">A curated collection of favourite logo and brand mark designs crafted over the years.</p>
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -1580,11 +1637,11 @@
     <button class="cool-modal-nav" id="coolModalPrev" onclick="stepCoolModal(-1)">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
     </button>
+    <button class="cool-modal-close" onclick="closeCoolModal()">×</button>
     <div class="cool-modal" id="coolModal">
       <div class="cool-modal-stage">
         <img id="coolModalImg" src="" alt="" />
         <span class="cool-modal-counter" id="coolModalCounter">1 / 1</span>
-        <button class="cool-modal-close" onclick="closeCoolModal()">×</button>
       </div>
       <div class="cool-modal-info">
         <p class="cool-modal-title" id="coolModalTitle"></p>
@@ -1612,6 +1669,25 @@
           'images/form-builder-screening.webp',
           'images/form-builder-risk.webp',
         ]
+      },
+      'logofolio': {
+        title: 'Logofolio',
+        type: 'logofolio',
+        desc: 'A curated collection of favourite logo and brand mark designs crafted over the years — each one a study in simplicity, identity, and the quiet power of a well-placed mark.',
+        images: [
+          'cool/Asset 1@4x.png',
+          'cool/Asset 3@4x.png',
+          'cool/Asset 5@4x.png',
+          'cool/Asset 8@4x.png',
+          'cool/Asset 11@4x.png',
+          'cool/Asset 14@4x.png',
+          'cool/Asset 15@4x.png',
+          'cool/Asset 16@4x.png',
+          'cool/Asset 17@4x.png',
+          'cool/Asset 18@4x.png',
+          'cool/Asset 19@4x.png',
+          'cool/Asset 20@4x.png',
+        ]
       }
     };
 
@@ -1623,11 +1699,31 @@
       if (!p) return;
       coolModalImages = p.images;
       coolModalIndex = 0;
+
       document.getElementById('coolModalTitle').textContent = p.title;
       const chipsEl = document.getElementById('coolModalChips');
-      chipsEl.innerHTML = p.chips.map(c => `<span class="cool-modal-chip">${c}</span>`).join('');
+      chipsEl.innerHTML = (p.chips || []).map(c => `<span class="cool-modal-chip">${c}</span>`).join('');
       document.getElementById('coolModalDesc').textContent = p.desc;
-      updateCoolSlide();
+
+      const stage = document.querySelector('.cool-modal-stage');
+      const prevBtn = document.getElementById('coolModalPrev');
+      const nextBtn = document.getElementById('coolModalNext');
+
+      if (p.type === 'logofolio') {
+        stage.innerHTML = `<div class="logofolio-scroll">${p.images.map(src =>
+          `<div class="logofolio-scroll-item"><img src="${src}" alt="Logo" loading="lazy" /></div>`
+        ).join('')}</div>`;
+        prevBtn.style.visibility = 'hidden';
+        nextBtn.style.visibility = 'hidden';
+      } else {
+        stage.innerHTML = `
+          <img id="coolModalImg" src="" alt="" />
+          <span class="cool-modal-counter" id="coolModalCounter">1 / 1</span>`;
+        prevBtn.style.visibility = '';
+        nextBtn.style.visibility = '';
+        updateCoolSlide();
+      }
+
       document.getElementById('coolModalOverlay').classList.add('open');
       document.body.style.overflow = 'hidden';
     }
