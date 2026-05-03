@@ -182,6 +182,52 @@
       margin-bottom: 32px;
     }
 
+    /* ── TABS (shadcn style) ── */
+    .tabs-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .tabs-list {
+      display: inline-flex;
+      align-items: center;
+      background: #f1f1f1;
+      border-radius: 10px;
+      padding: 4px;
+      gap: 2px;
+    }
+
+    .tab-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-sec);
+      background: none;
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: color 0.15s, background 0.15s, box-shadow 0.15s;
+      white-space: nowrap;
+    }
+
+    .tab-trigger:hover { color: var(--text); }
+
+    .tab-trigger.active {
+      background: #fff;
+      color: var(--text);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.10), 0 0 0 1px rgba(0,0,0,0.04);
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
     .projects-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -1128,110 +1174,127 @@
     </div>
   </div>
 
-  <!-- SELECTED PROJECTS -->
+  <!-- PROJECTS -->
   <section id="work" class="projects-section">
     <div class="container">
-      <span class="skills-label appear">Selected Projects</span>
-      <p class="projects-subtitle appear" style="animation-delay:0.08s">A selection of work showcasing my approach to research, design, and building thoughtful product experiences.</p>
 
-      <div class="projects-grid">
-
-        <a href="walletwise.html" class="proj-card">
-          <div class="proj-media pm-lavender">
-            <img src="images/wallletwise.webp" alt="WalletWise Mobile App" />
-          </div>
-          <div class="proj-body">
-            <p class="proj-title">WalletWise Mobile App</p>
-            <div class="proj-meta">
-              <span>Jan 2025 • Mobile app</span>
-              <span class="proj-tag">Case study</span>
-            </div>
-            <p class="proj-desc">Redesigned the transfer flow to reduce drop-offs and address key UX issues contributing to user churn</p>
-          </div>
-        </a>
-
-        <a href="pesawise.html" class="proj-card">
-          <div class="proj-media pm-teal">
-            <img src="images/pesaweise mobile app.webp" alt="Pesawise Mobile App" />
-          </div>
-          <div class="proj-body">
-            <p class="proj-title">Pesawise Mobile App</p>
-            <div class="proj-meta">
-              <span>Feb 2024 • Mobile app</span>
-              <span class="proj-tag">Case study</span>
-            </div>
-            <p class="proj-desc">Transformed Pesawise's outdated experience into a modern, intuitive flow, using research insights to reduce drop-offs and improve usability.</p>
-          </div>
-        </a>
-
-        <a href="dash-merchant.html" class="proj-card">
-          <div class="proj-media pm-peach">
-            <img src="images/dash merchat" alt="Dash Merchant Dashboard" onerror="this.style.display='none'" />
-          </div>
-          <div class="proj-body">
-            <p class="proj-title">Dash Merchant Dashboard</p>
-            <div class="proj-meta">
-              <span>Mar 2023 • Dashboard</span>
-              <span class="proj-tag">Case study</span>
-            </div>
-            <p class="proj-desc">A B2B dashboard where I redesigned the merchant experience to streamline workflows, reduce task completion time, and introduce features driven by user research.</p>
-          </div>
-        </a>
-
-        <a href="ajotek.html" class="proj-card">
-          <div class="proj-media pm-sky">
-            <img src="images/ajotek.webp" alt="Ajotek" />
-          </div>
-          <div class="proj-body">
-            <p class="proj-title">Ajotek</p>
-            <div class="proj-meta">
-              <span>Feb 2026 • Savings platform</span>
-              <span class="proj-tag">Case study</span>
-            </div>
-            <p class="proj-desc">Solving the limitations of traditional Ajo savings by improving trust, transparency, and overall experience</p>
-          </div>
-        </a>
-
-        <a href="form-creation-dashboard.html" class="proj-card">
-          <div class="proj-media pm-sage">
-            <img src="images/form creation.webp" alt="Form Creation Dashboard" />
-          </div>
-          <div class="proj-body">
-            <p class="proj-title">Form Creation Dashboard</p>
-            <div class="proj-meta">
-              <span>Jun 2025 • SaaS</span>
-            </div>
-            <p class="proj-desc">Designing a configurable compliance form builder that allows teams to collect structured subject data, trigger PEP, sanctions, and adverse media screening, and generate an automated risk score</p>
-          </div>
-        </a>
-
-        <a href="healthcare-appointment-booking-platform.html" class="proj-card">
-          <div class="proj-media pm-rose">
-            <img src="images/helath appointment form.webp" alt="Healthcare Appointment Booking App" />
-          </div>
-          <div class="proj-body">
-            <p class="proj-title">Healthcare Appointment Booking App</p>
-            <div class="proj-meta">
-              <span>Mar 2023 • Mobile app</span>
-            </div>
-            <p class="proj-desc">A health tech mobile app that lets patients find and select a doctor, book appointments, and receive prescriptions — bringing the full care journey into a single, seamless mobile experience.</p>
-          </div>
-        </a>
-
-        <a href="pesawise-website.html" class="proj-card">
-          <div class="proj-media pm-warm">
-            <img src="images/pesawisewebsite.webp" alt="Pesawise Website" />
-          </div>
-          <div class="proj-body">
-            <p class="proj-title">Pesawise Website</p>
-            <div class="proj-meta">
-              <span>Dec 2022 • Web</span>
-            </div>
-            <p class="proj-desc">A revamping of Pesawise's legacy website to look modern and contain more information about the company and its emerging products</p>
-          </div>
-        </a>
-
+      <div class="tabs-header appear">
+        <div class="tabs-list" role="tablist">
+          <button class="tab-trigger active" role="tab" onclick="switchTab(this, 'case-studies')">Case Studies</button>
+          <button class="tab-trigger" role="tab" onclick="switchTab(this, 'cool-projects')">Cool Projects</button>
+        </div>
+        <p class="projects-subtitle" style="margin-bottom:0">A selection of work showcasing my approach to research, design, and building thoughtful product experiences.</p>
       </div>
+
+      <!-- Case Studies -->
+      <div class="tab-panel active" id="tab-case-studies">
+        <div class="projects-grid">
+
+          <a href="walletwise.html" class="proj-card">
+            <div class="proj-media pm-lavender">
+              <img src="images/wallletwise.webp" alt="WalletWise Mobile App" />
+            </div>
+            <div class="proj-body">
+              <p class="proj-title">WalletWise Mobile App</p>
+              <div class="proj-meta">
+                <span>Jan 2025 • Mobile app</span>
+                <span class="proj-tag">Case study</span>
+              </div>
+              <p class="proj-desc">Redesigned the transfer flow to reduce drop-offs and address key UX issues contributing to user churn</p>
+            </div>
+          </a>
+
+          <a href="pesawise.html" class="proj-card">
+            <div class="proj-media pm-teal">
+              <img src="images/pesaweise mobile app.webp" alt="Pesawise Mobile App" />
+            </div>
+            <div class="proj-body">
+              <p class="proj-title">Pesawise Mobile App</p>
+              <div class="proj-meta">
+                <span>Feb 2024 • Mobile app</span>
+                <span class="proj-tag">Case study</span>
+              </div>
+              <p class="proj-desc">Transformed Pesawise's outdated experience into a modern, intuitive flow, using research insights to reduce drop-offs and improve usability.</p>
+            </div>
+          </a>
+
+          <a href="dash-merchant.html" class="proj-card">
+            <div class="proj-media pm-peach">
+              <img src="images/dash merchat" alt="Dash Merchant Dashboard" onerror="this.style.display='none'" />
+            </div>
+            <div class="proj-body">
+              <p class="proj-title">Dash Merchant Dashboard</p>
+              <div class="proj-meta">
+                <span>Mar 2023 • Dashboard</span>
+                <span class="proj-tag">Case study</span>
+              </div>
+              <p class="proj-desc">A B2B dashboard where I redesigned the merchant experience to streamline workflows, reduce task completion time, and introduce features driven by user research.</p>
+            </div>
+          </a>
+
+          <a href="ajotek.html" class="proj-card">
+            <div class="proj-media pm-sky">
+              <img src="images/ajotek.webp" alt="Ajotek" />
+            </div>
+            <div class="proj-body">
+              <p class="proj-title">Ajotek</p>
+              <div class="proj-meta">
+                <span>Feb 2026 • Savings platform</span>
+                <span class="proj-tag">Case study</span>
+              </div>
+              <p class="proj-desc">Solving the limitations of traditional Ajo savings by improving trust, transparency, and overall experience</p>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
+      <!-- Cool Projects -->
+      <div class="tab-panel" id="tab-cool-projects">
+        <div class="projects-grid">
+
+          <a href="form-creation-dashboard.html" class="proj-card">
+            <div class="proj-media pm-sage">
+              <img src="images/form creation.webp" alt="Form Creation Dashboard" />
+            </div>
+            <div class="proj-body">
+              <p class="proj-title">Form Creation Dashboard</p>
+              <div class="proj-meta">
+                <span>Jun 2025 • SaaS</span>
+              </div>
+              <p class="proj-desc">Designing a configurable compliance form builder that allows teams to collect structured subject data, trigger PEP, sanctions, and adverse media screening, and generate an automated risk score</p>
+            </div>
+          </a>
+
+          <a href="healthcare-appointment-booking-platform.html" class="proj-card">
+            <div class="proj-media pm-rose">
+              <img src="images/helath appointment form.webp" alt="Healthcare Appointment Booking App" />
+            </div>
+            <div class="proj-body">
+              <p class="proj-title">Healthcare Appointment Booking App</p>
+              <div class="proj-meta">
+                <span>Mar 2023 • Mobile app</span>
+              </div>
+              <p class="proj-desc">A health tech mobile app that lets patients find and select a doctor, book appointments, and receive prescriptions — bringing the full care journey into a single, seamless mobile experience.</p>
+            </div>
+          </a>
+
+          <a href="pesawise-website.html" class="proj-card">
+            <div class="proj-media pm-warm">
+              <img src="images/pesawisewebsite.webp" alt="Pesawise Website" />
+            </div>
+            <div class="proj-body">
+              <p class="proj-title">Pesawise Website</p>
+              <div class="proj-meta">
+                <span>Dec 2022 • Web</span>
+              </div>
+              <p class="proj-desc">A revamping of Pesawise's legacy website to look modern and contain more information about the company and its emerging products</p>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -1386,6 +1449,13 @@
   </footer>
 
   <script>
+    function switchTab(trigger, tabId) {
+      document.querySelectorAll('.tab-trigger').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      trigger.classList.add('active');
+      document.getElementById('tab-' + tabId).classList.add('active');
+    }
+
     function updateTime() {
       const now = new Date();
       let h = now.getHours();
