@@ -1720,7 +1720,6 @@
       display: flex;
       flex-direction: column;
       padding: 14% 12% 12%;
-      overflow: hidden;
     }
 
     .gb-stamp-header {
@@ -1772,6 +1771,7 @@
       flex: 1;
       position: relative;
       padding: 0 4px;
+      overflow: hidden;
     }
 
     .gb-card-msg {
@@ -2708,9 +2708,10 @@
       if (previewGridFull) {
         const total = entries.length;
         const stamp2Cards = entries.map((e, i) => renderGuestbookStamp2Card(e, i, total)).join('');
-        const duplicateStamp2Cards = entries.map((entry, index) => (
+        // Only duplicate cards when there are enough entries to fill the scroll loop
+        const duplicateStamp2Cards = total >= 3 ? entries.map((entry, index) => (
           renderGuestbookStamp2Card(entry, index, total).replace('<div class="gb-card"', '<div class="gb-card" aria-hidden="true"')
-        )).join('');
+        )).join('') : '';
         previewGridFull.innerHTML = `<div class="gb-stamp2-vertical-track">${stamp2Cards}${duplicateStamp2Cards}</div>`;
       }
 
