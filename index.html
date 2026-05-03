@@ -447,31 +447,28 @@
 
     .cool-modal-title {
       font-size: 20px;
-      font-weight: 700;
+      font-weight: 400;
       color: var(--text);
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       letter-spacing: -0.3px;
     }
 
     .cool-modal-meta {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 8px;
+      flex-wrap: wrap;
       margin-bottom: 16px;
     }
 
-    .cool-modal-tool {
+    .cool-modal-chip {
       font-size: 12px;
       font-weight: 500;
       color: var(--text-sec);
       background: #f1f1f1;
-      border-radius: 6px;
-      padding: 3px 10px;
-    }
-
-    .cool-modal-year {
-      font-size: 12px;
-      color: var(--text-muted);
+      border: 1px solid #e8e8e8;
+      border-radius: 999px;
+      padding: 4px 12px;
     }
 
     .cool-modal-link {
@@ -1860,11 +1857,7 @@
       </div>
       <div class="cool-modal-info">
         <p class="cool-modal-title" id="coolModalTitle"></p>
-        <div class="cool-modal-meta">
-          <span class="cool-modal-tool" id="coolModalTool"></span>
-          <span class="cool-modal-year" id="coolModalYear"></span>
-          <a class="cool-modal-link" id="coolModalLink" href="#" target="_blank" rel="noopener"></a>
-        </div>
+        <div class="cool-modal-meta" id="coolModalChips"></div>
         <div class="cool-modal-divider"></div>
         <p class="cool-modal-desc" id="coolModalDesc"></p>
       </div>
@@ -1875,9 +1868,7 @@
     const coolProjects = {
       'form-creation': {
         title: 'Form Creation Dashboard',
-        tool: 'Figma',
-        year: '© 2025',
-        link: '',
+        chips: ['Design', 'Figma', 'SaaS', '2025'],
         desc: 'A configurable compliance form builder that lets teams collect structured subject data, trigger PEP, sanctions, and adverse media screening, and generate an automated risk score.',
         images: [
           'images/form-builder-hero.png',
@@ -1897,11 +1888,8 @@
       coolModalImages = p.images;
       coolModalIndex = 0;
       document.getElementById('coolModalTitle').textContent = p.title;
-      document.getElementById('coolModalTool').textContent = p.tool;
-      document.getElementById('coolModalYear').textContent = p.year;
-      const link = document.getElementById('coolModalLink');
-      if (p.link) { link.href = p.link; link.textContent = p.link + ' ↗'; link.style.display = 'flex'; }
-      else { link.style.display = 'none'; }
+      const chipsEl = document.getElementById('coolModalChips');
+      chipsEl.innerHTML = p.chips.map(c => `<span class="cool-modal-chip">${c}</span>`).join('');
       document.getElementById('coolModalDesc').textContent = p.desc;
       updateCoolSlide();
       document.getElementById('coolModalOverlay').classList.add('open');
