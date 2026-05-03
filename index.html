@@ -183,46 +183,40 @@
     }
 
     /* ── TABS (shadcn style) ── */
-    .tabs-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 32px;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
     .tabs-list {
       display: inline-flex;
       align-items: center;
-      background: #f1f1f1;
-      border-radius: 999px;
-      padding: 4px;
-      gap: 2px;
+      gap: 8px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
     }
 
     .tab-trigger {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 7px 16px;
+      padding: 8px 20px;
       font-size: 13px;
       font-weight: 500;
       color: var(--text-sec);
-      background: none;
-      border: none;
+      background: #fff;
+      border: 1px solid #e8e8e8;
       border-radius: 999px;
       cursor: pointer;
-      transition: color 0.15s, background 0.15s, box-shadow 0.15s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.04);
+      transition: color 0.15s, box-shadow 0.15s, border-color 0.15s;
       white-space: nowrap;
     }
 
-    .tab-trigger:hover { color: var(--text); }
+    .tab-trigger:hover {
+      color: var(--text);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.10), 0 1px 3px rgba(0,0,0,0.06);
+    }
 
     .tab-trigger.active {
       background: #fff;
       color: var(--text);
-      box-shadow: 0 1px 4px rgba(0,0,0,0.10), 0 0 0 1px rgba(0,0,0,0.04);
+      border-color: #d0d0d0;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.07);
     }
 
     .tab-panel { display: none; }
@@ -1178,12 +1172,13 @@
   <section id="work" class="projects-section">
     <div class="container">
 
-      <div class="tabs-header appear">
+      <div class="appear">
+        <span class="skills-label">Work</span>
+        <p class="projects-subtitle">A selection of work showcasing my approach to research, design, and building thoughtful product experiences.</p>
         <div class="tabs-list" role="tablist">
           <button class="tab-trigger active" role="tab" onclick="switchTab(this, 'case-studies')">Case Studies</button>
           <button class="tab-trigger" role="tab" onclick="switchTab(this, 'cool-projects')">Cool Projects</button>
         </div>
-        <p class="projects-subtitle" style="margin-bottom:0">A selection of work showcasing my approach to research, design, and building thoughtful product experiences.</p>
       </div>
 
       <!-- Case Studies -->
