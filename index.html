@@ -321,14 +321,14 @@
       background: rgba(0,0,0,0.88);
       z-index: 1000;
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       align-items: center;
       justify-content: center;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.2s ease;
-      padding: 40px 80px;
-      gap: 0;
+      padding: 40px 24px;
+      gap: 20px;
     }
 
     .cool-modal-overlay.open {
@@ -338,7 +338,7 @@
 
     .cool-modal {
       width: 100%;
-      max-width: 900px;
+      max-width: 1020px;
       display: flex;
       flex-direction: column;
       transform: scale(0.97);
@@ -398,9 +398,7 @@
     .cool-modal-close:hover { background: rgba(255,255,255,0.22); }
 
     .cool-modal-nav {
-      position: fixed;
-      top: 50%;
-      transform: translateY(-50%);
+      flex-shrink: 0;
       width: 44px;
       height: 44px;
       background: rgba(255,255,255,0.1);
@@ -415,8 +413,6 @@
     }
 
     .cool-modal-nav:hover { background: rgba(255,255,255,0.2); }
-    .cool-modal-nav--prev { left: 20px; }
-    .cool-modal-nav--next { right: 20px; }
     .cool-modal-nav:disabled { opacity: 0.2; cursor: default; }
 
     .cool-modal-info {
@@ -434,10 +430,7 @@
     }
 
     .cool-modal-meta {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
+      display: none;
     }
 
     .cool-modal-chip {
@@ -454,7 +447,7 @@
 
     .cool-modal-desc {
       font-size: 14px;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.82);
       line-height: 1.6;
     }
 
@@ -1805,17 +1798,14 @@
 
   <!-- COOL PROJECT MODAL -->
   <div class="cool-modal-overlay" id="coolModalOverlay" onclick="closeCoolModalOutside(event)">
+    <button class="cool-modal-nav" id="coolModalPrev" onclick="stepCoolModal(-1)">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
     <div class="cool-modal" id="coolModal">
       <div class="cool-modal-stage">
         <img id="coolModalImg" src="" alt="" />
         <span class="cool-modal-counter" id="coolModalCounter">1 / 1</span>
         <button class="cool-modal-close" onclick="closeCoolModal()">×</button>
-        <button class="cool-modal-nav cool-modal-nav--prev" id="coolModalPrev" onclick="stepCoolModal(-1)">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-        </button>
-        <button class="cool-modal-nav cool-modal-nav--next" id="coolModalNext" onclick="stepCoolModal(1)">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-        </button>
       </div>
       <div class="cool-modal-info">
         <p class="cool-modal-title" id="coolModalTitle"></p>
@@ -1824,6 +1814,9 @@
         <p class="cool-modal-desc" id="coolModalDesc"></p>
       </div>
     </div>
+    <button class="cool-modal-nav" id="coolModalNext" onclick="stepCoolModal(1)">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
   </div>
 
   <script>
