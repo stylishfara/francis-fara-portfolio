@@ -2580,8 +2580,9 @@
       }, 3000);
     }
 
-    function renderGuestbookCard(entry, i) {
+    function renderGuestbookCard(entry, i, total) {
       const theme = STAMP_THEMES[i % STAMP_THEMES.length];
+      const stampNum = total !== undefined ? (total - i) : (i + 1);
       const date = new Date(entry.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
       const safeName = escapeGuestbookText(entry.name);
       const content = entry.entry_type === 'emoji'
@@ -2595,7 +2596,7 @@
           </svg>
           <div class="gb-card-inner">
             <div class="gb-stamp-header">
-              <span class="gb-stamp-num">#${i + 1}</span>
+              <span class="gb-stamp-num">#${stampNum}</span>
             </div>
             <p class="gb-card-name">${safeName}</p>
             ${content}
@@ -2607,8 +2608,9 @@
     }
 
     // stamp2: saved perforated stamp with the compact auto-scroll idea from the previous version.
-    function renderGuestbookStamp2Card(entry, i) {
+    function renderGuestbookStamp2Card(entry, i, total) {
       const theme = STAMP2_THEMES[i % STAMP2_THEMES.length];
+      const stampNum = total !== undefined ? (total - i) : (i + 1);
       const date = new Date(entry.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
       const safeName = escapeGuestbookText(entry.name);
       const content = entry.entry_type === 'emoji'
@@ -2622,7 +2624,7 @@
           </svg>
           <div class="gb-card-inner">
             <div class="gb-stamp-header">
-              <span class="gb-stamp-num">#${i + 1}</span>
+              <span class="gb-stamp-num">#${stampNum}</span>
             </div>
             <p class="gb-card-name">${safeName}</p>
             ${content}
@@ -2684,14 +2686,16 @@
 
       guestbookPreviewIndex = 0;
       if (previewGridFull) {
-        const stamp2Cards = entries.map(renderGuestbookStamp2Card).join('');
+        const total = entries.length;
+        const stamp2Cards = entries.map((e, i) => renderGuestbookStamp2Card(e, i, total)).join('');
         const duplicateStamp2Cards = entries.map((entry, index) => (
-          renderGuestbookStamp2Card(entry, index).replace('<div class="gb-card"', '<div class="gb-card" aria-hidden="true"')
+          renderGuestbookStamp2Card(entry, index, total).replace('<div class="gb-card"', '<div class="gb-card" aria-hidden="true"')
         )).join('');
         previewGridFull.innerHTML = `<div class="gb-stamp2-vertical-track">${stamp2Cards}${duplicateStamp2Cards}</div>`;
       }
 
-      const allCards = entries.map(renderGuestbookStamp2Card).join('');
+      const total = entries.length;
+      const allCards = entries.map((e, i) => renderGuestbookStamp2Card(e, i, total)).join('');
       if (allGrid) allGrid.innerHTML = allCards;
       if (allGridFull) allGridFull.innerHTML = allCards;
       if (viewAllBtn) viewAllBtn.textContent = `View all stamps (${entries.length}) →`;
