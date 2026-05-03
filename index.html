@@ -524,6 +524,22 @@
       line-height: 1.65;
     }
 
+    .cool-modal-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      text-decoration: none;
+      margin-top: 12px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 1px;
+      transition: opacity 0.15s;
+    }
+
+    .cool-modal-link:hover { opacity: 0.6; }
+
     .projects-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -1649,6 +1665,10 @@
         <div class="cool-modal-meta" id="coolModalChips"></div>
         <div class="cool-modal-divider"></div>
         <p class="cool-modal-desc" id="coolModalDesc"></p>
+        <a class="cool-modal-link" id="coolModalLink" href="#" target="_blank" rel="noopener" style="display:none">
+          View project
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
       </div>
     </div>
     <button class="cool-modal-nav" id="coolModalNext" onclick="stepCoolModal(1)">
@@ -1674,6 +1694,7 @@
       'hoop': {
         title: 'Hoop',
         desc: 'A creative design challenge taken — exploring visual identity and UI in a tight, focused sprint.',
+        link: 'https://hoopcraft-project.framer.website/',
         images: ['me/hoop.jpeg']
       },
       'logofolio': {
@@ -1710,6 +1731,13 @@
       const chipsEl = document.getElementById('coolModalChips');
       chipsEl.innerHTML = (p.chips || []).map(c => `<span class="cool-modal-chip">${c}</span>`).join('');
       document.getElementById('coolModalDesc').textContent = p.desc;
+      const linkEl = document.getElementById('coolModalLink');
+      if (p.link) {
+        linkEl.href = p.link;
+        linkEl.style.display = 'inline-flex';
+      } else {
+        linkEl.style.display = 'none';
+      }
 
       const stage = document.querySelector('.cool-modal-stage');
       const prevBtn = document.getElementById('coolModalPrev');
