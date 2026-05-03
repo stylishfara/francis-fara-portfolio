@@ -339,10 +339,10 @@
       background: #fff;
       border-radius: 18px;
       overflow: hidden;
-      width: min(960px, 94vw);
-      max-height: 94vh;
+      width: min(1060px, 94vw);
+      height: min(640px, 90vh);
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       transform: scale(0.96);
       transition: transform 0.2s ease;
     }
@@ -353,8 +353,8 @@
 
     .cool-modal-stage {
       position: relative;
-      background: #111;
-      aspect-ratio: 4 / 3;
+      background: #f0f0f0;
+      flex: 0 0 62%;
       overflow: hidden;
     }
 
@@ -379,22 +379,21 @@
     }
 
     .cool-modal-close {
-      position: absolute;
-      top: 14px;
-      right: 14px;
+      align-self: flex-end;
       width: 32px;
       height: 32px;
-      background: rgba(0,0,0,0.5);
-      border: none;
+      background: #f1f1f1;
+      border: 1px solid #e8e8e8;
       border-radius: 50%;
-      color: #fff;
+      color: #444;
       font-size: 18px;
       line-height: 1;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      backdrop-filter: blur(4px);
+      margin-bottom: 20px;
+      flex-shrink: 0;
     }
 
     .cool-modal-nav {
@@ -423,8 +422,12 @@
     .cool-modal-nav:disabled { opacity: 0.25; cursor: default; }
 
     .cool-modal-info {
-      padding: 20px 24px 24px;
-      overflow-y: auto;
+      flex: 1;
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
     }
 
     .cool-modal-title {
@@ -1827,7 +1830,6 @@
       <div class="cool-modal-stage">
         <img id="coolModalImg" src="" alt="" />
         <span class="cool-modal-counter" id="coolModalCounter">1 / 1</span>
-        <button class="cool-modal-close" onclick="closeCoolModal()">×</button>
         <button class="cool-modal-nav cool-modal-nav--prev" id="coolModalPrev" onclick="stepCoolModal(-1)">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
         </button>
@@ -1836,6 +1838,7 @@
         </button>
       </div>
       <div class="cool-modal-info">
+        <button class="cool-modal-close" onclick="closeCoolModal()">×</button>
         <p class="cool-modal-title" id="coolModalTitle"></p>
         <div class="cool-modal-meta" id="coolModalChips"></div>
         <div class="cool-modal-divider"></div>
