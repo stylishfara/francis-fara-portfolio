@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="me/logo.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — Francis Fara</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #fafafa;
+      --card:      #ffffff;
+      --border:    #e2e2e2;
+      --text:      #1a1a1a;
+      --text-sec:  #555555;
+      --text-muted:#999999;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding-top: 80px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 32px 48px 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: transparent;
+      pointer-events: none;
+    }
+
+    nav > * { pointer-events: auto; }
+
+    .nav-brand {
+      text-decoration: none;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: -0.3px;
+    }
+
+    .nav-brand img {
+      height: 24px;
+      width: auto;
+      display: block;
+    }
+
+    .nav-links {
+      list-style: none;
+      flex-shrink: 0;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 2px;
+      background: #ffffff;
+      border-radius: 999px;
+      padding: 5px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.10), 0 0 0 1px rgba(0,0,0,0.06);
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      color: #888;
+      border-radius: 999px;
+      padding: 8px 18px;
+      transition: color 0.15s, background 0.15s;
+      display: block;
+      white-space: nowrap;
+    }
+
+    .nav-links a.active {
+      background: #efefef;
+      color: #111;
+    }
+
+    .nav-links a:hover { color: #111; }
+
+    /* COMING SOON */
+    .coming-soon {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 24px 80px;
+    }
+
+    .coming-soon-label {
+      font-family: 'Geist Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .coming-soon-heading {
+      font-size: 40px;
+      font-weight: 600;
+      letter-spacing: -1px;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .coming-soon-sub {
+      font-size: 15px;
+      color: var(--text-sec);
+      max-width: 340px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .coming-soon-heading { font-size: 30px; }
+    }
+
+    @media (max-width: 480px) {
+      .nav-brand-text { display: none; }
+      .coming-soon-heading { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-brand"><img src="me/fara.webp" alt="Francis Fara" /><span class="nav-brand-text">Francis Fara</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about-me.html">About me</a></li>
+      <li><a href="blog.html" class="active">Blog</a></li>
+    </ul>
+  </nav>
+
+  <div class="coming-soon">
+    <span class="coming-soon-label">Blog</span>
+    <h1 class="coming-soon-heading">Coming soon</h1>
+    <p class="coming-soon-sub">Writing about design, building, and the things I figure out along the way.</p>
+  </div>
+
+</body>
+</html>
