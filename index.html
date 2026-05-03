@@ -1763,15 +1763,15 @@
     }
 
     function stepCoolModal(dir) {
-      coolModalIndex = Math.max(0, Math.min(coolModalImages.length - 1, coolModalIndex + dir));
+      coolModalIndex = (coolModalIndex + dir + coolModalImages.length) % coolModalImages.length;
       updateCoolSlide();
     }
 
     function updateCoolSlide() {
       document.getElementById('coolModalImg').src = coolModalImages[coolModalIndex];
       document.getElementById('coolModalCounter').textContent = (coolModalIndex + 1) + ' / ' + coolModalImages.length;
-      document.getElementById('coolModalPrev').disabled = coolModalIndex === 0;
-      document.getElementById('coolModalNext').disabled = coolModalIndex === coolModalImages.length - 1;
+      document.getElementById('coolModalPrev').disabled = false;
+      document.getElementById('coolModalNext').disabled = false;
     }
 
     document.addEventListener('keydown', e => {
