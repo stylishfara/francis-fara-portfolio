@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WalletWise Mobile App — Francis Mensah</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #fafafa;
+      --bg-soft: #f7f7f5;
+      --bg-card: #f2f1ee;
+      --border: #e8e8e6;
+      --border-dark: #c8c8c6;
+      --text-primary: #333333;
+      --text-secondary: #6b6b6b;
+      --text-muted: #999;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 48px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(250,250,250,0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .nav-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      transition: color 0.15s;
+    }
+
+    .nav-back:hover { color: var(--text-primary); }
+
+    .nav-back svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .nav-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ── DIVIDER ── */
+    .divider { height: 1px; background: var(--border); margin: 64px 0; }
+    .divider-sm { height: 1px; background: var(--border); margin: 40px 0; }
+
+    /* ── SECTIONS ── */
+    section { padding: 40px 0; }
+
+    /* ── HERO ANIMATION ── */
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 72px 0 56px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      animation: fadeSlideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .hero-title {
+      font-size: clamp(28px, 4vw, 36px);
+      font-weight: 500;
+      font-family: 'Geist Mono', 'Geist', monospace;
+      letter-spacing: -1.2px;
+      line-height: 1.05;
+      color: var(--text-primary);
+      margin-bottom: 40px;
+      animation: fadeSlideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+    }
+
+    /* ── METADATA ROW ── */
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-top: 32px;
+    }
+
+    .meta-item {
+      flex: 1;
+      min-width: 140px;
+      padding: 20px 0;
+      padding-right: 32px;
+      border-right: 1px solid var(--border);
+    }
+
+    .meta-item:last-child {
+      border-right: none;
+      padding-right: 0;
+      padding-left: 32px;
+    }
+
+    .meta-item:first-child {
+      padding-left: 0;
+    }
+
+    .meta-item:not(:first-child):not(:last-child) {
+      padding-left: 32px;
+    }
+
+    .meta-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .meta-value {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-primary);
+    }
+
+    .meta-link {
+      font-size: 14px;
+      font-weight: 400;
+      color: #007AFF;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: opacity 0.15s;
+    }
+
+    .meta-link:hover { opacity: 0.7; }
+
+    /* ── HERO IMAGE ── */
+    .hero-image {
+      width: 100%;
+      aspect-ratio: 16 / 8;
+      border-radius: 16px;
+      margin-top: 56px;
+      overflow: hidden;
+      background: #e8e6f4;
+    }
+
+    .hero-image img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 16px;
+      font-family: 'Geist Mono', 'Geist', monospace;
+      font-weight: 500;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .section-sublabel {
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -0.4px;
+      color: var(--text-primary);
+      line-height: 1.3;
+      margin-bottom: 32px;
+    }
+
+    /* ── BODY TEXT ── */
+    .body-text {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .body-text p {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+    }
+
+    .body-text p strong {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    /* ── STATS GRID ── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-top: 48px;
+    }
+
+    .stat-item {
+      background: var(--bg);
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .stat-number {
+      font-size: 32px;
+      font-weight: 500;
+      letter-spacing: -1.5px;
+      color: var(--text-primary);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* ── PROBLEM SECTION ── */
+    .problem-heading {
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -1px;
+      color: var(--text-primary);
+      line-height: 1.2;
+      margin-bottom: 28px;
+    }
+
+    /* ── RESEARCH ITEMS ── */
+    .research-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .research-item {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 40px;
+      min-height: 168px;
+      padding: 32px 36px;
+      background: #eeeeee;
+      border-radius: 16px;
+    }
+
+    .research-item-num {
+      grid-column: 2;
+      grid-row: 1;
+      justify-self: end;
+      font-size: clamp(64px, 9vw, 76px);
+      font-weight: 600;
+      letter-spacing: -4px;
+      line-height: 0.9;
+      color: rgba(0,0,0,0.06);
+    }
+
+    .research-item-body {
+      grid-column: 1;
+      grid-row: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 680px;
+    }
+
+    .research-item-title {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.4px;
+      line-height: 1.25;
+      color: var(--text-primary);
+    }
+
+    .research-item-text {
+      font-size: 18px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    /* ── PROCESS LAYERS ── */
+    .process-section {
+      padding-top: 72px;
+    }
+
+    .process-eyebrow {
+      color: rgba(72, 72, 72, 0.6);
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      line-height: 30px;
+      margin-bottom: 8px;
+    }
+
+    .process-list {
+      display: flex;
+      flex-direction: column;
+      gap: 80px;
+    }
+
+    .process-layer {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .process-layer-content {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .process-layer-title {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      color: #484848;
+      line-height: 24px;
+    }
+
+    .process-layer-text {
+      font-size: 16px;
+      color: #484848;
+      line-height: 24px;
+    }
+
+    .process-layer-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 24px;
+      margin-top: 16px;
+    }
+
+    /* ── IMPACT GRID ── */
+    .impact-section {
+      background: #fafafa;
+    }
+
+    .impact-section .section-label {
+      font-size: 16px;
+      color: rgba(72, 72, 72, 0.6);
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      line-height: 30px;
+      margin-bottom: 8px;
+    }
+
+    .impact-section .section-sublabel {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      line-height: 30px;
+      color: #484848;
+      margin: 0 0 24px;
+    }
+
+    .impact-copy {
+      font-size: 16px;
+      color: #484848;
+      line-height: 24px;
+      margin-bottom: 32px;
+    }
+
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .impact-item {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 22px;
+      min-height: 170px;
+      padding: 32px 28px;
+      background: #eeeeee;
+      border-radius: 16px;
+    }
+
+    .impact-number {
+      font-size: 32px;
+      font-weight: 500;
+      letter-spacing: -0.8px;
+      color: #484848;
+      line-height: 1;
+    }
+
+    .impact-label {
+      font-size: 14px;
+      color: #484848;
+      line-height: 1.5;
+    }
+
+    /* ── REFLECTION ── */
+    .reflection-block {
+      border-radius: 16px;
+      padding: 0;
+    }
+
+    .reflection-block p {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+
+    .reflection-block p + p { margin-top: 20px; }
+
+    /* ── NEXT PROJECT ── */
+    .next-project {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 32px 0;
+      text-decoration: none;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      transition: opacity 0.15s;
+    }
+
+    .next-project:hover { opacity: 0.7; }
+
+    .next-label {
+      font-size: 12px;
+      font-weight: 500;
+      font-family: 'Geist Mono', 'Geist', monospace;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .next-title {
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -0.4px;
+      color: var(--text-primary);
+    }
+
+    .next-arrow {
+      font-size: 24px;
+      color: var(--text-muted);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 36px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-credit, .footer-email {
+      font-size: 14px;
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    .footer-email:hover { color: var(--text-secondary); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 680px) {
+      nav { padding: 18px 20px; }
+      .container { padding: 0 20px; }
+      .hero { padding: 48px 0 40px; }
+      .meta-row { flex-direction: column; }
+      .meta-item { border-right: none; border-bottom: 1px solid var(--border); padding: 16px 0; }
+      .meta-item:last-child { border-bottom: none; padding-left: 0; }
+      .meta-item:not(:first-child):not(:last-child) { padding-left: 0; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .impact-grid { grid-template-columns: repeat(2, 1fr); }
+      .impact-section .section-sublabel { font-size: 20px; }
+      .impact-copy,
+      .impact-label { font-size: 14px; }
+      .impact-item {
+        min-height: 160px;
+        padding: 28px 24px;
+      }
+      .process-list { gap: 56px; }
+      .process-layer-image { border-radius: 18px; }
+      .research-item {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        min-height: 0;
+        padding: 28px 24px;
+      }
+      .research-item-body,
+      .research-item-num {
+        grid-column: 1;
+      }
+      .research-item-num {
+        grid-row: 2;
+        justify-self: start;
+        font-size: 56px;
+        letter-spacing: -3px;
+      }
+      .research-item-text {
+        font-size: 16px;
+      }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 520px) {
+      .impact-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5M12 5l-7 7 7 7"/>
+      </svg>
+      Back
+    </a>
+    <span class="nav-title">WalletWise Mobile App</span>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <span class="hero-tag">Case Study</span>
+      <h1 class="hero-title">WalletWise Mobile App</h1>
+
+      <div class="hero-image">
+        <img src="images/walletwise-hero.png" alt="WalletWise app screens showing the splash screen and wallet home dashboard" />
+      </div>
+
+      <div class="meta-row">
+        <div class="meta-item">
+          <p class="meta-label">Industry</p>
+          <p class="meta-value">Fintech</p>
+        </div>
+        <div class="meta-item">
+          <p class="meta-label">My role(s)</p>
+          <p class="meta-value">Product designer</p>
+        </div>
+        <div class="meta-item">
+          <p class="meta-label">Collaborators</p>
+          <p class="meta-value">Developers</p>
+        </div>
+        <div class="meta-item">
+          <p class="meta-label">App store</p>
+          <a href="https://apps.apple.com/gh/app/walletwise-seamless-payment/id6744754064" target="_blank" rel="noopener" class="meta-link">
+            View app ↗
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OVERVIEW -->
+  <section>
+    <div class="container">
+      <p class="section-label">Overview</p>
+      <div class="body-text">
+        <p>WalletWise v2 is a redesign of a Nigerian fintech app built on a clear principle: in financial products, the interface is the primary driver of trust.</p>
+        <p>Version 1 introduced friction in critical user journeys, resulting in lower transaction completion, increased support requests, and reduced user confidence. The experience lacked clarity, deviated from familiar interaction patterns, and made simple financial actions unnecessarily complex.</p>
+        <p>WalletWise v2 redefined the experience — simplifying the interface, aligning core flows with user mental models, and removing cognitive overhead across key interactions.</p>
+        <p>These decisions were grounded in research. Through usability testing and support data analysis, I conducted an affinity mapping exercise to cluster user feedback into key themes, including visual clutter, unclear transaction flow, and cognitive overload. These insights directly informed the redesign.</p>
+        <p>The impact was immediate and measurable. Within three months, the platform processed over ₦1 billion in transactions, with ₦700 million occurring post-launch. Daily transactions increased by 30%, driven by improved flow completion across the core sending journey. Customer satisfaction improved by 35%, while support ticket volume dropped by 30%, indicating a significant reduction in user friction and stronger transaction confidence. The redesign also drove over 10,000 downloads, with 65% acquired after the v2 release.</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-number">₦1B+</span>
+          <span class="stat-label">Total transactions processed within 3 months</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">30%</span>
+          <span class="stat-label">Increase in daily transactions post-launch</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">35%</span>
+          <span class="stat-label">Improvement in customer satisfaction</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">30%</span>
+          <span class="stat-label">Reduction in support ticket volume</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">10K+</span>
+          <span class="stat-label">Downloads, 65% acquired after v2 release</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">₦700M</span>
+          <span class="stat-label">Transactions occurring post-launch</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE PROBLEM -->
+  <section>
+    <div class="container">
+      <p class="section-label">The Problem</p>
+      <h2 class="problem-heading">V1 worked. The experience didn't.</h2>
+      <div class="body-text">
+        <p>WalletWise v1 had solid fundamentals: money transfers, bill payments, a referral system. But users were dropping off mid-transfer, and the reasons were structural rather than cosmetic.</p>
+        <p>The brand purple and other solid colours dominated the home screen, appearing across card backgrounds and high-contrast surfaces simultaneously. With colour doing too much work at once, priority actions became harder to identify at a glance. The transfer flow deviated from the step-by-step pattern users expected from apps like GT bank app, Wise and other fintechs— causing hesitation and errors at the confirmation stage. And on the amount entry screen, users couldn't see their available balance, forcing them to exit the flow mid-transaction just to check.</p>
+        <p>The initial framing was that the app needed a visual refresh. The real problem was different: every point of friction was eroding the confidence users needed to complete a financial transaction. This reframe shifted the design challenge from visual polish to trust-led product thinking.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESEARCH & INSIGHTS -->
+  <section>
+    <div class="container">
+      <p class="section-label">Research &amp; Insights</p>
+      <p class="section-sublabel">What focus groups and dogfooding revealed</p>
+      <div class="body-text">
+        <p>Following the v1 launch, we ran two rounds of unmoderated usability testing with 15 users, alongside internal dogfooding across the team. Participants completed key tasks independently, including sending money, checking balances, and navigating the home screen. This allowed us to observe natural behaviour and uncover friction points across critical flows without facilitator influence.</p>
+        <p>To move beyond isolated observations, I synthesised the findings using an affinity mapping exercise. User feedback, behavioural patterns, and support signals were clustered into recurring themes, ensuring insights were grounded in patterns rather than individual opinions.</p>
+        <p>Three key themes emerged:</p>
+      </div>
+
+      <div class="research-list">
+        <div class="research-item">
+          <span class="research-item-num">01</span>
+          <div class="research-item-body">
+            <p class="research-item-title">Visual noise and weak hierarchy</p>
+            <p class="research-item-text">Users described the interface as visually overwhelming. The dominant use of colour across multiple elements reduced clarity, making it difficult to distinguish priority actions at a glance.</p>
+          </div>
+        </div>
+        <div class="research-item">
+          <span class="research-item-num">02</span>
+          <div class="research-item-body">
+            <p class="research-item-title">Mismatch with users' mental models for transaction flows</p>
+            <p class="research-item-text">Users expected a familiar, linear flow (recipient → amount → confirmation), shaped by prior experience with modern fintech apps. Deviations from this pattern caused hesitation, confusion, and increased errors at critical stages.</p>
+          </div>
+        </div>
+        <div class="research-item">
+          <span class="research-item-num">03</span>
+          <div class="research-item-body">
+            <p class="research-item-title">Weak transaction feedback and trust signals</p>
+            <p class="research-item-text">The absence of real-time balance visibility during the transfer process created uncertainty. Users frequently exited the flow mid-transaction to verify information, disrupting completion and reducing confidence.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="body-text" style="margin-top: 32px;">
+        <p>These insights led to a clear reframing of the problem: the issue was not visual polish, but a breakdown in trust across key interactions.</p>
+        <p>From this, we defined a north star metric - transfer completion rate. A successful experience meant users could initiate and complete a transaction without interruption. All subsequent design decisions were aligned to improving completion, reducing friction, and reinforcing user confidence.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process-section" id="process">
+    <div class="container">
+      <p class="section-label process-eyebrow">Process</p>
+      <div class="process-list">
+
+        <div class="process-layer">
+          <h3 class="process-layer-title">Design System First</h3>
+          <div class="process-layer-content">
+            <p class="process-layer-text">Before rebuilding individual screens, the visual foundation was rebuilt. A structured design system was established with a defined type scale - using Inter as the typeface, consistent spacing tokens, and a restrained colour strategy that reserved the brand purple exclusively for primary CTAs and key indicators. This shift from ad-hoc styling to systematic decisions reduced visual clutter across every screen and created a predictable, scannable interface.</p>
+            <img class="process-layer-image" src="images/walletwise-process-design-system.png" alt="WalletWise design system foundations including form fields, buttons, colors, icons, avatars, cards, and typography scale" />
+          </div>
+        </div>
+
+        <div class="process-layer">
+          <h3 class="process-layer-title">Layer 1 - Onboarding Flow</h3>
+          <div class="process-layer-content">
+            <p class="process-layer-text">The redesigned onboarding flow was built around a single principle: one screen, one task. Personal details, email verification, PIN creation, avatar selection, and member tag setup are each presented on their own focused screen, stripped of unnecessary elements. Users know exactly what is being asked of them and why.</p>
+            <p class="process-layer-text">BVN verification was placed deliberately at the end of the flow, once the user has already invested in the setup process and developed a baseline of trust with the product. This reduces drop-off at what is typically the highest friction point in fintech onboarding.</p>
+            <img class="process-layer-image" src="images/walletwise-process-onboarding.png" alt="WalletWise onboarding flow screens" />
+          </div>
+        </div>
+
+        <div class="process-layer">
+          <h3 class="process-layer-title">Layer 2 - Visual System Overhaul</h3>
+          <div class="process-layer-content">
+            <p class="process-layer-text">The UI was rebuilt around the principle that in fintech, restraint is a trust signal. The brand colour no longer appears on card backgrounds, section fills, or decorative elements. It is reserved for actions that matter: primary buttons, confirmation states, and key financial indicators. The result is a hierarchy users can read without conscious effort — where to look, what to do, what to ignore.</p>
+            <p class="process-layer-text">Icons across the app were replaced with Phosphor Icons — a single, consistent icon pack that brought visual coherence to every surface. The unified stroke weight and familiar aesthetic replaced the oversized decorative icons from v1 with purposeful, legible elements that added clarity rather than visual weight, and signalled the kind of polish that builds quiet confidence in a financial product.</p>
+            <img class="process-layer-image" src="images/walletwise-process-visual-system.webp" alt="WalletWise redesigned mobile screens showing the restrained visual system" />
+          </div>
+        </div>
+
+        <div class="process-layer">
+          <h3 class="process-layer-title">Layer 3 - Transfer Flow Redesign</h3>
+          <div class="process-layer-content">
+            <p class="process-layer-text">The sending flow was re-engineered to mirror the mental model users already had from other payment apps: one decision per screen, progressive disclosure, and a logical sequence of who → how much → review → confirm. By aligning the flow with expectations rather than fighting them, the redesign eliminated unnecessary cognitive load at exactly the moment users need to feel confident.</p>
+            <p class="process-layer-text">The amount entry screen now surfaces the available balance directly beneath the input field, giving users the one piece of information the decision requires without breaking their flow. Inline error handling for insufficient funds sits at the same step, catching the issue early and redirecting users before they reach confirmation — so the experience feels like guidance rather than failure.</p>
+            <p class="process-layer-text">Internal testing backed this up — the majority of participants moved through the redesigned flow without hesitation, with fewer than 5% reporting confusion or uncertainty at any step</p>
+            <img class="process-layer-image" src="images/walletwise-process-transfer.png" alt="WalletWise transfer flow screens" />
+          </div>
+        </div>
+
+        <div class="process-layer">
+          <h3 class="process-layer-title">Layer 4 - Contextual Balance Display</h3>
+          <div class="process-layer-content">
+            <p class="process-layer-text">The amount entry screen now surfaces the user's available balance directly beneath the input field, paired with a visibility toggle for users who prefer privacy. This single addition removes the most common exit trigger in the v1 send flow. The user has everything they need to make a confident decision on one screen: the amount they're sending, the balance they're sending from, and the ability to proceed without second-guessing.</p>
+            <p class="process-layer-text">The change is small in terms of screen real estate but significant in terms of user experience. Knowing your balance is not an afterthought in a payment app — it is fundamental to the decision itself.</p>
+            <img class="process-layer-image" src="images/walletwise-process-balance.png" alt="WalletWise amount entry screens with visible balance and insufficient balance feedback" />
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPACT -->
+  <section class="impact-section" id="impact">
+    <div class="container">
+      <p class="section-label">Impact</p>
+      <p class="section-sublabel">Measured outcomes</p>
+      <p class="impact-copy">Post-launch performance highlights across adoption, engagement, and support efficiency</p>
+      <div class="impact-grid">
+        <div class="impact-item">
+          <span class="impact-number">10,000+</span>
+          <span class="impact-label">App Downloads, 65% post v2 launch</span>
+        </div>
+        <div class="impact-item">
+          <span class="impact-number">₦1Billion</span>
+          <span class="impact-label">Transactions processed ₦700M post launch</span>
+        </div>
+        <div class="impact-item">
+          <span class="impact-number">35%</span>
+          <span class="impact-label">Increase in satisfaction scores</span>
+        </div>
+        <div class="impact-item">
+          <span class="impact-number">30%</span>
+          <span class="impact-label">increase in daily transactions</span>
+        </div>
+        <div class="impact-item">
+          <span class="impact-number">30%</span>
+          <span class="impact-label">Reduction in support tickets</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REFLECTION -->
+  <section>
+    <div class="container">
+      <p class="section-label">Reflection</p>
+      <p class="section-sublabel">What this project reinforced about fintech design</p>
+      <div class="reflection-block">
+        <p>The most important lesson from WalletWise was how much a single colour decision can affect user confidence. Scaling back the brand colour was not a visual preference — it was a product decision that made the app feel more credible and less risky to use. In fintech, where users are handing over real money, the visual system is always communicating something about the product's reliability. Restraint is not timidity; it is a trust strategy.</p>
+        <p>This project also reinforced how much users rely on mental models from competing apps. Aligning the transfer flow with what users already knew removed friction that had been invisible during the build phase but was costing completions in production. The lesson: test the flow against expectations early, not after high fidelity is committed.</p>
+        <p>If I were to revisit this, I'd prioritise A/B testing on the screens with the lowest engagement and completion rates. As Jakob Nielsen's usability research established, five users in an unmoderated test can surface roughly 85% of usability issues — and at early stage, that level of rigour is often enough to make sharper decisions before shipping.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEXT PROJECT -->
+  <section>
+    <div class="container">
+      <a href="pesawise.html" class="next-project">
+        <div>
+          <p class="next-label">Next project</p>
+          <p class="next-title">Pesawise Mobile App</p>
+        </div>
+        <span class="next-arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <span class="footer-credit">Designed by Francis • Built by Fara ©️ 2025</span>
+        <a href="mailto:francismensah02@gmail.com" class="footer-email">francismensah02@gmail.com</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

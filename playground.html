@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Playground — Francis' Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f7f6f3;
+      --border: #e0e0e0;
+      --text-primary: #1a1a1a;
+      --text-secondary: #6b6b6b;
+      --text-muted: #999;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      justify-content: center;
+      padding: 22px 48px;
+      background: var(--bg);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text-muted);
+      transition: color 0.15s;
+    }
+
+    .nav-links a.active {
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .nav-links a:hover { color: var(--text-primary); }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 64px 0 56px;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-inner {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 40px;
+      animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .hero-heading {
+      font-size: 56px;
+      font-weight: 500;
+      line-height: 1.0;
+      letter-spacing: -2.5px;
+      color: var(--text-primary);
+    }
+
+    .hero-right {
+      flex-shrink: 0;
+      text-align: right;
+      padding-bottom: 6px;
+    }
+
+    .hero-count {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .hero-sub {
+      font-size: 14px;
+      color: var(--text-secondary);
+      max-width: 320px;
+      line-height: 1.6;
+      text-align: right;
+    }
+
+    /* ── GRID ── */
+    .pg-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 10px;
+      padding-bottom: 96px;
+    }
+
+    /* Card placement — 7/5 alternating */
+    .card-1 { grid-column: 1 / 8; }
+    .card-2 { grid-column: 8 / 13; }
+    .card-3 { grid-column: 1 / 6; }
+    .card-4 { grid-column: 6 / 13; }
+
+    /* ── CARD ── */
+    .pg-card {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      text-decoration: none;
+      display: block;
+      cursor: pointer;
+    }
+
+    /* Aspect ratios — wide cards are landscape, narrow are portrait */
+    .card-1,
+    .card-4 { aspect-ratio: 7 / 5; }
+
+    .card-2,
+    .card-3 { aspect-ratio: 5 / 6; }
+
+    /* ── MEDIA ── */
+    .pg-card-media {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .pg-card-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .pg-card:hover .pg-card-media img {
+      transform: scale(1.05);
+    }
+
+    /* Fallback media colours (shown when no image) */
+    .media-dark { background: #18181b; }
+    .media-warm { background: #c8bfa8; }
+    .media-soft { background: #9eb8b0; }
+    .media-deep { background: #0c1a30; }
+
+    /* Fallback content centred inside media */
+    .pg-card-media-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ── GRADIENT OVERLAY ── */
+    .pg-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.72) 0%,
+        rgba(0, 0, 0, 0.18) 45%,
+        rgba(0, 0, 0, 0) 100%
+      );
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+
+    .pg-card:hover .pg-card-overlay {
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.82) 0%,
+        rgba(0, 0, 0, 0.28) 55%,
+        rgba(0, 0, 0, 0) 100%
+      );
+    }
+
+    /* ── CARD NUMBER (top-left) ── */
+    .pg-card-num {
+      position: absolute;
+      top: 20px;
+      left: 24px;
+      z-index: 2;
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.4);
+      letter-spacing: 0.5px;
+    }
+
+    /* ── CARD BODY (bottom) ── */
+    .pg-card-body {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 28px 26px;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .pg-tag {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 4px 12px;
+      border-radius: 100px;
+    }
+
+    .pg-card-title {
+      font-size: 24px;
+      font-weight: 500;
+      color: #ffffff;
+      letter-spacing: -0.6px;
+      line-height: 1.15;
+    }
+
+    .pg-card-desc {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.55;
+      max-width: 380px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .pg-card:hover .pg-card-desc {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .pg-card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.45);
+      text-decoration: none;
+      width: fit-content;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.25s ease 0.05s, transform 0.25s ease 0.05s, color 0.15s;
+    }
+
+    .pg-card:hover .pg-card-link {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .pg-card-link:hover {
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    /* ─────────────────────────────────────────────
+       CONTENTIFY FALLBACK MOCKUP
+    ───────────────────────────────────────────── */
+    .contentify-mockup {
+      width: 48%;
+      max-width: 300px;
+      background: #2c2c2e;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 32px 80px rgba(0, 0, 0, 0.6);
+    }
+
+    .cm-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 11px 15px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .cm-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cm-logo-icon {
+      width: 17px;
+      height: 17px;
+      background: #5b5fc7;
+      border-radius: 4px;
+    }
+
+    .cm-logo-text {
+      font-size: 12px;
+      font-weight: 500;
+      color: #e0e0e0;
+    }
+
+    .cm-close {
+      width: 13px;
+      height: 13px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 50%;
+    }
+
+    .cm-search {
+      margin: 10px 12px 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 7px;
+      padding: 7px 12px;
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.28);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .cm-badge {
+      font-size: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.35);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .cm-tabs {
+      display: flex;
+      gap: 5px;
+      padding: 0 12px 10px;
+    }
+
+    .cm-tab {
+      font-size: 10px;
+      padding: 4px 14px;
+      border-radius: 6px;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .cm-tab.on {
+      background: rgba(255, 255, 255, 0.11);
+      color: #fff;
+    }
+
+    .cm-label {
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.22);
+      padding: 7px 12px 3px;
+    }
+
+    .cm-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .cm-row-name {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .cm-row-sub {
+      font-size: 9px;
+      color: rgba(255, 255, 255, 0.25);
+      margin-top: 2px;
+    }
+
+    .cm-count {
+      font-size: 9px;
+      color: rgba(255, 255, 255, 0.18);
+    }
+
+    .cm-chevron {
+      width: 5px;
+      height: 5px;
+      border-right: 1.5px solid rgba(255, 255, 255, 0.2);
+      border-top: 1.5px solid rgba(255, 255, 255, 0.2);
+      transform: rotate(45deg);
+    }
+
+    /* ─────────────────────────────────────────────
+       LOGO GRID FALLBACK
+    ───────────────────────────────────────────── */
+    .logo-grid {
+      width: 82%;
+      max-width: 280px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .logo-cell {
+      background: rgba(255, 255, 255, 0.88);
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+    }
+
+    .logo-cell span {
+      font-size: 10px;
+      font-weight: 500;
+      color: #888;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    /* ─────────────────────────────────────────────
+       ILLUSTRATION GRID FALLBACK
+    ───────────────────────────────────────────── */
+    .illus-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      width: 76%;
+      max-width: 260px;
+    }
+
+    .illus-cell {
+      aspect-ratio: 3 / 4;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    /* ─────────────────────────────────────────────
+       HOOPACRAFT FALLBACK
+    ───────────────────────────────────────────── */
+    .hoop-mockup {
+      width: 72%;
+      max-width: 460px;
+      background: #0a1e3d;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 28px 72px rgba(0, 0, 0, 0.7);
+    }
+
+    .hoop-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .hoop-brand {
+      font-size: 11px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .hoop-nav-items {
+      display: flex;
+      gap: 14px;
+    }
+
+    .hoop-nav-item {
+      font-size: 9px;
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    .hoop-content {
+      padding: 30px 20px 26px;
+    }
+
+    .hoop-eyebrow {
+      font-size: 8px;
+      font-weight: 500;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: rgba(255, 150, 50, 0.85);
+      margin-bottom: 12px;
+    }
+
+    .hoop-h1 {
+      font-size: 20px;
+      font-weight: 500;
+      color: #fff;
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+      margin-bottom: 16px;
+    }
+
+    .hoop-btn {
+      display: inline-block;
+      background: #e85c1a;
+      color: #fff;
+      font-size: 9px;
+      font-weight: 500;
+      padding: 7px 16px;
+      border-radius: 6px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 36px 0;
+      background: var(--bg);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-credit,
+    .footer-email {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    .footer-email:hover { color: var(--text-secondary); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 720px) {
+      nav { padding: 20px 24px; }
+      .nav-links { gap: 24px; }
+      .container { padding: 0 20px; }
+      .hero { padding: 48px 0 40px; }
+      .hero-inner { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .hero-heading { font-size: 40px; }
+      .hero-right { text-align: left; }
+      .hero-sub { text-align: left; }
+      .pg-grid { grid-template-columns: 1fr; gap: 10px; }
+      .card-1, .card-2, .card-3, .card-4 {
+        grid-column: 1;
+        aspect-ratio: 4 / 3;
+      }
+      .pg-card-desc { opacity: 1; transform: none; }
+      .pg-card-link { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="#" class="active">Playground</a></li>
+      <li><a href="about-me.html">About me</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <h1 class="hero-heading">Playground</h1>
+        <div class="hero-right">
+          <span class="hero-count">04 items</span>
+          <p class="hero-sub">Side projects, fun experiments, and branding work I've done over the years.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GRID -->
+  <section>
+    <div class="container">
+      <div class="pg-grid">
+
+        <!-- ① CONTENTIFY — wide left -->
+        <a href="https://www.figma.com/community/plugin/contentify" target="_blank" rel="noopener"
+           class="pg-card card-1">
+          <div class="pg-card-media media-dark">
+            <img src="images/contentify.png" alt="Contentify"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="pg-card-media-inner" style="display:none;">
+              <div class="contentify-mockup">
+                <div class="cm-header">
+                  <div class="cm-logo">
+                    <div class="cm-logo-icon"></div>
+                    <span class="cm-logo-text">Contentify</span>
+                  </div>
+                  <div class="cm-close"></div>
+                </div>
+                <div class="cm-search">
+                  <span>Search categories…</span>
+                  <span class="cm-badge">All</span>
+                </div>
+                <div class="cm-tabs">
+                  <div class="cm-tab on">Ghana</div>
+                  <div class="cm-tab">Nigeria</div>
+                </div>
+                <div class="cm-label">People</div>
+                <div class="cm-row">
+                  <div>
+                    <div class="cm-row-name">Full Names <span class="cm-count">100</span></div>
+                    <div class="cm-row-sub">Yaw Mensah, Akosua Asante, Kofi Boateng…</div>
+                  </div>
+                  <div class="cm-chevron"></div>
+                </div>
+                <div class="cm-row">
+                  <div>
+                    <div class="cm-row-name">Male First Names <span class="cm-count">100</span></div>
+                    <div class="cm-row-sub">Kwame, Kofi, Kweku, Fiifi, Yaw…</div>
+                  </div>
+                  <div class="cm-chevron"></div>
+                </div>
+                <div class="cm-row">
+                  <div>
+                    <div class="cm-row-name">Female First Names <span class="cm-count">100</span></div>
+                    <div class="cm-row-sub">Akosua, Abena, Ama, Adjoa, Yaa…</div>
+                  </div>
+                  <div class="cm-chevron"></div>
+                </div>
+                <div class="cm-label">Places</div>
+                <div class="cm-row" style="border:none;">
+                  <div>
+                    <div class="cm-row-name">Addresses <span class="cm-count">80</span></div>
+                    <div class="cm-row-sub">14 Independence Avenue, Accra…</div>
+                  </div>
+                  <div class="cm-chevron"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pg-card-overlay"></div>
+          <span class="pg-card-num">01</span>
+          <div class="pg-card-body">
+            <span class="pg-tag">Figma Plugin</span>
+            <h3 class="pg-card-title">Contentify</h3>
+            <p class="pg-card-desc">A content fill plugin for Figma with over 2,000 downloads. Supports realistic local data for Ghana and Nigeria.</p>
+            <span class="pg-card-link">Figma Community ↗</span>
+          </div>
+        </a>
+
+        <!-- ② LOGOFOLIO — narrow right -->
+        <article class="pg-card card-2">
+          <div class="pg-card-media media-warm">
+            <img src="images/logofolio.png" alt="Logofolio"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="pg-card-media-inner" style="display:none;">
+              <div class="logo-grid">
+                <div class="logo-cell"><span>Digi<br>Capital</span></div>
+                <div class="logo-cell"><span style="font-size:15px;color:#c8a84b;">N</span></div>
+                <div class="logo-cell"><span style="color:#c0392b;">Alco's<br>Food</span></div>
+                <div class="logo-cell"><span style="color:#e67e22;">Laberra</span></div>
+                <div class="logo-cell"><span style="font-style:italic;color:#444;">Zere</span></div>
+                <div class="logo-cell"><span>Digi<br>Capital</span></div>
+                <div class="logo-cell"><span style="font-style:italic;color:#2980b9;">Blueway</span></div>
+                <div class="logo-cell" style="outline:1.5px solid #e0e0e0;outline-offset:-1px;"><span>Blueway<br>Agro</span></div>
+                <div class="logo-cell"><span style="color:#f39c12;">Radient<br>Forge</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="pg-card-overlay"></div>
+          <span class="pg-card-num">02</span>
+          <div class="pg-card-body">
+            <span class="pg-tag">Branding</span>
+            <h3 class="pg-card-title">Logofolio</h3>
+            <p class="pg-card-desc">A collection of brand identities designed for various clients over the years.</p>
+          </div>
+        </article>
+
+        <!-- ③ FACELESS ILLUSTRATIONS — narrow left -->
+        <article class="pg-card card-3">
+          <div class="pg-card-media media-soft">
+            <img src="images/illustrations.png" alt="Faceless Illustrations"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="pg-card-media-inner" style="display:none;">
+              <div class="illus-grid">
+                <div class="illus-cell" style="background:#dce8e4;">
+                  <svg width="100%" height="100%" viewBox="0 0 60 80" fill="none">
+                    <ellipse cx="30" cy="14" rx="11" ry="12" fill="#8B6A4A"/>
+                    <rect x="15" y="24" width="30" height="34" rx="9" fill="#b5cfe0"/>
+                    <rect x="9"  y="27" width="9"  height="22" rx="4.5" fill="#b5cfe0"/>
+                    <rect x="42" y="27" width="9"  height="22" rx="4.5" fill="#b5cfe0"/>
+                    <rect x="19" y="56" width="9"  height="20" rx="4.5" fill="#5a3a2a"/>
+                    <rect x="32" y="56" width="9"  height="20" rx="4.5" fill="#5a3a2a"/>
+                  </svg>
+                </div>
+                <div class="illus-cell" style="background:#e8dfd8;">
+                  <svg width="100%" height="100%" viewBox="0 0 60 80" fill="none">
+                    <ellipse cx="30" cy="14" rx="11" ry="12" fill="#8B6A4A"/>
+                    <rect x="15" y="24" width="30" height="34" rx="9" fill="#6ec6ca"/>
+                    <rect x="9"  y="22" width="9"  height="22" rx="4.5" fill="#6ec6ca"/>
+                    <rect x="42" y="27" width="9"  height="22" rx="4.5" fill="#6ec6ca"/>
+                    <rect x="19" y="56" width="9"  height="20" rx="4.5" fill="#333"/>
+                    <rect x="32" y="56" width="9"  height="20" rx="4.5" fill="#333"/>
+                  </svg>
+                </div>
+                <div class="illus-cell" style="background:#e8e4ee;">
+                  <svg width="100%" height="100%" viewBox="0 0 60 80" fill="none">
+                    <ellipse cx="30" cy="14" rx="11" ry="12" fill="#8B6A4A"/>
+                    <rect x="15" y="24" width="30" height="34" rx="9" fill="#3a3a6e"/>
+                    <rect x="9"  y="27" width="9"  height="22" rx="4.5" fill="#3a3a6e"/>
+                    <rect x="42" y="27" width="9"  height="22" rx="4.5" fill="#3a3a6e"/>
+                    <rect x="19" y="56" width="9"  height="20" rx="4.5" fill="#8B6A4A"/>
+                    <rect x="32" y="56" width="9"  height="20" rx="4.5" fill="#8B6A4A"/>
+                  </svg>
+                </div>
+                <div class="illus-cell" style="background:#f0e8e0;">
+                  <svg width="100%" height="100%" viewBox="0 0 60 80" fill="none">
+                    <ellipse cx="30" cy="14" rx="11" ry="12" fill="#8B6A4A"/>
+                    <rect x="15" y="24" width="30" height="34" rx="9" fill="#e8a080"/>
+                    <rect x="9"  y="22" width="9"  height="26" rx="4.5" fill="#e8a080"/>
+                    <rect x="42" y="27" width="9"  height="22" rx="4.5" fill="#e8a080"/>
+                    <rect x="19" y="56" width="9"  height="20" rx="4.5" fill="#5a3a2a"/>
+                    <rect x="32" y="56" width="9"  height="20" rx="4.5" fill="#5a3a2a"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pg-card-overlay"></div>
+          <span class="pg-card-num">03</span>
+          <div class="pg-card-body">
+            <span class="pg-tag">Illustration</span>
+            <h3 class="pg-card-title">Faceless Illustrations</h3>
+            <p class="pg-card-desc">A series of faceless character illustrations exploring fashion and everyday moments.</p>
+          </div>
+        </article>
+
+        <!-- ④ HOOPACRAFT — wide right -->
+        <a href="https://hoopacraft.com" target="_blank" rel="noopener"
+           class="pg-card card-4">
+          <div class="pg-card-media media-deep">
+            <img src="images/hoopacraft.png" alt="Hoopacraft"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="pg-card-media-inner" style="display:none;">
+              <div class="hoop-mockup">
+                <div class="hoop-topbar">
+                  <span class="hoop-brand">🏀 HoopCraft</span>
+                  <div class="hoop-nav-items">
+                    <span class="hoop-nav-item">Programs</span>
+                    <span class="hoop-nav-item">Coaches</span>
+                    <span class="hoop-nav-item">Results</span>
+                    <span class="hoop-nav-item">Pricing</span>
+                  </div>
+                </div>
+                <div class="hoop-content">
+                  <div class="hoop-eyebrow">Basketball Training</div>
+                  <div class="hoop-h1">Stop Playing.<br>Start Dominating.</div>
+                  <div class="hoop-btn">Book Free Trial Session</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pg-card-overlay"></div>
+          <span class="pg-card-num">04</span>
+          <div class="pg-card-body">
+            <span class="pg-tag">Framer Challenge</span>
+            <h3 class="pg-card-title">Hoopacraft</h3>
+            <p class="pg-card-desc">A Framer design challenge — recreating this layout with Framer while others used AI.</p>
+            <span class="pg-card-link">hoopacraft.com ↗</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <span class="footer-credit">Designed by Francis • Built by Fara ©️ 2025</span>
+        <a href="mailto:francismensah02@gmail.com" class="footer-email">francismensah02@gmail.com</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

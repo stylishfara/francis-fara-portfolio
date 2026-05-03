@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guestbook — Francis Mensah</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #fafafa;
+      --card: #eeeeee;
+      --border: #e8e8e6;
+      --text: #1a1a1a;
+      --text-sec: #555555;
+      --text-muted: #999999;
+      --blue: #1a6cf0;
+    }
+
+    html { overflow-x: clip; scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Geist', -apple-system, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: clip;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(250,250,250,0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .nav-brand {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.3px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-sec);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: var(--text); font-weight: 500; }
+
+    /* LAYOUT */
+    .container {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 72px 0 56px;
+    }
+
+    .hero-tag {
+      display: block;
+      font-family: 'Geist Mono', monospace;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .hero-title {
+      font-family: 'Geist Mono', monospace;
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 500;
+      letter-spacing: -2px;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .hero-sub {
+      font-size: 16px;
+      color: var(--text-sec);
+      max-width: 380px;
+      line-height: 1.55;
+    }
+
+    /* FORM SECTION */
+    .form-section { padding: 0 0 80px; }
+
+    .gb-form-wrap {
+      max-width: 460px;
+      margin: 0 auto;
+    }
+
+    .gb-form-card {
+      background: #f2f2f2;
+      border: 1.5px dashed #c5c2b8;
+      border-radius: 20px;
+      padding: 28px 32px 24px;
+      position: relative;
+    }
+
+    .gb-form-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #e0ddd5;
+    }
+
+    .gb-form-title {
+      font-family: 'Geist Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .gb-form-subtitle {
+      font-family: 'Geist Mono', monospace;
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      margin-top: 2px;
+    }
+
+    .gb-form-icon {
+      font-size: 28px;
+      line-height: 1;
+    }
+
+    /* MODE TABS */
+    .gb-mode-tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 18px;
+      background: #eeecea;
+      border-radius: 10px;
+      padding: 4px;
+    }
+
+    .gb-mode-tab {
+      flex: 1;
+      padding: 7px 0;
+      background: transparent;
+      border: none;
+      border-radius: 7px;
+      font-family: 'Geist', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .gb-mode-tab.active {
+      background: #fff;
+      color: var(--text);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    /* FIELDS */
+    .gb-field { margin-bottom: 14px; }
+
+    .gb-field-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .gb-label {
+      font-family: 'Geist Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-sec);
+    }
+
+    .gb-counter {
+      font-family: 'Geist Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .gb-input,
+    .gb-textarea {
+      width: 100%;
+      background: #fff;
+      border: 1px solid #dbd8d0;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-family: 'Geist', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.15s;
+      resize: none;
+    }
+
+    .gb-input:focus,
+    .gb-textarea:focus { border-color: #aaa; }
+
+    .gb-textarea {
+      height: 88px;
+      line-height: 1.55;
+    }
+
+    /* EMOJI PICKER */
+    .gb-field.hidden { display: none; }
+
+    .gb-emoji-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+      background: #fff;
+      border: 1px solid #dbd8d0;
+      border-radius: 10px;
+      padding: 10px;
+    }
+
+    .gb-emoji-btn {
+      aspect-ratio: 1;
+      font-size: 20px;
+      background: transparent;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.1s;
+      line-height: 1;
+    }
+
+    .gb-emoji-btn:hover { background: #f0efeb; }
+
+    .gb-emoji-btn.selected {
+      background: #eff6ff;
+      border-color: #93c5fd;
+    }
+
+    .gb-emoji-hint {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-align: right;
+      margin-top: 6px;
+      font-family: 'Geist Mono', monospace;
+    }
+
+    /* VISIBILITY */
+    .gb-vis-row {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+
+    .gb-vis-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 14px;
+      background: transparent;
+      border: 1px solid #dbd8d0;
+      border-radius: 100px;
+      font-family: 'Geist', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .gb-vis-btn.active {
+      background: #eff6ff;
+      border-color: #93c5fd;
+      color: #1d4ed8;
+    }
+
+    .gb-vis-btn svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+    .gb-vis-hint {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      font-family: 'Geist Mono', monospace;
+    }
+
+    /* SUBMIT ROW */
+    .gb-submit-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 16px;
+      border-top: 1px solid #e0ddd5;
+    }
+
+    .gb-status {
+      font-family: 'Geist Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .gb-status.error { color: #ef4444; }
+    .gb-status.success { color: #16a34a; }
+
+    .gb-submit {
+      padding: 9px 22px;
+      background: var(--text);
+      color: #fff;
+      border: none;
+      border-radius: 9px;
+      font-family: 'Geist Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+    }
+
+    .gb-submit:hover { opacity: 0.8; }
+    .gb-submit:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    .gb-ref {
+      text-align: center;
+      font-family: 'Geist Mono', monospace;
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      margin-top: 16px;
+      opacity: 0.6;
+    }
+
+    /* STAMP SECTION */
+    .stamp-section { padding: 0 0 80px; }
+
+    .stamp-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .stamp-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .stamp-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-sec);
+      white-space: nowrap;
+    }
+
+    /* ENTRIES GRID */
+    .gb-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      width: min(100vw - 80px, 980px);
+      margin: 0 calc(50% - min(50vw - 40px, 490px));
+    }
+
+    .gb-card {
+      break-inside: avoid;
+      margin-bottom: 14px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 4px;
+      padding: 12px;
+      border: 1px solid rgba(92, 67, 42, 0.2);
+      background:
+        radial-gradient(circle at 14% 18%, rgba(89, 60, 34, 0.12) 0 1px, transparent 1.8px),
+        radial-gradient(circle at 78% 72%, rgba(255, 255, 255, 0.35) 0 1px, transparent 2px),
+        linear-gradient(135deg, rgba(255,255,255,0.48), rgba(255,255,255,0) 44%),
+        var(--stamp-bg);
+      background-size: 18px 18px, 22px 22px, 100% 100%, auto;
+      transform: rotate(var(--rot, 0deg));
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: default;
+      color: #2f261d;
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.65) inset,
+        0 8px 18px rgba(74, 55, 34, 0.09);
+      filter: sepia(0.08) saturate(0.86);
+    }
+
+    .gb-card:hover {
+      transform: rotate(0deg) translateY(-3px);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.7) inset,
+        0 12px 28px rgba(74, 55, 34, 0.16);
+      position: relative;
+      z-index: 1;
+    }
+
+    .gb-card::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 0 8px, var(--bg) 0 3.5px, transparent 3.7px) left top / 8px 15px repeat-y,
+        radial-gradient(circle at 100% 8px, var(--bg) 0 3.5px, transparent 3.7px) right top / 8px 15px repeat-y,
+        radial-gradient(circle at 8px 0, var(--bg) 0 3.5px, transparent 3.7px) left top / 15px 8px repeat-x,
+        radial-gradient(circle at 8px 100%, var(--bg) 0 3.5px, transparent 3.7px) left bottom / 15px 8px repeat-x;
+      z-index: 2;
+    }
+
+    .gb-card::after {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border: 1px solid rgba(73, 49, 28, 0.22);
+      border-radius: 2px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .gb-card-inner {
+      position: relative;
+      z-index: 3;
+      min-height: 128px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 10px;
+      border: 1px dashed rgba(70, 48, 31, 0.2);
+    }
+
+    .gb-stamp-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-family: 'Geist Mono', monospace;
+      font-size: 9px;
+      line-height: 1.2;
+      letter-spacing: 0.08em;
+      color: rgba(47, 38, 29, 0.58);
+    }
+
+    .gb-stamp-value {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 24px;
+      border: 1px solid rgba(47, 38, 29, 0.32);
+      border-radius: 2px;
+      font-size: 10px;
+      font-weight: 600;
+      color: rgba(47, 38, 29, 0.74);
+      background: rgba(255,255,255,0.22);
+    }
+
+    .gb-stamp-place {
+      text-align: right;
+      text-transform: uppercase;
+    }
+
+    .gb-stamp-postmark {
+      position: absolute;
+      right: 12px;
+      bottom: 12px;
+      width: 58px;
+      height: 58px;
+      border: 1.5px solid rgba(47, 38, 29, 0.22);
+      border-radius: 50%;
+      transform: rotate(var(--mark-rot, -12deg));
+      opacity: 0.72;
+      pointer-events: none;
+    }
+
+    .gb-stamp-postmark::before,
+    .gb-stamp-postmark::after {
+      content: "";
+      position: absolute;
+      left: -12px;
+      right: -18px;
+      height: 1px;
+      background: rgba(47, 38, 29, 0.18);
+      transform: rotate(-8deg);
+    }
+
+    .gb-stamp-postmark::before { top: 21px; }
+    .gb-stamp-postmark::after { top: 32px; }
+
+    .gb-card.variant-script .gb-card-inner {
+      min-height: 150px;
+      justify-content: space-between;
+      border-style: solid;
+    }
+
+    .gb-card.variant-script .gb-card-name {
+      font-size: 18px;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-style: italic;
+      font-weight: 600;
+      letter-spacing: 0;
+    }
+
+    .gb-card.variant-catalog .gb-card-inner {
+      min-height: 118px;
+      background: rgba(255,255,255,0.12);
+    }
+
+    .gb-card.variant-catalog .gb-card-name {
+      font-family: 'Geist Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .gb-card.variant-airmail {
+      border-color: rgba(63, 81, 121, 0.24);
+    }
+
+    .gb-card.variant-airmail .gb-card-inner {
+      border-color: rgba(42, 70, 125, 0.24);
+      box-shadow:
+        0 0 0 4px rgba(255,255,255,0.13) inset,
+        0 0 0 5px rgba(143, 45, 45, 0.12) inset;
+    }
+
+    .gb-card-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #2f261d;
+      letter-spacing: -0.2px;
+    }
+
+    .gb-card-msg {
+      font-size: 13px;
+      color: rgba(47, 38, 29, 0.82);
+      line-height: 1.5;
+      word-break: break-word;
+    }
+
+    .gb-card-emojis {
+      font-size: 24px;
+      letter-spacing: 1px;
+      line-height: 1.3;
+      filter: sepia(0.15) saturate(0.82);
+    }
+
+    .gb-card-date {
+      font-family: 'Geist Mono', monospace;
+      font-size: 9px;
+      color: rgba(47, 38, 29, 0.48);
+      letter-spacing: 0.05em;
+      margin-top: auto;
+      text-transform: uppercase;
+    }
+
+    .gb-empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 48px 0;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .gb-loading {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 48px 0;
+    }
+
+    .gb-loading-dots {
+      display: inline-flex;
+      gap: 5px;
+    }
+
+    .gb-loading-dots span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--text-muted);
+      animation: dot-pulse 1.2s ease-in-out infinite;
+    }
+
+    .gb-loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .gb-loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+    /* STAMP STYLE 2 — image-reference-inspired detail stamp. STYLE 1 remains the saved vintage postal version above. */
+    .gb-card.stamp-style2 {
+      width: 100%;
+      min-height: 228px;
+      margin-bottom: 0;
+      padding: 20px 16px 16px;
+      border: none;
+      border-radius: 0;
+      background:
+        radial-gradient(circle at 50% 0, var(--bg) 0 8px, transparent 8.5px) top left / 28px 14px repeat-x,
+        radial-gradient(circle at 50% 100%, var(--bg) 0 8px, transparent 8.5px) bottom left / 28px 14px repeat-x,
+        radial-gradient(circle at 0 50%, var(--bg) 0 8px, transparent 8.5px) top left / 14px 28px repeat-y,
+        radial-gradient(circle at 100% 50%, var(--bg) 0 8px, transparent 8.5px) top right / 14px 28px repeat-y,
+        linear-gradient(180deg, #f7e6bd 0%, #f1dbad 100%);
+      background-color: #f3dfb3;
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.65) inset,
+        0 10px 20px rgba(47, 38, 29, 0.09);
+      filter: none;
+    }
+
+    .gb-card.stamp-style2::before {
+      inset: 15px;
+      border: 1px solid rgba(55, 49, 40, 0.14);
+      background:
+        linear-gradient(90deg, rgba(55,49,40,0.1) 0 1px, transparent 1px) 0 0 / 16px 16px,
+        linear-gradient(rgba(55,49,40,0.08) 0 1px, transparent 1px) 0 0 / 16px 16px;
+      opacity: 0.62;
+    }
+
+    .gb-card.stamp-style2::after {
+      inset: 22px;
+      border: 1px solid rgba(55, 49, 40, 0.16);
+      border-radius: 0;
+    }
+
+    .gb-card.stamp-style2 .gb-card-inner {
+      min-height: 188px;
+      padding: 13px 12px 10px;
+      gap: 8px;
+      border: none;
+    }
+
+    .gb-card.stamp-style2 .gb-stamp-meta {
+      min-height: 18px;
+      justify-content: flex-start;
+      color: rgba(48, 57, 49, 0.58);
+    }
+
+    .gb-card.stamp-style2 .gb-stamp-value {
+      display: none;
+    }
+
+    .gb-card.stamp-style2 .gb-stamp-place {
+      max-width: 100%;
+      text-align: left;
+      font-family: 'Geist Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      line-height: 1.35;
+    }
+
+    .gb-card.stamp-style2 .gb-card-name {
+      margin-top: 0;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: clamp(17px, 1.6vw, 22px);
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: -0.7px;
+      color: #303931;
+      text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .gb-stamp-panel {
+      display: contents;
+    }
+
+    .gb-stamp-field {
+      display: none;
+    }
+
+    .gb-stamp-note {
+      display: contents;
+    }
+
+    .gb-stamp-note span {
+      display: none;
+    }
+
+    .gb-card.stamp-style2 .gb-stamp-panel {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      min-height: 82px;
+      padding: 10px;
+      overflow: hidden;
+      color: #303931;
+      background:
+        linear-gradient(90deg, rgba(48, 57, 49, 0.06) 0 1px, transparent 1px) 0 0 / 12px 12px,
+        linear-gradient(rgba(48, 57, 49, 0.06) 0 1px, transparent 1px) 0 0 / 12px 12px,
+        rgba(255, 248, 220, 0.38);
+      border: 1px solid rgba(48, 57, 49, 0.18);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.28) inset;
+    }
+
+    .gb-stamp-field,
+    .gb-stamp-note {
+      position: relative;
+      z-index: 1;
+    }
+
+    .gb-card.stamp-style2 .gb-stamp-field,
+    .gb-card.stamp-style2 .gb-stamp-note {
+      display: block;
+    }
+
+    .gb-card.stamp-style2 .gb-stamp-field {
+      display: none;
+    }
+
+    .gb-card.stamp-style2 .gb-stamp-field span,
+    .gb-card.stamp-style2 .gb-stamp-note span {
+      display: block;
+      font-family: 'Geist Mono', monospace;
+      font-size: 9px;
+      line-height: 1.3;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(48, 57, 49, 0.56);
+    }
+
+    .gb-card.stamp-style2 .gb-stamp-field strong {
+      display: block;
+      margin-top: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 1.35;
+      color: #303931;
+    }
+
+    .gb-card.stamp-style2 .gb-stamp-note {
+      width: 100%;
+      margin-top: 0;
+      padding: 8px 9px;
+      background: rgba(255, 248, 220, 0.68);
+      border-left: 1px solid rgba(48, 57, 49, 0.18);
+    }
+
+    .gb-card.stamp-style2 .gb-card-msg,
+    .gb-card.stamp-style2 .gb-card-emojis {
+      margin-top: 4px;
+      color: #303931;
+    }
+
+    .gb-card.stamp-style2 .gb-card-emojis {
+      font-size: 16px;
+      filter: none;
+    }
+
+    .gb-stamp-footer {
+      display: contents;
+    }
+
+    .gb-card.stamp-style2 .gb-stamp-footer {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 2px;
+    }
+
+    .gb-card.stamp-style2 .gb-card-date {
+      margin: 0;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 15px;
+      line-height: 1;
+      color: #303931;
+      letter-spacing: -0.6px;
+      text-transform: none;
+    }
+
+    .gb-card.stamp-style2 .gb-stamp-postmark {
+      display: none;
+    }
+
+    @keyframes dot-pulse {
+      0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
+      40% { opacity: 1; transform: scale(1); }
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 36px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .footer-credit,
+    .footer-email {
+      color: var(--text-muted);
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    .footer-email:hover { color: var(--text-sec); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { gap: 18px; }
+      .container { padding: 0 20px; }
+      .hero { padding: 48px 0 40px; }
+      .gb-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 22px;
+        width: 100%;
+        max-width: 270px;
+        margin: 0 auto;
+      }
+      .gb-card { margin-bottom: 0; }
+      .gb-card.stamp-style2 {
+        justify-self: center;
+        width: min(100%, 270px);
+        max-width: 100%;
+        min-width: 0;
+        padding: 24px 20px 22px;
+      }
+      .gb-card.stamp-style2 .gb-card-inner,
+      .gb-card.stamp-style2 .gb-stamp-panel,
+      .gb-card.stamp-style2 .gb-stamp-meta {
+        min-width: 0;
+      }
+      .gb-submit-row {
+        align-items: stretch;
+        flex-direction: column;
+      }
+      .gb-submit { width: 100%; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 480px) {
+      nav { padding: 14px 12px; }
+      .nav-brand { font-size: 14px; }
+      .nav-links { gap: 9px; }
+      .nav-links a { font-size: 12px; }
+      .container { padding: 0 16px; }
+      .gb-form-wrap,
+      .gb-form-card {
+        width: 100%;
+        max-width: 100%;
+      }
+      .gb-form-card { padding: 24px 20px 20px; }
+      .gb-vis-row { flex-wrap: wrap; }
+      .gb-emoji-grid { grid-template-columns: repeat(6, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-brand">Francis Fara</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about-me.html">About me</a></li>
+      <li><a href="guestbook.html" class="active">Guestbook</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <section class="hero">
+      <div class="container">
+        <span class="hero-tag">Visitor #<span id="visitorNum">—</span></span>
+        <h1 class="hero-title">Guestbook</h1>
+        <p class="hero-sub">Leave a note, drop a vibe, or just some emojis. I read every one.</p>
+      </div>
+    </section>
+
+    <section class="form-section">
+      <div class="container">
+        <div class="gb-form-wrap">
+          <div class="gb-form-card">
+
+            <div class="gb-form-top">
+              <div>
+                <p class="gb-form-title">Guestbook Entry Card</p>
+                <p class="gb-form-subtitle">for visitor registration</p>
+              </div>
+              <span class="gb-form-icon">😊</span>
+            </div>
+
+            <div class="gb-mode-tabs">
+              <button class="gb-mode-tab active" id="tabMessage" onclick="setMode('message')">Message</button>
+              <button class="gb-mode-tab" id="tabEmoji" onclick="setMode('emoji')">Emoji only</button>
+            </div>
+
+            <form id="gbForm" onsubmit="submitEntry(event)" novalidate>
+
+              <div class="gb-field">
+                <div class="gb-field-header">
+                  <label class="gb-label" for="gbName">Visitor Name</label>
+                  <span class="gb-counter" id="nameCounter">0/25</span>
+                </div>
+                <input
+                  id="gbName"
+                  class="gb-input"
+                  type="text"
+                  maxlength="25"
+                  placeholder="Your name or alias"
+                  autocomplete="off"
+                  oninput="updateCounter('gbName','nameCounter',25)"
+                />
+              </div>
+
+              <!-- Message mode -->
+              <div class="gb-field" id="messageField">
+                <div class="gb-field-header">
+                  <label class="gb-label" for="gbMessage">Message</label>
+                  <span class="gb-counter" id="msgCounter">0/60</span>
+                </div>
+                <textarea
+                  id="gbMessage"
+                  class="gb-textarea"
+                  maxlength="60"
+                  placeholder="Enter your visitor message..."
+                  oninput="updateCounter('gbMessage','msgCounter',60)"
+                ></textarea>
+              </div>
+
+              <!-- Emoji mode -->
+              <div class="gb-field hidden" id="emojiField">
+                <div class="gb-field-header">
+                  <label class="gb-label">Pick up to 5 emojis</label>
+                  <span class="gb-counter" id="emojiCounter">0/5</span>
+                </div>
+                <div class="gb-emoji-grid" id="emojiGrid"></div>
+                <p class="gb-emoji-hint">tap to select · tap again to remove</p>
+              </div>
+
+              <div class="gb-vis-row">
+                <button type="button" class="gb-vis-btn active" id="visPublic" onclick="setVisibility('public')">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                  Public
+                </button>
+                <button type="button" class="gb-vis-btn" id="visPrivate" onclick="setVisibility('private')">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  Private
+                </button>
+              </div>
+
+              <div class="gb-submit-row">
+                <span class="gb-status" id="gbStatus">Visitor entry — complete all fields</span>
+                <button class="gb-submit" type="submit" id="gbSubmit">SUBMIT</button>
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stamp-section">
+      <div class="container">
+        <div class="stamp-header">
+          <div class="stamp-line"></div>
+          <p class="stamp-title">Stamp Collection (<span id="entryCount">—</span>)</p>
+          <div class="stamp-line"></div>
+        </div>
+        <div class="gb-grid" id="gbGrid">
+          <div class="gb-loading">
+            <div class="gb-loading-dots"><span></span><span></span><span></span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <p class="footer-credit">Designed by Francis • Built by Fara ©️ 2025</p>
+      <a href="mailto:Francismensah02@gmail.com" class="footer-email">Francismensah02@gmail.com</a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = 'https://hjardagpfprwzeyhvxhh.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_B2j_5O1hFvZm3GSixUszgQ_Hsfyz1-h';
+    const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const EMOJIS = ['✨','🔥','💫','🌊','🎨','🎯','🌙','⚡','🌸','🦋','🎪','🍀','💎','🌈','🎭','🪄','🦄','🌺','🎸','🌻','🦊','🐙','🎲','💡','🫶','🙌','👀','🤝'];
+    const CARD_COLORS = ['#efe1bc','#d9c8a2','#e6d7b6','#cfd6c0','#d5c5aa','#e3ccb8','#c5d0cf','#e8d8a9','#d8c6bb'];
+    const ROTS = [-1.8, 0.9, -0.5, 1.4, -1.2, 0.6, -0.4, 1.7, -0.9];
+    const STAMP_VARIANTS = ['variant-script', 'variant-catalog', 'variant-airmail'];
+    const STAMP_VALUES = ['03p', '07p', '12p', '18p', '24p', '36p'];
+    const STAMP_PLACES = [];
+    const ACTIVE_STAMP_STYLE = 'stamp-style2'; // Use stamp-style1 to restore the saved vintage postal style.
+
+    let mode = 'message';
+    let visibility = 'public';
+    let selectedEmojis = [];
+
+    function initEmojiGrid() {
+      document.getElementById('emojiGrid').innerHTML = EMOJIS.map(e =>
+        `<button type="button" class="gb-emoji-btn" onclick="toggleEmoji(this,'${e}')">${e}</button>`
+      ).join('');
+    }
+
+    function toggleEmoji(btn, emoji) {
+      if (btn.classList.contains('selected')) {
+        btn.classList.remove('selected');
+        selectedEmojis = selectedEmojis.filter(e => e !== emoji);
+      } else {
+        if (selectedEmojis.length >= 5) return;
+        btn.classList.add('selected');
+        selectedEmojis.push(emoji);
+      }
+      document.getElementById('emojiCounter').textContent = `${selectedEmojis.length}/5`;
+    }
+
+    function setMode(m) {
+      mode = m;
+      document.getElementById('tabMessage').classList.toggle('active', m === 'message');
+      document.getElementById('tabEmoji').classList.toggle('active', m === 'emoji');
+      document.getElementById('messageField').classList.toggle('hidden', m !== 'message');
+      document.getElementById('emojiField').classList.toggle('hidden', m !== 'emoji');
+    }
+
+    function setVisibility(v) {
+      visibility = v;
+      document.getElementById('visPublic').classList.toggle('active', v === 'public');
+      document.getElementById('visPrivate').classList.toggle('active', v === 'private');
+    }
+
+    function updateCounter(inputId, counterId, max) {
+      const len = document.getElementById(inputId).value.length;
+      document.getElementById(counterId).textContent = `${len}/${max}`;
+    }
+
+    function setStatus(msg, type) {
+      const el = document.getElementById('gbStatus');
+      el.textContent = msg;
+      el.className = 'gb-status' + (type ? ` ${type}` : '');
+    }
+
+    function esc(s) {
+      return String(s)
+        .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    async function submitEntry(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('gbName').value.trim();
+      if (!name) { setStatus('Please enter your name.', 'error'); return; }
+
+      const entry = { name, visibility, entry_type: mode };
+
+      if (mode === 'message') {
+        const message = document.getElementById('gbMessage').value.trim();
+        if (!message) { setStatus('Please enter a message.', 'error'); return; }
+        entry.message = message;
+      } else {
+        if (selectedEmojis.length === 0) { setStatus('Pick at least one emoji.', 'error'); return; }
+        entry.emojis = selectedEmojis.join('');
+      }
+
+      const btn = document.getElementById('gbSubmit');
+      btn.disabled = true;
+      btn.textContent = '...';
+      setStatus('Submitting...', '');
+
+      const { error } = await sb.from('guestbook').insert([entry]);
+
+      btn.disabled = false;
+      btn.textContent = 'SUBMIT';
+
+      if (error) {
+        console.error(error);
+        setStatus('Something went wrong. Try again.', 'error');
+        return;
+      }
+
+      setStatus('Entry submitted! ✓', 'success');
+      document.getElementById('gbName').value = '';
+      document.getElementById('gbMessage').value = '';
+      document.getElementById('nameCounter').textContent = '0/25';
+      document.getElementById('msgCounter').textContent = '0/60';
+      selectedEmojis = [];
+      document.querySelectorAll('.gb-emoji-btn.selected').forEach(b => b.classList.remove('selected'));
+      document.getElementById('emojiCounter').textContent = '0/5';
+
+      if (visibility === 'public') loadEntries();
+      setTimeout(() => setStatus('Visitor entry — complete all fields', ''), 4000);
+    }
+
+    function renderEntries(entries) {
+      const grid = document.getElementById('gbGrid');
+      document.getElementById('entryCount').textContent = entries.length;
+      document.getElementById('visitorNum').textContent = entries.length + 1;
+
+      if (entries.length === 0) {
+        grid.innerHTML = '<p class="gb-empty">No entries yet — be the first to sign! 🎉</p>';
+        return;
+      }
+
+      grid.innerHTML = entries.map((entry, i) => {
+        const color = CARD_COLORS[i % CARD_COLORS.length];
+        const rot = ROTS[i % ROTS.length];
+        const variant = STAMP_VARIANTS[i % STAMP_VARIANTS.length];
+        const place = entry.location ? esc(entry.location) : `Visitor #${i + 1}`;
+        const markRot = ROTS[(i + 3) % ROTS.length] * 5;
+        const date = new Date(entry.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+        const safeName = esc(entry.name);
+        const content = entry.entry_type === 'emoji'
+          ? `<div class="gb-card-emojis">${esc(entry.emojis || '')}</div>`
+          : `<p class="gb-card-msg">${esc(entry.message || '')}</p>`;
+        return `
+          <div class="gb-card ${ACTIVE_STAMP_STYLE} ${variant}" style="--stamp-bg:${color};--rot:${rot}deg;--mark-rot:${markRot}deg;">
+            <div class="gb-card-inner">
+              <div class="gb-stamp-meta">
+                <span class="gb-stamp-value" aria-hidden="true"></span>
+                <span class="gb-stamp-place">${place}</span>
+              </div>
+              <p class="gb-card-name">${safeName}</p>
+              <div class="gb-stamp-panel">
+                <div class="gb-stamp-note">
+                  <span>${entry.entry_type === 'emoji' ? 'Emoji signal' : 'Message note'}</span>
+                  ${content}
+                </div>
+              </div>
+              <div class="gb-stamp-footer">
+                <p class="gb-card-date">${date}</p>
+              </div>
+              <span class="gb-stamp-postmark" aria-hidden="true"></span>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    async function loadEntries() {
+      const { data, error } = await sb
+        .from('guestbook')
+        .select('id,name,message,emojis,entry_type,created_at')
+        .eq('visibility','public')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error(error);
+        document.getElementById('gbGrid').innerHTML = '<p class="gb-empty">Could not load entries.</p>';
+        return;
+      }
+      renderEntries(data || []);
+    }
+
+    initEmojiGrid();
+    loadEntries();
+  </script>
+
+</body>
+</html>

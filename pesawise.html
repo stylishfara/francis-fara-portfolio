@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pesawise mobile app — Francis Mensah</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #fafafa;
+      --card: #eeeeee;
+      --border: #e8e8e6;
+      --text-primary: #333333;
+      --text-framer: #484848;
+      --text-secondary: #6b6b6b;
+      --text-muted: #999999;
+      --link: #1587e2;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: "Geist", -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { max-width: 100%; }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 48px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(250, 250, 250, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .nav-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-framer);
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 24px;
+      text-decoration: none;
+      transition: opacity 0.15s ease;
+    }
+
+    .nav-back:hover { opacity: 0.72; }
+    .nav-back svg { width: 16px; height: 16px; }
+
+    .nav-title {
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    section { padding: 40px 0; }
+
+    .hero { padding: 56px 0 40px; }
+
+    .hero-tag {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      color: var(--text-primary);
+      font-family: "Geist Mono", "Geist", monospace;
+      font-size: clamp(28px, 4vw, 36px);
+      font-weight: 500;
+      letter-spacing: -1.2px;
+      line-height: 1.05;
+      margin-bottom: 40px;
+    }
+
+    .hero-image {
+      width: 100%;
+      aspect-ratio: 16 / 8;
+      margin-top: 56px;
+      overflow: hidden;
+      border-radius: 16px;
+      background: #e8e6f4;
+    }
+
+    .hero-image img,
+    .case-image img,
+    .process-layer-image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-top: 32px;
+    }
+
+    .meta-item {
+      flex: 1;
+      min-width: 140px;
+      padding: 20px 32px 20px 0;
+      border-right: 1px solid var(--border);
+    }
+
+    .meta-item:not(:first-child) { padding-left: 32px; }
+    .meta-item:last-child { border-right: 0; padding-right: 0; }
+
+    .meta-label {
+      margin-bottom: 6px;
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+
+    .meta-value,
+    .meta-link {
+      color: var(--text-primary);
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .meta-links {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .meta-link {
+      width: fit-content;
+      color: var(--link);
+      text-decoration: underline;
+      transition: opacity 0.15s ease;
+    }
+
+    .meta-link:hover { opacity: 0.72; }
+
+    .section-label {
+      margin-bottom: 8px;
+      color: rgba(72, 72, 72, 0.6);
+      font-family: "Geist Mono", "Geist", monospace;
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      line-height: 30px;
+      text-transform: uppercase;
+    }
+
+    .section-sublabel {
+      margin-bottom: 32px;
+      color: var(--text-framer);
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.4px;
+      line-height: 24px;
+    }
+
+    .body-text {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .body-text p,
+    .reflection-block p {
+      color: var(--text-framer);
+      font-size: 16px;
+      line-height: 24px;
+      overflow-wrap: anywhere;
+    }
+
+    .body-text strong { color: var(--text-framer); font-weight: 500; }
+
+    .case-image {
+      width: 100%;
+      margin-top: 32px;
+      overflow: hidden;
+      border-radius: 24px;
+      background: var(--card);
+    }
+
+    .case-image.wide { aspect-ratio: 16 / 8.5; }
+    .case-image.compact { aspect-ratio: 16 / 9.5; }
+
+    .image-caption {
+      margin-top: 14px;
+      color: var(--text-framer);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .research-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .research-item {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 40px;
+      min-height: 168px;
+      padding: 32px 36px;
+      border-radius: 16px;
+      background: var(--card);
+    }
+
+    .research-item-body {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 680px;
+    }
+
+    .research-item-title {
+      color: var(--text-framer);
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.4px;
+      line-height: 1.25;
+    }
+
+    .research-item-text {
+      color: var(--text-framer);
+      font-size: 18px;
+      line-height: 1.55;
+    }
+
+    .research-item-num {
+      color: rgba(0, 0, 0, 0.06);
+      font-size: clamp(64px, 9vw, 76px);
+      font-weight: 600;
+      letter-spacing: -4px;
+      line-height: 0.9;
+    }
+
+    .process-list {
+      display: flex;
+      flex-direction: column;
+      gap: 80px;
+    }
+
+    .process-layer {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .process-layer-title {
+      color: var(--text-framer);
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.4px;
+      line-height: 24px;
+    }
+
+    .process-layer-content {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .process-layer-text {
+      color: var(--text-framer);
+      font-size: 16px;
+      line-height: 24px;
+    }
+
+    .process-layer-image {
+      height: auto;
+      margin-top: 16px;
+      border-radius: 24px;
+      background: var(--card);
+    }
+
+    .impact-copy {
+      margin-bottom: 32px;
+      color: var(--text-framer);
+      font-size: 16px;
+      line-height: 24px;
+    }
+
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .impact-item {
+      display: flex;
+      min-height: 170px;
+      flex-direction: column;
+      justify-content: center;
+      gap: 22px;
+      padding: 32px 28px;
+      border-radius: 16px;
+      background: var(--card);
+    }
+
+    .impact-number {
+      color: var(--text-framer);
+      font-size: 32px;
+      font-weight: 500;
+      letter-spacing: -0.8px;
+      line-height: 1;
+    }
+
+    .impact-label {
+      color: var(--text-framer);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .reflection-block {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .next-project {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 32px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      color: inherit;
+      text-decoration: none;
+      transition: opacity 0.15s ease;
+    }
+
+    .next-project:hover { opacity: 0.72; }
+
+    .next-label {
+      margin-bottom: 6px;
+      color: var(--text-muted);
+      font-family: "Geist Mono", "Geist", monospace;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+
+    .next-title {
+      color: var(--text-framer);
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -0.4px;
+    }
+
+    .next-arrow {
+      color: var(--text-muted);
+      font-size: 24px;
+    }
+
+    footer { padding: 36px 0; }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-credit,
+    .footer-email {
+      color: var(--text-muted);
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    .footer-email:hover { color: var(--text-secondary); }
+
+    @media (max-width: 680px) {
+      nav { padding: 18px 20px; }
+      .container { padding: 0 20px; }
+      .hero { padding: 48px 0 40px; }
+      section { padding: 32px 0; }
+      .hero-image { margin-top: 40px; }
+      .meta-row { flex-direction: column; }
+      .meta-item {
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+        padding: 16px 0;
+      }
+      .meta-item:not(:first-child) { padding-left: 0; }
+      .meta-item:last-child { border-bottom: 0; }
+      .research-item {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 28px 24px;
+      }
+      .research-item-num {
+        order: 2;
+        font-size: 56px;
+        justify-self: start;
+      }
+      .research-item-text { font-size: 16px; }
+      .process-list { gap: 56px; }
+      .process-layer-image,
+      .case-image { border-radius: 18px; }
+      .impact-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .impact-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="nav-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M19 12H5M12 5l-7 7 7 7" />
+      </svg>
+      Back
+    </a>
+    <span class="nav-title">Pesawise Mobile App</span>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <span class="hero-tag">Case Study</span>
+        <h1 class="hero-title">Pesawise mobile app</h1>
+
+        <div class="hero-image">
+          <img src="images/pesawise-hero.jpg" alt="Pesawise mobile app" />
+        </div>
+
+        <div class="meta-row">
+          <div class="meta-item">
+            <p class="meta-label">Industry</p>
+            <p class="meta-value">Fintech</p>
+          </div>
+          <div class="meta-item">
+            <p class="meta-label">My role(s)</p>
+            <p class="meta-value">Product designer</p>
+          </div>
+          <div class="meta-item">
+            <p class="meta-label">Collaborators</p>
+            <p class="meta-value">Software engineers, Project Manager, Sales team</p>
+          </div>
+          <div class="meta-item">
+            <p class="meta-label">Links</p>
+            <div class="meta-links">
+              <a href="https://www.figma.com/proto/WOxB7Nj7re9IKlNzLgOIAB/Portfolio-prototype-links?page-id=1%3A2&amp;type=design&amp;node-id=1-5758&amp;viewport=1077%2C4331%2C0.25&amp;t=Bdme6Jt8cIyjMinx-1&amp;scaling=scale-down&amp;starting-point-node-id=1%3A5758&amp;mode=design" target="_blank" rel="noopener" class="meta-link">Prototype</a>
+              <a href="https://www.figma.com/design/xf3DkAyBD3Yd3XjGL3Nfm3/Pesawise-mobile-app---redesign?node-id=1-32937&amp;t=mrw1PXTkRcIDkIsY-1" target="_blank" rel="noopener" class="meta-link">Figma</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <p class="section-label">Overview</p>
+        <div class="body-text">
+          <p>Pesawise is a Kenyan fintech app focused on cross-border payments, mobile money, and everyday financial management for individuals and SMEs. The redesign was built on a clear principle: for users sending money across borders on low-end Android devices, speed and clarity are trust signals. Anything that slows them down or clutters the decision costs completions.</p>
+          <p>Version 1 had the right feature set but the wrong experience. Users dropped off during onboarding, abandoned mid-transfer, and struggled to surface common actions like repeat transactions. The interface lacked hierarchy, the send flow fought user expectations, and performance on lower-end devices eroded confidence before trust could be earned.</p>
+          <p>The v2 redesign simplified the interface, restructured the core transfer flow around familiar mental models, and made the app faster on the devices the audience actually uses. These decisions were grounded in research. Through stakeholder interviews, usage analytics, and a competitive audit of Access Bank, Send by Flutterwave, and Dash, I clustered recurring themes into three clear insight areas that directly shaped the redesign.</p>
+          <p>The impact was measurable. Within three months of launch, user retention increased by 25% from a 38% baseline, drop-off on the send and onboarding journeys fell by 18%, and support volume around navigation confusion dropped noticeably. A modular design system shortened design-to-dev handoff and has since been reused across subsequent feature releases.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <p class="section-label">The Problem</p>
+        <p class="section-sublabel">The features worked. The experience didn't.</p>
+        <div class="body-text">
+          <p>Pesawise v1 already offered the core fintech stack: cross-border payments, mobile money, bill payments, virtual cards in the roadmap. But users were abandoning at the exact moments where the product needed to earn trust, and the reasons were structural rather than cosmetic.</p>
+          <p>The home screen buried primary actions inside a dense balance card, with quick actions sitting in low-contrast tiles that competed for attention. The send flow had the send action as a single tap, high-risk for accidental payments on shared or low-end devices. Daily tier limits were never surfaced upfront, so failed transactions happened after users had already committed mentally. And onboarding defaulted to English in a market where a significant portion of users are Swahili-first, adding friction before the first transaction.</p>
+          <p>The initial framing was that the app needed a visual refresh. The real problem was different: every touchpoint was shaving a small amount of confidence off a user journey that required full confidence to complete. This reframe shifted the brief from UI polish to trust-led product thinking. The v1 screens below show where that friction lived.</p>
+        </div>
+
+        <figure class="case-image wide">
+          <img src="images/pesawise-v1-screens.jpg" alt="Few screens from the Version 1" />
+        </figure>
+        <p class="image-caption">Few screens from the Version 1</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <p class="section-label">Research &amp; Insights</p>
+        <p class="section-sublabel">What the data, the users, and the competitor were saying</p>
+        <div class="body-text">
+          <p>Pesawise had strong baseline data on its users: tech-savvy individuals aged 15 to 45, skewed toward entrepreneurs, creatives, and SME owners, many operating on mid-range or older Android devices. We combined this with targeted user interviews, survey responses, and stakeholder sessions to understand where the product was working and where it was losing people.</p>
+          <p>Alongside the user research, I ran a structured audit of three apps in the same category, Access Bank, Send by Flutterwave, and Dash. The audit wasn't about copying what other apps did, it was about two things: identifying feature gaps users expected Pesawise to close, and understanding the interaction patterns people had already internalised from apps they used daily. Every deviation from those patterns in v1 was a cognitive tax.</p>
+        </div>
+
+        <figure class="case-image wide">
+          <img src="images/pesawise-competitive-audit.png" alt="Image: competitive audit matrix" />
+        </figure>
+        <p class="image-caption">The audit revealed feature gaps like beneficiary lists and wallet management, while also mapping the interaction patterns users had already internalised.</p>
+
+        <div class="body-text" style="margin-top: 32px;">
+          <p>A few things stood out. Beneficiary lists and tier-level visibility appeared consistently across every app audited, setting a baseline of user expectation Pesawise was falling short of. Wallet management and nearby contacts were less common, signalling opportunities rather than gaps. The audit gave both the product team a clear feature roadmap and the design work a reference set of interaction patterns to align with.</p>
+          <p>To move beyond isolated observations, I clustered the findings through an affinity mapping exercise, grouping feedback, analytics signals, stakeholder priorities, and competitor gaps into recurring themes. Three emerged clearly.</p>
+        </div>
+
+        <div class="research-list">
+          <div class="research-item">
+            <div class="research-item-body">
+              <p class="research-item-title">Visual overload on the home screen</p>
+              <p class="research-item-text">The balance card carried too many jobs at once, actions, balance, and account state, which flattened hierarchy and made primary tasks harder to scan. Users described the interface as busy and slow to read.</p>
+            </div>
+            <span class="research-item-num">01</span>
+          </div>
+          <div class="research-item">
+            <div class="research-item-body">
+              <p class="research-item-title">Send flow fought user expectations</p>
+              <p class="research-item-text">Users arrived with a mental model shaped by apps they already used, recipient, amount, review, confirm. Pesawise deviated at small but critical steps, and accidental taps on the send button were a real and reported problem. Frequent beneficiaries were also buried, forcing returning users to re-enter details they had used many times before.</p>
+            </div>
+            <span class="research-item-num">02</span>
+          </div>
+          <div class="research-item">
+            <div class="research-item-body">
+              <p class="research-item-title">Missing context at decision moments</p>
+              <p class="research-item-text">Daily tier limits weren't shown on the amount screen, so users only discovered them after a failed transaction. Language selection sat deep in the flow rather than at the first screen, despite a meaningful Swahili-speaking segment.</p>
+            </div>
+            <span class="research-item-num">03</span>
+          </div>
+        </div>
+
+        <div class="body-text" style="margin-top: 32px;">
+          <p>These insights reframed the problem. The redesign wasn't about modernising the UI, it was about reducing friction and restoring confidence at every decision point. From here we defined a north star metric: completion rate across the core send money journey. Every subsequent design decision was evaluated against whether it increased the likelihood of a confident, uninterrupted transaction.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="process">
+      <div class="container">
+        <p class="section-label">Process</p>
+        <div class="process-list">
+          <div class="process-layer">
+            <h3 class="process-layer-title">Design System First</h3>
+            <div class="process-layer-content">
+              <p class="process-layer-text">Before touching individual screens, the visual foundation was rebuilt. A modular, token-based design system was established with a defined type scale, consistent spacing, a restrained use of the primary brand colour, and a full set of reusable components. This shift from ad-hoc styling to systematic decisions reduced visual clutter across every screen, created a predictable interface, and made handoff faster for the engineering team. Components built here have since been reused across subsequent feature releases, compounding the return on the investment.</p>
+              <img class="process-layer-image" src="images/pesawise-design-system.png" alt="Design System First" />
+            </div>
+          </div>
+
+          <div class="process-layer">
+            <h3 class="process-layer-title">Layer 1 - Onboarding Flow</h3>
+            <div class="process-layer-content">
+              <p class="process-layer-text">The redesigned onboarding flow was built around a single principle: one screen, one task. Personal details, email verification, PIN creation, avatar selection, and member tag setup are each presented on their own focused screen, stripped of unnecessary elements. Users know exactly what is being asked of them and why.</p>
+              <p class="process-layer-text">BVN verification was placed deliberately at the end of the flow, once the user has already invested in the setup process and developed a baseline of trust with the product. This reduces drop-off at what is typically the highest friction point in fintech onboarding.</p>
+              <img class="process-layer-image" src="images/pesawise-onboarding-flow.png" alt="Layer 1 - Onboarding Flow" />
+            </div>
+          </div>
+
+          <div class="process-layer">
+            <h3 class="process-layer-title">Layer 2 - Visual System Overhaul</h3>
+            <div class="process-layer-content">
+              <p class="process-layer-text">The home screen was the worst offender in v1, so it received the most focused rework. The balance card was simplified and stripped of embedded actions. Quick actions were repositioned below the card with a lighter shade of the primary colour to lift contrast without adding noise. The brand colour was pulled back from decorative uses and reserved for primary CTAs and key financial indicators, the same restraint-as-trust principle that fintech users respond to.</p>
+              <p class="process-layer-text">The result is a hierarchy users can read without effort: where to look, what to do, what to ignore.</p>
+              <img class="process-layer-image" src="images/pesawise-visual-system.png" alt="Layer 2 - Visual System Overhaul" />
+            </div>
+          </div>
+
+          <div class="process-layer">
+            <h3 class="process-layer-title">Layer 3 - Transfer Flow Redesign</h3>
+            <div class="process-layer-content">
+              <p class="process-layer-text">The send flow was re-engineered to mirror the mental model users already had from apps they used daily, one decision per screen, progressive disclosure, and a logical sequence of who, how much, review, confirm.</p>
+              <p class="process-layer-text">Frequent beneficiaries now surface directly on the transfer screen, so returning users can skip manual re-entry. The user's daily tier limit is displayed upfront on the amount screen, catching the friction before it turns into a failed transaction. Taps, labels, and screen transitions were tightened throughout, with the whole flow reworked to feel like guidance rather than a form to fill out.</p>
+              <img class="process-layer-image" src="images/pesawise-transfer-flow.png" alt="Layer 3 - Transfer Flow Redesign" />
+            </div>
+          </div>
+
+          <div class="process-layer">
+            <h3 class="process-layer-title">Layer 4 - Swipe to confirm Send</h3>
+            <div class="process-layer-content">
+              <p class="process-layer-text">The single-tap send button was replaced with a swipe-to-confirm interaction. In fintech, accidental taps on high-stakes actions erode trust quickly, and a deliberate swipe requires physical intentionality that single taps don't. This is a well-established pattern in financial apps, and it gives users a clear moment of control at the most critical point of the transaction. Combined with the upfront limit display and the cleaner review screen, the send decision feels deliberate rather than casual, which is the correct tone for moving money.</p>
+              <img class="process-layer-image" src="images/pesawise-swipe-confirm.png" alt="Layer 4 - Swipe to confirm Send" />
+            </div>
+          </div>
+
+          <div class="process-layer">
+            <h3 class="process-layer-title">Layer 5 - Performance for Low-End Devices</h3>
+            <div class="process-layer-content">
+              <p class="process-layer-text">Because a significant portion of the user base is on older Android hardware, performance was treated as a design input, not an engineering afterthought. Unnecessary animations were removed, transitions simplified, and heavier image assets swapped out or compressed. Every screen was evaluated against how it would render and respond on the devices users actually held, not the devices we designed on.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="impact">
+      <div class="container">
+        <p class="section-label">Measured Outcome</p>
+        <p class="impact-copy">The redesign delivered meaningful results within the first three months of launch.</p>
+        <div class="impact-grid">
+          <div class="impact-item">
+            <span class="impact-number">25%</span>
+            <span class="impact-label">Increase in user retention, up from a 38% baseline pre-launch</span>
+          </div>
+          <div class="impact-item">
+            <span class="impact-number">18%</span>
+            <span class="impact-label">Reduction in drop-off across the core send money and onboarding journeys</span>
+          </div>
+          <div class="impact-item">
+            <span class="impact-number">Higher ratings</span>
+            <span class="impact-label">App Store and Play Store ratings improved post-launch</span>
+          </div>
+          <div class="impact-item">
+            <span class="impact-number">Fewer tickets</span>
+            <span class="impact-label">Support load dropped across navigation, identity verification, and bill payment flows</span>
+          </div>
+          <div class="impact-item">
+            <span class="impact-number">Fast Delivery</span>
+            <span class="impact-label">Feature handoff accelerated by the modular design system; v1 component library reused across releases</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <p class="section-label">Reflection</p>
+        <p class="section-sublabel">What this project reinforced about fintech design</p>
+        <div class="reflection-block">
+          <p>The most important lesson from Pesawise was the difference between designing for competitors and designing for users. Early in the project, competitive benchmarking almost led us to patterns from international fintechs that looked polished but didn't fit the context, low-end devices, bandwidth constraints, and a user base that valued speed and clarity over feature richness. The competitor audit was most useful when we stopped treating it as a list to copy and started treating it as a map of the mental models users had already internalised. Align with the pattern, and friction disappears. Fight it, and you pay for it in completions.</p>
+          <p>This project also reinforced that a design system is a product decision, not a design deliverable. The component library directly affected how engineering scoped features, how quickly rework cycles closed, and how consistent the final build stayed with the intended design. Treating the system as a product in its own right, with ownership and documentation, was one of the highest-leverage decisions in the project.</p>
+          <p>Feasibility belongs in discovery, not handoff. Some of the early interaction ideas, particularly around animated transitions and real-time balance updates, had to be scaled back because of device performance. The lesson wasn't just to talk to engineers earlier, it was to treat technical constraints as a design input from the wireframing stage. Bringing engineering in that early changed the quality of the decisions we made together, and it's a practice I've carried into every project since.</p>
+          <p>If I were to revisit this, I'd run more targeted usability testing on the highest drop-off screens before shipping. Five users in an unmoderated test surfaces most usability issues, and that level of rigour earlier in the process would have sharpened a few decisions I only got right after the first post-launch round of feedback.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <a href="dash-merchant.html" class="next-project">
+          <div>
+            <p class="next-label">NEXT PROJECT</p>
+            <p class="next-title">Dash Merchant Dashboard</p>
+          </div>
+          <span class="next-arrow">→</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <p class="footer-credit">Designed by Francis • Built by Fara ©️ 2025</p>
+      <a href="mailto:Francismensah02@gmail.com" class="footer-email">Francismensah02@gmail.com</a>
+    </div>
+  </footer>
+</body>
+</html>

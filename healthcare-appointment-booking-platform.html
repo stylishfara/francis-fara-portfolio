@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Healthcare Appointment Booking Platform — Francis Mensah</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #fafafa;
+      --card: #eeeeee;
+      --border: #e8e8e6;
+      --text-primary: #333333;
+      --text-framer: #484848;
+      --text-secondary: #6b6b6b;
+      --text-muted: #999999;
+    }
+
+    html {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: clip;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: clip;
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: "Geist", -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { max-width: 100%; }
+    main, section { max-width: 100%; overflow-x: clip; }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 48px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(250, 250, 250, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .nav-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-framer);
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 24px;
+      text-decoration: none;
+      transition: opacity 0.15s ease;
+    }
+
+    .nav-back:hover { opacity: 0.72; }
+    .nav-back svg { width: 16px; height: 16px; }
+
+    .nav-title {
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    section { padding: 40px 0; }
+    .hero { padding: 56px 0 40px; }
+
+    .hero-tag {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      margin-bottom: 40px;
+      color: var(--text-primary);
+      font-family: "Geist Mono", "Geist", monospace;
+      font-size: clamp(28px, 4vw, 36px);
+      font-weight: 500;
+      letter-spacing: -1.2px;
+      line-height: 1.05;
+    }
+
+    .hero-image {
+      width: 100%;
+      aspect-ratio: 16 / 8;
+      margin-top: 56px;
+      overflow: hidden;
+      border-radius: 16px;
+      background: #e4f0ee;
+    }
+
+    .hero-image img,
+    .case-image img,
+    .process-layer-image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-top: 32px;
+    }
+
+    .meta-item {
+      flex: 1;
+      min-width: 140px;
+      padding: 20px 32px 20px 0;
+      border-right: 1px solid var(--border);
+    }
+
+    .meta-item:not(:first-child) { padding-left: 32px; }
+    .meta-item:last-child { border-right: 0; padding-right: 0; }
+
+    .meta-label {
+      margin-bottom: 6px;
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+
+    .meta-value {
+      color: var(--text-primary);
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .section-label {
+      margin-bottom: 8px;
+      color: rgba(72, 72, 72, 0.6);
+      font-family: "Geist Mono", "Geist", monospace;
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      line-height: 30px;
+      text-transform: uppercase;
+    }
+
+    .section-sublabel {
+      margin-bottom: 16px;
+      color: var(--text-framer);
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.4px;
+      line-height: 30px;
+    }
+
+    .body-text,
+    .reflection-block {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .body-text p,
+    .reflection-block p {
+      color: var(--text-framer);
+      font-size: 16px;
+      line-height: 24px;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .body-text strong { color: var(--text-framer); font-weight: 500; }
+
+    .process-list {
+      display: flex;
+      flex-direction: column;
+      gap: 80px;
+    }
+
+    .process-layer {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .process-layer-title {
+      color: var(--text-framer);
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.4px;
+      line-height: 24px;
+    }
+
+    .process-layer-content {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .process-layer-text {
+      color: var(--text-framer);
+      font-size: 16px;
+      line-height: 24px;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .process-layer-image {
+      height: auto;
+      margin-top: 16px;
+      border-radius: 24px;
+      background: var(--card);
+    }
+
+    .impact-copy {
+      margin-bottom: 32px;
+      color: var(--text-framer);
+      font-size: 16px;
+      line-height: 24px;
+    }
+
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .impact-item {
+      display: flex;
+      min-height: 170px;
+      flex-direction: column;
+      justify-content: center;
+      gap: 22px;
+      padding: 32px 28px;
+      border-radius: 16px;
+      background: var(--card);
+    }
+
+    .impact-number {
+      color: var(--text-framer);
+      font-size: 32px;
+      font-weight: 500;
+      letter-spacing: -0.8px;
+      line-height: 1;
+    }
+
+    .impact-label {
+      color: var(--text-framer);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .next-project {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 32px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      color: inherit;
+      text-decoration: none;
+      transition: opacity 0.15s ease;
+    }
+
+    .next-project:hover { opacity: 0.72; }
+
+    .next-label {
+      margin-bottom: 6px;
+      color: var(--text-muted);
+      font-family: "Geist Mono", "Geist", monospace;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+
+    .next-title {
+      color: var(--text-framer);
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -0.4px;
+    }
+
+    .next-arrow {
+      color: var(--text-muted);
+      font-size: 24px;
+    }
+
+    footer { padding: 36px 0; }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-credit,
+    .footer-email {
+      color: var(--text-muted);
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    .footer-email:hover { color: var(--text-secondary); }
+
+    @media (max-width: 680px) {
+      nav { padding: 18px 20px; }
+      .nav-title { display: none; }
+      .container {
+        width: min(calc(100% - 40px), 350px);
+        max-width: 350px;
+        margin-left: 20px;
+        margin-right: 20px;
+        padding: 0;
+      }
+      .hero { padding: 48px 0 40px; }
+      section { padding: 48px 0; }
+      .hero-image { margin-top: 40px; }
+      .meta-row { flex-direction: column; }
+      .meta-item {
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+        padding: 16px 0;
+      }
+      .meta-item:not(:first-child) { padding-left: 0; }
+      .meta-item:last-child { border-bottom: 0; }
+      .process-list { gap: 56px; }
+      .process-layer-image { border-radius: 18px; }
+      .impact-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .impact-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="nav-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M19 12H5M12 5l-7 7 7 7" />
+      </svg>
+      Back
+    </a>
+    <span class="nav-title">Healthcare Appointment Booking Platform</span>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <span class="hero-tag">Case Study</span>
+        <h1 class="hero-title">Healthcare appointment booking platform</h1>
+
+        <div class="hero-image">
+          <img src="images/healthcare-hero.png" alt="Healthcare Appointment Booking Platform" />
+        </div>
+
+        <div class="meta-row">
+          <div class="meta-item">
+            <p class="meta-label">Industry</p>
+            <p class="meta-value">Health</p>
+          </div>
+          <div class="meta-item">
+            <p class="meta-label">My role(s)</p>
+            <p class="meta-value">Product designer</p>
+          </div>
+          <div class="meta-item">
+            <p class="meta-label">Timeline</p>
+            <p class="meta-value">6 weeks</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <p class="section-label">Overview</p>
+        <div class="body-text">
+          <p>Carely is a health tech platform that connects patients with licensed doctors for online and in-person consultations. This project covers the design of the doctor-facing side of the platform — a dedicated portal where doctors manage their appointments, conduct consultations, issue prescriptions, communicate with patients, and track their earnings, all within a single product experience.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <p class="section-label">Key Problem Solved</p>
+        <p class="section-sublabel">Doctors were managing their practice across too many disconnected tools</p>
+        <div class="body-text">
+          <p>Scheduling happened in one place, patient records in another, prescriptions were written separately, and earnings tracked elsewhere entirely. The result was a fragmented workflow that pulled doctors' attention away from what mattered most — the patient in front of them.</p>
+          <p>The design challenge was to bring every touchpoint of a doctor's working day into a single, coherent platform: from reviewing tomorrow's appointments to issuing a prescription mid-call and withdrawing earnings at the end of the week, without the friction of switching between tools.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="process">
+      <div class="container">
+        <p class="section-label">What I Designed</p>
+        <div class="process-list">
+
+          <div class="process-layer">
+            <h3 class="process-layer-title">The Doctor Dashboard</h3>
+            <div class="process-layer-content">
+              <p class="process-layer-text">The dashboard serves as the primary command centre for doctors once they log in. It surfaces today's appointments at the top — each showing the patient name, appointment time, and quick-access call buttons — alongside an appointment request queue where doctors can approve or decline incoming bookings. Upcoming appointments and a live calendar widget sit alongside a snapshot of key stats: total patients treated, revenue earned, and rescheduled appointments. The goal was to give doctors a complete picture of their day without requiring them to navigate away from the home screen.</p>
+              <p class="process-layer-text">The left navigation extends the dashboard into five dedicated areas. The Calendar gives doctors a full chronological view of all appointments, filterable by type — call, hospital visit, or online — with the ability to tap into any slot and view appointment details, patient notes, and reschedule or cancel directly. History surfaces a record of past patients and consultations. Statistics tracks engagement and performance over time. Messages enables direct communication with patients within the platform. Settings covers profile management, security, notification preferences, ratings and reviews, and general account configuration. A Support tab gives doctors a direct line to the platform team when needed.</p>
+              <img class="process-layer-image" src="images/healthcare-dashboard.webp" alt="The Doctor Dashboard" />
+            </div>
+          </div>
+
+          <div class="process-layer">
+            <h3 class="process-layer-title">The Appointment and Consultation Flow</h3>
+            <div class="process-layer-content">
+              <p class="process-layer-text">When an appointment goes live, doctors enter a consultation view that supports both video and voice call modes depending on the nature of the booking. The call interface keeps the patient feed front and centre while giving the doctor access to a structured set of clinical tools on the right-hand panel.</p>
+              <p class="process-layer-text">During the consultation, doctors can review the patient's past diagnosis history, add new diagnosis notes, log symptoms, and document treatment decisions — all within the same view, without switching context. This keeps the clinical record growing in real time rather than being filled in after the fact.</p>
+              <img class="process-layer-image" src="images/healthcare-consultation.webp" alt="The Appointment and Consultation Flow" />
+            </div>
+          </div>
+
+          <div class="process-layer">
+            <h3 class="process-layer-title">Earnings and Withdrawals</h3>
+            <div class="process-layer-content">
+              <p class="process-layer-text">Doctors have access to a dedicated earnings view that shows their wallet balance, a weekly breakdown of earnings visualised as a bar chart, and a recent transactions table with patient name, date, status, and amount. A lifetime earnings summary on the right-hand side breaks down total consultation fees against taxes deducted. Doctors can withdraw their available balance directly from this screen.</p>
+              <img class="process-layer-image" src="images/healthcare-earnings.png" alt="Earnings and Withdrawals" />
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="impact">
+      <div class="container">
+        <p class="section-label">Impact</p>
+        <div class="body-text">
+          <p>Doctors gained a single platform to manage every part of their working day — from approving appointment requests and conducting video consultations to issuing prescriptions and tracking earnings — eliminating the need to context-switch between separate tools.</p>
+          <p>With clinical notes, symptoms, diagnosis history, and prescriptions all accessible within the live consultation view, doctors could focus entirely on the patient rather than the process. Clinical records grew in real time during the consultation, not reconstructed after the fact.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <p class="section-label">Reflection</p>
+        <p class="section-sublabel">Takeaways</p>
+        <div class="reflection-block">
+          <p>Designing for a professional user like a doctor meant respecting the weight of the decisions being made within the product — a prescription issued, a diagnosis logged, a patient declined. Every interaction needed to feel considered and reliable, not just clean. If I were to extend this work, I would focus on the patient-facing side of the experience and design the full end-to-end journey from booking to post-consultation follow-up.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <a href="pesawise-website.html" class="next-project">
+          <div>
+            <p class="next-label">NEXT PROJECT</p>
+            <p class="next-title">Pesawise Website</p>
+          </div>
+          <span class="next-arrow">→</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <p class="footer-credit">Designed by Francis • Built by Fara ©️ 2025</p>
+      <a href="mailto:Francismensah02@gmail.com" class="footer-email">Francismensah02@gmail.com</a>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,2824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The mind behind the work — Francis Fara</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #fafafa;
+      --card:      #ffffff;
+      --inner:     #e6e6e6;
+      --border:    #e2e2e2;
+      --text:      #1a1a1a;
+      --text-sec:  #555555;
+      --text-muted:#999999;
+      --label:     #aaaaaa;
+      --blue:      #1a6cf0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: nowrap;
+      padding: 22px 48px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(250,250,250,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-brand {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.3px;
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+      flex-shrink: 0;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text-sec);
+      transition: color 0.15s;
+    }
+
+    .nav-links a.active { font-weight: 600; color: var(--text); }
+    .nav-links a:hover  { color: var(--text); }
+
+    /* ── CONTAINER ── */
+    .container {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    /* ── SECTION LABEL ── */
+    .skills-label {
+      font-family: 'Geist Mono', monospace;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    /* ── CARDS STACK ── */
+    .cards-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 100px;
+      padding: 72px 0 100px;
+    }
+
+    .sec-card {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 32px 36px;
+    }
+
+    .sec-card-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .sec-card-row > * {
+      min-width: 0;
+    }
+
+    .sec-row--bento { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+    .sec-row--single { grid-template-columns: minmax(0, 1fr); }
+
+    /* ── BENTO GRID ── */
+    .bento-card {
+      background: #1c1c1c;
+      border-color: #1c1c1c;
+      padding: 10px;
+    }
+
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .bento-cell {
+      border-radius: 14px;
+      background: #282828;
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-decoration: none;
+      transition: background 0.15s ease;
+      overflow: hidden;
+      position: relative;
+    }
+
+    a.bento-cell:hover { background: #303030; }
+
+    .bento-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #363636;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #d0d0d0;
+    }
+
+    .bento-icon svg { display: block; }
+
+    .bento-label {
+      color: #c8c8c8;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: -0.2px;
+    }
+
+    .bento-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      border-radius: 14px;
+    }
+
+    /* ── THE MIND BEHIND THE WORK ── */
+    .about-images-wrap {
+      position: relative;
+    }
+
+    .about-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 32px;
+      height: 32px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: opacity 0.2s, box-shadow 0.2s;
+      z-index: 2;
+    }
+
+    .about-nav-btn:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.12); }
+    .about-nav-btn.hidden { opacity: 0; pointer-events: none; }
+    .about-nav-btn--prev { left: -16px; }
+    .about-nav-btn--next { right: -16px; }
+
+    .about-body p {
+      font-size: 14px;
+      color: var(--text-sec);
+      line-height: 1.75;
+      margin-bottom: 18px;
+    }
+
+    .about-body p:last-of-type { margin-bottom: 28px; }
+
+    .about-images {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .about-images::-webkit-scrollbar { display: none; }
+
+    .about-img {
+      flex: 0 0 calc(33.333% - 8px);
+      aspect-ratio: 1;
+      background: var(--inner);
+      border-radius: 12px;
+      overflow: hidden;
+      scroll-snap-align: start;
+    }
+
+    .about-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .about-img--portrait {
+      flex: 0 0 calc(40% - 8px);
+      aspect-ratio: 3 / 4;
+    }
+
+    .about-img--portrait img {
+      object-position: top center;
+    }
+
+    /* ── SIDE PROJECTS ── */
+    .side-project-list {
+      display: flex;
+      flex-direction: column;
+      margin-top: 8px;
+      position: relative;
+    }
+
+    .side-project-list::before {
+      content: '';
+      position: absolute;
+      left: 23px;
+      top: 68px;
+      bottom: 68px;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .side-project-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      padding: 20px 0;
+      text-decoration: none;
+      transition: opacity 0.15s;
+      position: relative;
+    }
+
+    .side-project-item:hover { opacity: 0.65; }
+
+    .side-project-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      flex-shrink: 0;
+      overflow: hidden;
+      background: var(--inner);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .side-project-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .side-project-body {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      padding-top: 4px;
+    }
+
+    .side-project-name {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--text);
+      letter-spacing: -0.2px;
+      line-height: 1.15;
+    }
+
+    .side-project-desc {
+      font-size: 15px;
+      color: var(--text-sec);
+      line-height: 1.5;
+    }
+
+    .side-project-url {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    /* ── RESEARCH & EXPLORATION ── */
+    .rne-subtitle {
+      font-size: 15px;
+      color: var(--text-sec);
+      line-height: 1.65;
+      margin-bottom: 20px;
+    }
+
+    .contentify-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .contentify-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+
+    .contentify-header:hover { opacity: 0.72; }
+
+    .contentify-icon {
+      width: 64px;
+      height: 64px;
+      flex-shrink: 0;
+      background: #f0f0f0;
+      border: 1px solid #e4e4e4;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .contentify-icon-inner {
+      width: 28px;
+      height: 28px;
+      background: #1a1a1a;
+      border-radius: 50%;
+    }
+
+    .contentify-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 24px;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: -0.4px;
+    }
+
+    .contentify-title svg {
+      width: 20px;
+      height: 20px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .contentify-desc {
+      font-size: 14px;
+      color: var(--text-sec);
+      line-height: 1.65;
+    }
+
+    /* ── SKETCHBOOK ── */
+    .sketch-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      height: 100%;
+    }
+
+    .sketch-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 0 12px 0;
+    }
+
+    .sketch-pen-sizes {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sketch-pen {
+      border: none;
+      background: none;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+
+    .sketch-pen:hover { background: var(--inner); }
+    .sketch-pen.active { background: var(--inner); }
+
+    .sketch-pen-dot {
+      background: #1a1a1a;
+      border-radius: 50%;
+    }
+
+    .sketch-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sketch-btn {
+      border: none;
+      background: none;
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 18px;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .sketch-btn:hover { background: var(--inner); color: var(--text); }
+
+    .sketch-canvas-wrap {
+      flex: 1;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 24px 24px;
+      background-color: #ffffff;
+      cursor: crosshair;
+      position: relative;
+    }
+
+    #sketchCanvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      touch-action: none;
+    }
+
+    .sketch-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 12px;
+    }
+
+    .sketch-label {
+      font-family: 'Geist Mono', monospace;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .sketch-send {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-family: 'Geist', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text);
+      padding: 0;
+      transition: opacity 0.15s;
+    }
+
+    .sketch-send:hover { opacity: 0.6; }
+
+    .sketch-sent-msg {
+      font-size: 12px;
+      color: var(--text-muted);
+      display: none;
+    }
+
+    /* ── TO DO LIST ── */
+    .todo-list {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      margin-top: 24px;
+    }
+
+    .todo-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 16px;
+      color: var(--text);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .todo-item.done { color: var(--text-muted); }
+    .todo-item.done .todo-text { text-decoration: line-through; }
+
+    .todo-tooltip {
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 8px);
+      transform: translateX(-50%) scale(0.9);
+      background: var(--text);
+      color: #fff;
+      font-size: 12px;
+      white-space: nowrap;
+      padding: 5px 12px;
+      border-radius: 6px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s ease, transform 0.15s ease;
+    }
+
+    .todo-tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: var(--text);
+    }
+
+    .todo-item.show-tip .todo-tooltip {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+
+    .todo-circle {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 1.5px solid #cccccc;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .todo-circle svg { width: 11px; height: 11px; }
+
+    /* ── CONTACT ── */
+    .contact-section { padding-bottom: 80px; }
+
+    .contact-card {
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 56px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 24px;
+    }
+
+    .contact-eyebrow {
+      font-size: 14px;
+      color: var(--text-sec);
+    }
+
+    .contact-email {
+      font-size: clamp(18px, 3.5vw, 32px);
+      font-weight: 500;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.8px;
+      transition: opacity 0.15s;
+    }
+
+    .contact-email:hover { opacity: 0.7; }
+
+    .contact-socials {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .contact-social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      text-decoration: none;
+      font-size: 14px;
+      color: var(--text-sec);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 10px 24px;
+      border-radius: 100px;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .contact-social-link:hover {
+      border-color: #bbb;
+      color: var(--text);
+    }
+
+    /* ── GUESTBOOK ── */
+    .guestbook-section { padding: 0 0 80px; }
+
+    .guestbook-card {
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 36px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .guestbook-copy {
+      max-width: 460px;
+    }
+
+    .guestbook-title {
+      font-size: 22px;
+      font-weight: 500;
+      line-height: 1.25;
+      letter-spacing: -0.6px;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .guestbook-text {
+      font-size: 15px;
+      color: var(--text-sec);
+      line-height: 1.65;
+    }
+
+    .guestbook-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-family: 'Geist Mono', monospace;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: #fff;
+      background: var(--text);
+      border-radius: 10px;
+      padding: 12px 18px;
+      transition: opacity 0.15s, transform 0.15s;
+      white-space: nowrap;
+    }
+
+    .guestbook-action:hover {
+      opacity: 0.86;
+      transform: translateY(-1px);
+    }
+
+    .guestbook-shell {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 32px 36px;
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .gb-heading-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0;
+    }
+
+    .gb-heading-row .skills-label {
+      margin-bottom: 0;
+    }
+
+    .gb-dark-toggle {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.2s, border-color 0.2s;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+    .gb-dark-toggle:hover { background: var(--inner); }
+
+    #guestbook-full .guestbook-shell.gb-dark {
+      background: #141414 !important;
+      border-color: #ffffff !important;
+      box-shadow: 0 0 0 1px rgba(192,192,192,0.3);
+    }
+    .guestbook-shell.gb-dark .gb-dark-toggle {
+      border-color: #333;
+      color: #888;
+    }
+    .guestbook-shell.gb-dark .gb-dark-toggle:hover { background: #222; }
+    .guestbook-shell.gb-dark .skills-label { color: #c0c0c0; }
+    .guestbook-shell.gb-dark .guestbook-title { color: #e8e8e8; }
+    .guestbook-shell.gb-dark .gb-heading-row { border-color: #2a2a2a; }
+    .guestbook-shell.gb-dark .gb-inline-label { color: #555; }
+    .guestbook-shell.gb-dark .gb-inline-input,
+    .guestbook-shell.gb-dark .gb-inline-textarea {
+      background: #1c1c1c;
+      border-color: #2a2a2a;
+      color: #e0e0e0;
+    }
+    .guestbook-shell.gb-dark .gb-inline-input::placeholder,
+    .guestbook-shell.gb-dark .gb-inline-textarea::placeholder { color: #666; }
+    .guestbook-shell.gb-dark .gb-switch-track { background: #2a2a2a; }
+    .guestbook-shell.gb-dark .gb-switch input:checked + .gb-switch-track { background: #d0d0d0; }
+    .guestbook-shell.gb-dark .gb-switch-label { color: #999; }
+    .guestbook-shell.gb-dark .gb-submit { background: #e8e8e8; color: #111; }
+    .guestbook-shell.gb-dark .gb-submit:hover { opacity: 0.85; }
+    .guestbook-shell.gb-dark .gb-status { color: #555; }
+    .guestbook-shell.gb-dark .gb-stamp-num { color: #888; opacity: 1; }
+    .guestbook-shell.gb-dark .gb-stamp-date-text { opacity: 0.4; }
+    .guestbook-shell.gb-dark .gb-view-all-text { color: #888; }
+    .guestbook-shell.gb-dark .gb-view-all-text:hover { color: #ccc; }
+
+    .guestbook-intro {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      min-width: 0;
+    }
+
+    .guestbook-intro-text {
+      max-width: 460px;
+    }
+
+    .guestbook-intro .skills-label { margin-bottom: 12px; }
+
+    .guestbook-title {
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1.65;
+      letter-spacing: 0;
+      color: var(--text-sec);
+      margin: 0;
+    }
+
+    .guestbook-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .guestbook-sign-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      border-radius: 10px;
+      padding: 11px 18px;
+      background: var(--text);
+      color: #fff;
+      font-family: 'Geist Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.15s;
+      white-space: nowrap;
+    }
+
+    .guestbook-sign-btn:hover {
+      opacity: 0.86;
+      transform: translateY(-1px);
+    }
+
+    .guestbook-secondary-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 16px;
+      background: #fff;
+      color: var(--text-sec);
+      font-family: 'Geist Mono', monospace;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s, transform 0.15s;
+      white-space: nowrap;
+    }
+
+    .guestbook-secondary-btn:hover {
+      border-color: #d0cbc2;
+      color: var(--text);
+      transform: translateY(-1px);
+    }
+
+    .gb-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 300;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(10, 10, 10, 0.38);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .gb-modal.open { display: flex; }
+
+    .gb-modal-panel {
+      position: relative;
+      width: min(100%, 500px);
+      max-height: calc(100vh - 48px);
+      overflow-y: auto;
+    }
+
+    .gb-all-modal .gb-modal-panel {
+      width: min(100%, 980px);
+    }
+
+    .gb-modal-close {
+      position: absolute;
+      top: 22px;
+      right: 22px;
+      z-index: 2;
+      width: 28px;
+      height: 28px;
+      border: 1px solid #dbd8d0;
+      border-radius: 50%;
+      background: #fff;
+      color: var(--text-sec);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .gb-form-wrap {
+      max-width: 520px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .gb-form-card {
+      background:
+        radial-gradient(circle at top left, rgba(255, 196, 165, 0.36), transparent 38%),
+        radial-gradient(circle at bottom right, rgba(246, 207, 255, 0.34), transparent 42%),
+        rgba(255, 251, 247, 0.96);
+      border: 1px solid rgba(227, 217, 206, 0.94);
+      box-shadow: 0 22px 48px rgba(96, 78, 59, 0.14);
+      border-radius: 28px;
+      padding: 22px;
+      position: relative;
+    }
+
+    .gb-form-shell {
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(233, 226, 217, 0.95);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+      overflow: hidden;
+    }
+
+    .gb-form-top {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 0;
+      padding: 26px 26px 18px;
+      padding-right: 70px;
+      border-bottom: 1px solid #ece3da;
+    }
+
+    .gb-form-title {
+      font-family: 'Caveat', cursive;
+      font-size: 40px;
+      font-weight: 700;
+      letter-spacing: 0;
+      color: #34291f;
+      line-height: 0.98;
+    }
+
+    .gb-form-subtitle {
+      font-size: 14px;
+      font-weight: 400;
+      color: #6f6256;
+      letter-spacing: 0;
+      max-width: 320px;
+      line-height: 1.55;
+    }
+
+    .gb-form-body {
+      padding: 20px 26px 0;
+    }
+
+    .gb-field { margin-bottom: 16px; }
+    .gb-field.hidden { display: none; }
+
+    .gb-field-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 0.9fr;
+      gap: 14px;
+    }
+
+    .gb-field-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .gb-label {
+      font-family: 'Geist Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-sec);
+    }
+
+    .gb-counter {
+      font-family: 'Geist Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .gb-input,
+    .gb-textarea {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid #e5ddd3;
+      border-radius: 14px;
+      padding: 13px 15px;
+      font-family: 'Geist', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      outline: none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
+      transition: border-color 0.15s, box-shadow 0.15s;
+      resize: none;
+    }
+
+    .gb-input:focus,
+    .gb-textarea:focus {
+      border-color: #d2b9a1;
+      box-shadow: 0 0 0 4px rgba(242, 204, 174, 0.24);
+    }
+
+    .gb-input::placeholder,
+    .gb-textarea::placeholder {
+      font-family: 'Caveat', cursive;
+      font-size: 23px;
+      color: #ab9e91;
+      letter-spacing: 0;
+    }
+
+    .gb-textarea {
+      min-height: 118px;
+      line-height: 1.6;
+    }
+
+    .gb-vis-hint {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      font-family: 'Geist Mono', monospace;
+    }
+
+    .gb-vis-row {
+      display: flex;
+      gap: 6px;
+      padding: 18px 26px 0;
+      margin-bottom: 0;
+    }
+
+    .gb-vis-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 8px 14px;
+      background: rgba(255,255,255,0.8);
+      border: 1px solid #e4dbd0;
+      border-radius: 100px;
+      font-family: 'Geist', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .gb-vis-btn.active {
+      background: #eff6ff;
+      border-color: #93c5fd;
+      color: #1d4ed8;
+    }
+
+    .gb-vis-btn svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+    .gb-submit-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 20px;
+      padding: 18px 26px 22px;
+      border-top: 1px solid #ece3da;
+    }
+
+    .gb-status {
+      font-size: 13px;
+      color: #7d7063;
+      line-height: 1.4;
+    }
+
+    .gb-status.error { color: #ef4444; }
+    .gb-status.success { color: #16a34a; }
+
+    .gb-submit {
+      padding: 11px 22px;
+      background: var(--text);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-family: 'Geist Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+      width: 100%;
+    }
+
+    .gb-submit:hover { opacity: 0.8; }
+    .gb-submit:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    .stamp-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+      flex-wrap: nowrap;
+    }
+
+    .stamp-header .guestbook-secondary-btn {
+      flex-shrink: 0;
+      padding: 7px 14px;
+      font-size: 11px;
+    }
+
+    .stamp-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .stamp-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-sec);
+      white-space: nowrap;
+    }
+
+    .stamp-preview {
+      padding-top: 4px;
+    }
+
+    .gb-preview-grid,
+    .gb-all-grid,
+    .gb-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .gb-preview-grid {
+      display: block;
+      position: relative;
+      width: min(100%, 350px);
+      height: 460px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    .gb-preview-grid::before,
+    .gb-preview-grid::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 80px;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    .gb-preview-grid::before {
+      top: 0;
+      background: linear-gradient(180deg, var(--bg) 0%, transparent 100%);
+    }
+
+    .gb-preview-grid::after {
+      bottom: 0;
+      background: linear-gradient(0deg, var(--bg) 0%, transparent 100%);
+    }
+
+    .gb-preview-grid .gb-card {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: min(100%, 330px);
+      margin: 0;
+      opacity: 0;
+      transform: translate(-50%, -145%) scale(0.82) rotate(-1deg);
+      transition: transform 0.72s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.72s ease;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .gb-preview-grid .gb-card.is-next {
+      opacity: 0.22;
+      transform: translate(-50%, -112%) scale(0.78) rotate(1.5deg);
+      z-index: 1;
+    }
+
+    .gb-preview-grid .gb-card.is-active {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1.1) rotate(-1deg);
+      z-index: 3;
+    }
+
+    .gb-preview-grid .gb-card.is-exiting {
+      opacity: 0;
+      transform: translate(-50%, 48%) scale(0.88) rotate(1deg);
+      z-index: 2;
+    }
+
+    .guestbook-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .guestbook-left {
+      position: sticky;
+      top: 100px;
+    }
+
+    .guestbook-right {
+      min-width: 0;
+    }
+
+    .gb-view-all-text {
+      display: block;
+      margin-top: 14px;
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: 13px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: color 0.15s;
+      text-align: left;
+    }
+
+    .gb-view-all-text:hover { color: var(--text); }
+
+    .gb-inline-form {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-left: -16px;
+    }
+
+    .gb-inline-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .gb-inline-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .gb-inline-counter {
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+
+    .gb-inline-input,
+    .gb-inline-textarea {
+      width: 100%;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-family: 'Geist', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      resize: none;
+    }
+
+    .gb-inline-input:focus,
+    .gb-inline-textarea:focus {
+      border-color: #bbb;
+      box-shadow: 0 0 0 3px rgba(0,0,0,0.05);
+    }
+
+    .gb-inline-input::placeholder,
+    .gb-inline-textarea::placeholder {
+      color: var(--text-muted);
+      font-family: 'Geist', sans-serif;
+      font-size: 14px;
+    }
+
+    .gb-inline-textarea { min-height: 88px; line-height: 1.6; }
+
+    .gb-switch-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .gb-switch {
+      position: relative;
+      display: inline-block;
+      width: 36px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    .gb-switch input { opacity: 0; width: 0; height: 0; }
+
+    .gb-switch-track {
+      position: absolute;
+      inset: 0;
+      background: var(--border);
+      border-radius: 999px;
+      transition: background 0.2s;
+      cursor: pointer;
+    }
+
+    .gb-switch-track::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #fff;
+      transition: transform 0.2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    }
+
+    .gb-switch input:checked + .gb-switch-track { background: var(--text); }
+    .gb-switch input:checked + .gb-switch-track::after { transform: translateX(16px); }
+
+    .gb-switch-label {
+      font-size: 13px;
+      color: var(--text-sec);
+    }
+
+    .gb-inline-footer {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .guestbook-mini-card {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      min-width: 0;
+    }
+
+    .guestbook-mini-card .guestbook-title {
+      margin-bottom: 24px;
+    }
+
+    .guestbook-mini-card .gb-inline-form {
+      margin-left: 0;
+      gap: 18px;
+    }
+
+    .guestbook-mini-card .gb-inline-label {
+      font-size: 15px;
+      color: var(--text);
+      letter-spacing: 0;
+    }
+
+    .guestbook-mini-card .gb-inline-counter,
+    .guestbook-mini-card .gb-switch-row {
+      display: none;
+    }
+
+    .guestbook-mini-card .gb-inline-input,
+    .guestbook-mini-card .gb-inline-textarea {
+      border-radius: 10px;
+      padding: 13px 16px;
+      font-size: 15px;
+    }
+
+    .guestbook-mini-card .gb-inline-textarea {
+      min-height: 112px;
+    }
+
+    .guestbook-mini-card .gb-submit {
+      margin-top: 2px;
+      border-radius: 999px;
+      padding: 12px 22px;
+      font-family: 'Geist', sans-serif;
+      font-size: 15px;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .guestbook-mini-card .gb-preview-grid {
+      display: block;
+      gap: 18px;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      height: auto;
+      margin: 0;
+      overflow-x: hidden;
+      overflow-y: hidden;
+      padding: 2px 2px 10px;
+      scrollbar-width: none;
+    }
+
+    .guestbook-mini-card .gb-preview-grid::-webkit-scrollbar {
+      display: none;
+    }
+
+    .guestbook-mini-card .gb-scroll-track {
+      display: flex;
+      gap: 18px;
+      width: 100%;
+      min-width: 0;
+      will-change: transform;
+      animation: gb-mini-marquee 34s linear infinite;
+    }
+
+    .guestbook-mini-card .gb-preview-grid:hover .gb-scroll-track {
+      animation-play-state: paused;
+    }
+
+    .guestbook-mini-card .gb-preview-grid::before,
+    .guestbook-mini-card .gb-preview-grid::after {
+      display: none;
+    }
+
+    .guestbook-mini-card .gb-preview-grid .gb-card {
+      position: relative;
+      left: auto;
+      top: auto;
+      width: auto;
+      flex: 0 0 calc((100% - 36px) / 3);
+      margin: 0;
+      opacity: 1;
+      transform: none;
+      transition: none;
+      pointer-events: auto;
+    }
+
+    .guestbook-mini-card .gb-card--palette {
+      aspect-ratio: 212 / 202;
+      border-radius: 18px;
+      background: var(--stamp-bg);
+      overflow: hidden;
+    }
+
+    .guestbook-mini-card .gb-card--palette .gb-stamp-svg,
+    .guestbook-mini-card .gb-card--palette .gb-stamp-header,
+    .guestbook-mini-card .gb-card--palette .gb-stamp-footer {
+      display: none;
+    }
+
+    .guestbook-mini-card .gb-card--palette .gb-card-inner {
+      position: relative;
+      inset: auto;
+      height: 100%;
+      padding: 17px 18px 16px;
+      display: flex;
+      flex-direction: column;
+      background: var(--stamp-bg);
+    }
+
+    .guestbook-mini-card .gb-card--palette .gb-card-name {
+      margin: 0;
+      max-width: 100%;
+      color: var(--stamp-text);
+      font-family: 'Geist', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: 0.12em;
+      text-align: left;
+      text-transform: uppercase;
+    }
+
+    .guestbook-mini-card .gb-card--palette .gb-card-msg-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      padding: 0;
+    }
+
+    .guestbook-mini-card .gb-card--palette .gb-card-msg {
+      margin: 0;
+      color: var(--stamp-text);
+      font-family: 'Geist', sans-serif;
+      font-size: clamp(16px, 2.1vw, 22px);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: 0.1em;
+      text-align: left;
+      text-transform: uppercase;
+      opacity: 1;
+    }
+
+    @keyframes gb-mini-marquee {
+      from { transform: translateX(calc(-50% - 9px)); }
+      to { transform: translateX(0); }
+    }
+
+    .guestbook-mini-card .gb-card-inner {
+      padding: 15% 14% 12%;
+    }
+
+    .guestbook-mini-card .gb-card-name {
+      font-size: 18px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .guestbook-mini-card .gb-card-msg {
+      font-family: 'Geist Mono', monospace;
+      font-size: 12px;
+      line-height: 1.45;
+      text-align: center;
+    }
+
+    .guestbook-mini-card .gb-stamp-header {
+      display: none;
+    }
+
+    .guestbook-mini-card .gb-stamp-footer {
+      justify-content: center;
+      margin-top: auto;
+    }
+
+    .guestbook-mini-card .gb-view-all-text {
+      align-self: stretch;
+      margin-top: 0;
+      width: 100%;
+      font-size: 16px;
+      color: var(--text);
+      text-align: right;
+    }
+
+    #guestbook-full .guestbook-split {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 28px;
+      align-items: stretch;
+      position: relative;
+      z-index: 1;
+      background: transparent;
+      border: none;
+      padding: 0;
+    }
+
+    #guestbook-full .guestbook-shell {
+      position: relative;
+      gap: 0;
+      border: 12px solid var(--text);
+      border-radius: 0;
+      padding: 30px 32px 30px 46px;
+      background: #fff;
+      box-shadow: none;
+    }
+
+    #guestbook-full .guestbook-left {
+      position: static;
+      top: auto;
+      display: flex;
+      flex-direction: column;
+      min-height: 429px;
+    }
+
+    #guestbook-full .gb-heading {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin-left: -16px;
+      margin-bottom: 24px;
+    }
+
+    #guestbook-full .gb-heading .skills-label,
+    #guestbook-full .gb-heading .guestbook-title {
+      margin: 0;
+    }
+
+    #guestbook-full .gb-inline-form {
+      flex: 1;
+    }
+
+    #guestbook-full .gb-inline-footer {
+      margin-top: auto;
+    }
+
+    #guestbook-full #gbPreviewGridFull {
+      display: block;
+      position: relative;
+      width: min(100%, 360px);
+      height: 376px;
+      max-width: 360px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    #guestbook-full #gbPreviewGridFull::before,
+    #guestbook-full #gbPreviewGridFull::after {
+      display: none;
+    }
+
+    #guestbook-full .gb-stamp2-vertical-track {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px 14px;
+      will-change: transform;
+      animation: gb-stamp2-vertical-scroll 36s linear infinite;
+    }
+
+    #guestbook-full #gbPreviewGridFull:hover .gb-stamp2-vertical-track {
+      animation-play-state: paused;
+    }
+
+    #guestbook-full #gbPreviewGridFull .gb-card {
+      position: relative;
+      left: auto;
+      top: auto;
+      width: 100%;
+      margin: 0;
+      opacity: 1;
+      transform: none;
+      transition: none;
+      pointer-events: auto;
+      z-index: 1;
+    }
+
+    #guestbook-full #gbPreviewGridFull .gb-card-msg {
+      font-size: 22px;
+      line-height: 1.22;
+    }
+
+    #guestbook-full #gbPreviewGridFull .gb-card-name {
+      font-size: 18px;
+    }
+
+    @keyframes gb-stamp2-vertical-scroll {
+      from { transform: translateY(calc(-50% - 12px)); }
+      to { transform: translateY(0); }
+    }
+
+    .gb-all-grid,
+    .gb-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .gb-all-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 30px;
+      position: relative;
+    }
+
+    .gb-all-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      padding-right: 46px;
+      margin-bottom: 24px;
+    }
+
+    .gb-all-title {
+      margin: 8px 0 0;
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1.6;
+      letter-spacing: 0;
+      color: var(--text-sec);
+    }
+
+    .gb-all-grid {
+      max-height: min(66vh, 660px);
+      overflow-y: auto;
+      padding-right: 8px;
+      scrollbar-width: thin;
+    }
+
+    .gb-empty,
+    .gb-loading {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 36px 0;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .gb-loading-dots {
+      display: inline-flex;
+      gap: 5px;
+    }
+
+    .gb-loading-dots span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--text-muted);
+      animation: dot-pulse 1.2s ease-in-out infinite;
+    }
+
+    .gb-loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .gb-loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+    .gb-card {
+      position: relative;
+      overflow: visible;
+      width: 100%;
+      aspect-ratio: 131 / 173;
+      margin-top: 14px;
+      padding: 0;
+      border: none;
+      background: transparent;
+    }
+
+    .gb-stamp-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      filter: none;
+    }
+
+    .gb-card-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      padding: 14% 12% 12%;
+    }
+
+    .gb-stamp-header {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-bottom: 8px;
+    }
+
+    .gb-stamp-num {
+      font-family: 'Geist Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--stamp-text);
+      opacity: 0.55;
+    }
+
+    .gb-pin {
+      position: absolute;
+      top: 1px;
+      right: 10px;
+      width: 26px;
+      height: 26px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.25));
+      z-index: 2;
+    }
+    .gb-pin img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .gb-card-name {
+      font-family: 'Caveat', cursive;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: 0;
+      color: var(--stamp-text);
+      margin-bottom: 6px;
+      word-break: break-word;
+      text-align: left;
+      opacity: 0.7;
+    }
+
+    .gb-card-msg-wrap {
+      flex: 1;
+      position: relative;
+      padding: 0 4px;
+    }
+
+    .gb-card-msg {
+      font-family: 'Caveat', cursive;
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--stamp-text);
+      line-height: 1.2;
+      word-break: break-word;
+      text-align: left;
+      position: relative;
+    }
+
+    .gb-card-emojis {
+      font-size: 20px;
+      letter-spacing: 2px;
+      line-height: 1.6em;
+      text-align: center;
+    }
+
+    .gb-stamp-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+    }
+
+    .gb-stamp-date-text {
+      font-family: 'Geist Mono', monospace;
+      font-size: 10px;
+      color: var(--stamp-text);
+      opacity: 0.4;
+      letter-spacing: 0.04em;
+    }
+
+    .gb-stamp-circle {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 1.5px dashed var(--stamp-text);
+      opacity: 0.25;
+    }
+
+    .gb-card-date {
+      display: none;
+      font-size: 13px;
+      line-height: 1;
+      color: #303931;
+      letter-spacing: -0.6px;
+    }
+
+    @keyframes dot-pulse {
+      0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
+      40% { opacity: 1; transform: scale(1); }
+    }
+
+    /* ── FOOTER ── */
+    footer { padding: 24px 0 36px; }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-credit {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .footer-email {
+      font-size: 14px;
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    .footer-email:hover { color: var(--text-sec); }
+
+    .footer-email-wrap {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .footer-copy-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .footer-copy {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      transition: color 0.15s;
+    }
+
+    .footer-copy:hover { color: var(--text-sec); }
+
+    .copy-tooltip {
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) scale(0.9);
+      background: var(--text);
+      color: #fff;
+      font-size: 12px;
+      white-space: nowrap;
+      padding: 5px 12px;
+      border-radius: 6px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s ease, transform 0.15s ease;
+    }
+
+    .copy-tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: var(--text);
+    }
+
+    .copy-tooltip.show {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+
+    .footer-time { font-size: 14px; color: var(--text-muted); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      /* Nav */
+      nav { padding: 14px 20px; }
+      .container { padding: 0 20px; }
+
+      /* Cards stack */
+      .cards-stack { gap: 48px; padding: 48px 0 60px; }
+      .sec-card { padding: 24px 20px; }
+      .sec-card-row,
+      .sec-row--bento { grid-template-columns: 1fr; }
+
+      /* Bento grid — CRITICAL: collapse 3 cols to 2 */
+      .bento-grid { grid-template-columns: repeat(2, 1fr); }
+
+      /* About images */
+      .about-images { flex-wrap: wrap; }
+      .about-img { flex: 0 0 calc(50% - 6px); min-width: 0; }
+
+      /* Side projects */
+      .side-project-list::before { display: none; }
+
+      /* Contact */
+      .contact-card { padding: 36px 24px; }
+      .contact-email { font-size: clamp(16px, 5vw, 28px); }
+      .contact-social-link { padding: 10px 18px; }
+
+      /* Guestbook section container */
+      .guestbook-section .container {
+        width: 100%;
+        padding: 0 20px;
+      }
+      .guestbook-shell { width: 100%; padding: 24px 20px; }
+      .guestbook-intro { align-items: flex-start; flex-direction: column; width: 100%; }
+
+      /* Guestbook split — stack form above stamps */
+      .guestbook-split { grid-template-columns: 1fr; gap: 28px; }
+      .guestbook-left { position: static; top: auto; }
+      .guestbook-right { max-height: none; }
+
+      /* Stamp preview grid — 2 columns on mobile */
+      .gb-preview-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 8px; }
+
+      /* Stamp collection modal grid — 2 columns */
+      .gb-all-grid,
+      .gb-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .gb-all-card { padding: 20px 16px; }
+      .gb-all-top { flex-direction: column; padding-right: 36px; gap: 8px; margin-bottom: 16px; }
+
+      /* Guestbook full section */
+      #guestbook-full .guestbook-shell { padding: 24px 20px 24px 28px; }
+      #guestbook-full .guestbook-left { min-height: auto; }
+      #guestbook-full .gb-heading { margin-left: 0; }
+
+      /* Form */
+      .gb-inline-form { margin-left: 0; }
+      .gb-view-all-text { text-align: left !important; }
+      .guestbook-sign-btn,
+      .guestbook-secondary-btn { width: 100%; }
+      .gb-submit-row { align-items: stretch; flex-direction: column; }
+      .gb-submit { width: 100%; }
+      .gb-all-grid { max-height: 60vh; }
+
+      /* Footer */
+      .footer-inner { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .footer-email-wrap { flex-direction: column; align-items: flex-start; gap: 8px; }
+    }
+
+    @media (max-width: 480px) {
+      /* Bento grid — 1 column on small phones */
+      .bento-grid { grid-template-columns: 1fr; }
+
+      /* Stamps — single column on very small screens */
+      .gb-preview-grid { grid-template-columns: minmax(0, 1fr) !important; }
+      .gb-all-grid,
+      .gb-grid { grid-template-columns: 1fr; }
+
+      /* About images — single column */
+      .about-img { flex: 0 0 100%; }
+
+      /* Guestbook full border thinner on small phones */
+      #guestbook-full .guestbook-shell { border-width: 6px; padding: 20px 16px 20px 22px; }
+
+      /* Contact email min size */
+      .contact-email { font-size: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-brand">Francis Fara</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about-me.html" class="active">About me</a></li>
+    </ul>
+  </nav>
+
+  <section id="about">
+    <div class="container">
+      <div class="cards-stack">
+
+        <!-- THE MIND BEHIND THE WORK -->
+        <div class="sec-card">
+          <span class="skills-label">The mind behind the work</span>
+          <div class="about-body">
+            <p>Hi, I'm Francis — Product designer, Brand Identity designer and Framer developer</p>
+            <p>My journey into design started around 2014, back at university. Out of curiosity, I began experimenting with Adobe Photoshop 7, mostly doing simple image retouching. It felt fun at first, but that curiosity quickly turned into something more serious.</p>
+            <p>What started as small flyer designs for course mates gradually grew into paid work. Before long, I was taking on part-time and then full-time roles after graduating, building my foundation as a designer.</p>
+            <p>In 2018, a friend asked me to help redesign a local bank's app. At the time, I had no real understanding of UI design or what made a product truly work. But that moment sparked something deeper. I became curious, not just about how interfaces looked, but about how people actually used them, what confused them, what made things feel easy, and what made a product genuinely helpful.</p>
+            <p>I took a two-week Udemy course, learned as much as I could, and contributed what I could to the project. But more importantly, that experience shifted my perspective. I started paying closer attention to users — their needs, their frustrations, and what it really takes to build something that serves them well. From there, I became intentional about improving my craft: taking more structured courses, studying great design work, staying up to date with evolving trends, and consistently challenging myself through side projects I could ship. Over time, this shifted me from simply designing interfaces to thinking more deeply about systems, decisions, and impact.</p>
+            <p>From there, I transitioned fully into product design. I went on to work with design agencies and companies across Ghana, Nigeria, and Kenya, and later collaborated with international teams and companies across Europe and United States to design products that solve real problems across industries like fintech, sales intelligence, compliance and others.</p>
+            <p>Along the way, I've learned what it truly takes to build products, working closely with engineers and stakeholders, communicating clearly, and balancing technical thinking with strong design decisions. From discovery to shipping, I focus on maintaining context, clarity, and purpose at every stage, using AI and emerging tools to move faster and deliver better outcomes.</p>
+          </div>
+          <div class="about-images-wrap">
+            <button class="about-nav-btn about-nav-btn--prev hidden" id="aboutPrev" onclick="scrollAbout(-1)">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="#555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="about-images" id="aboutImages">
+              <div class="about-img about-img--portrait"><img src="me/my image.JPG" alt="Francis" /></div>
+              <div class="about-img"><img src="WevxTCAuzfSNG0dl2S4kHFLVA4.webp" alt="Francis" /></div>
+              <div class="about-img"><img src="81PuSwf2bwk87HY1Ngzkrk32CKw.webp" alt="Francis at desk" /></div>
+              <div class="about-img"><img src="me/Francis Mensah.JPG" alt="Francis" /></div>
+            </div>
+            <button class="about-nav-btn about-nav-btn--next" id="aboutNext" onclick="scrollAbout(1)">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="#555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- LATEST SIDE PROJECT + BENTO -->
+        <div class="sec-card-row sec-row--single">
+
+          <div class="sec-card">
+            <span class="skills-label">Side Projects</span>
+            <div class="side-project-list">
+
+              <a href="#" class="side-project-item">
+                <div class="side-project-icon">
+                  <img src="images/side/colorables.png" alt="Colorables" onerror="this.style.display='none'" />
+                </div>
+                <div class="side-project-body">
+                  <span class="side-project-name">Colorables</span>
+                  <span class="side-project-desc">Free printable coloring pages for kids &amp; adults alike.</span>
+                  <span class="side-project-url">Colorabl.es</span>
+                </div>
+              </a>
+
+              <a href="#" class="side-project-item">
+                <div class="side-project-icon">
+                  <img src="images/side/flowmingo.png" alt="Flowmingo" onerror="this.style.display='none'" />
+                </div>
+                <div class="side-project-body">
+                  <span class="side-project-name">Flowmingo</span>
+                  <span class="side-project-desc">Webflow templates and education.</span>
+                  <span class="side-project-url">Flowmingo.co</span>
+                </div>
+              </a>
+
+              <a href="#" class="side-project-item">
+                <div class="side-project-icon">
+                  <img src="images/side/happyhues.png" alt="Happy Hues" onerror="this.style.display='none'" />
+                </div>
+                <div class="side-project-body">
+                  <span class="side-project-name">Happy Hues</span>
+                  <span class="side-project-desc">Curated color palettes in the context of a real website.</span>
+                  <span class="side-project-url">Happyhues.co</span>
+                </div>
+              </a>
+
+            </div>
+          </div>
+
+          <div class="sec-card bento-card" style="display:none">
+            <div class="bento-grid">
+              <!-- Row 1 -->
+              <div class="bento-cell bento-photo">
+                <img src="me/my image.JPG" alt="Francis" />
+              </div>
+              <a href="#" target="_blank" rel="noopener" class="bento-cell">
+                <div class="bento-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72"/><path d="M17.32 21.25C14.14 18 9.29 16.25 2.5 17.27"/><path d="M21.5 12c-3 -.8-6.5-.7-9.5 0s-4.5 2.86-7 6.32"/></svg>
+                </div>
+                <span class="bento-label">Dribbble</span>
+              </a>
+              <a href="https://layers.to" target="_blank" rel="noopener" class="bento-cell">
+                <div class="bento-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                </div>
+                <span class="bento-label">Layers</span>
+              </a>
+              <!-- Row 2 -->
+              <div class="bento-cell bento-photo">
+                <img src="WevxTCAuzfSNG0dl2S4kHFLVA4.webp" alt="Francis" />
+              </div>
+              <a href="#" target="_blank" rel="noopener" class="bento-cell">
+                <div class="bento-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M22 7h-7V5h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14H15.97c.13 3.211 3.483 3.312 4.588 2.029H23.726zm-7.726-3h3.543c-.073-1.77-1.336-2.47-1.783-2.47-1.239 0-1.637.966-1.76 2.47z" opacity="0.9"/><path d="M6.384 13.124c.849-.136 1.492-.612 1.492-1.686C7.876 9.513 6.382 9 4.768 9H0v10h4.957c1.928 0 3.386-.767 3.386-2.881 0-1.235-.598-2.437-1.959-2.995zM2.24 11H4c.811 0 1.615.195 1.615 1.186 0 .896-.577 1.234-1.451 1.234H2.24V11zm2.034 5.79H2.24v-2.527h2.011c1.099 0 1.643.434 1.643 1.34 0 .976-.622 1.187-1.62 1.187z" opacity="0.9"/></svg>
+                </div>
+                <span class="bento-label">Behance</span>
+              </a>
+              <div class="bento-cell bento-photo">
+                <img src="me/Francis Mensah.JPG" alt="Francis" />
+              </div>
+              <!-- Row 3 -->
+              <a href="#" target="_blank" rel="noopener" class="bento-cell">
+                <div class="bento-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 13.2c2.667-.933 5.333-.933 8 .4"/><path d="M6.5 10c3.5-1.333 7.5-1.333 11 .5"/><path d="M9.5 16.3c2-.733 4-.733 5.5.3"/></svg>
+                </div>
+                <span class="bento-label">Spotify</span>
+              </a>
+              <a href="#" target="_blank" rel="noopener" class="bento-cell">
+                <div class="bento-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" opacity="0.9"/><rect x="2" y="9" width="4" height="12" opacity="0.9"/><circle cx="4" cy="4" r="2" opacity="0.9"/></svg>
+                </div>
+                <span class="bento-label">LinkedIn</span>
+              </a>
+              <a href="https://instagram.com/fara.lume" target="_blank" rel="noopener" class="bento-cell">
+                <div class="bento-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+                </div>
+                <span class="bento-label">Instagram</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- SKETCHBOOK -->
+        <div class="sec-card" style="display:none; flex-direction:column; padding:16px 20px;">
+            <span class="skills-label">Sketchbook</span>
+            <div class="sketch-wrap">
+              <div class="sketch-toolbar">
+                <div class="sketch-pen-sizes">
+                  <button class="sketch-pen active" data-size="2" onclick="setPen(this)" title="Fine">
+                    <span class="sketch-pen-dot" style="width:4px;height:4px;"></span>
+                  </button>
+                  <button class="sketch-pen" data-size="5" onclick="setPen(this)" title="Medium">
+                    <span class="sketch-pen-dot" style="width:8px;height:8px;"></span>
+                  </button>
+                  <button class="sketch-pen" data-size="10" onclick="setPen(this)" title="Thick">
+                    <span class="sketch-pen-dot" style="width:14px;height:14px;"></span>
+                  </button>
+                </div>
+                <div class="sketch-actions">
+                  <button class="sketch-btn" onclick="undoSketch()" title="Undo">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"/><path d="M3 13C5.5 7 10.5 5 15 5a9 9 0 0 1 6 14"/></svg>
+                  </button>
+                  <button class="sketch-btn" onclick="clearSketch()" title="Clear">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <div class="sketch-canvas-wrap">
+                <canvas id="sketchCanvas"></canvas>
+              </div>
+
+              <div class="sketch-footer">
+                <div style="display:flex;align-items:center;gap:12px;">
+                  <span class="sketch-sent-msg" id="sketchSentMsg">Downloaded — send to stylishfrancis@gmail.com</span>
+                  <button class="sketch-send" onclick="sendSketch()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                    Send
+                  </button>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <!-- MUSIC + TO DO LIST -->
+        <div class="sec-card-row">
+
+          <div class="sec-card">
+            <span class="skills-label">Music</span>
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/4Px7JTHzSPvlVkJ1InKwqM?utm_source=generator" width="100%" height="352" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          </div>
+
+          <div class="sec-card">
+            <span class="skills-label">To Do List</span>
+            <div class="todo-list">
+              <div class="todo-item done" onclick="showTip(this)">
+                <div class="todo-circle">
+                  <svg viewBox="0 0 11 11" fill="none">
+                    <path d="M2 5.5l2.5 2.5L9 3" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <span class="todo-text">Marry my university sweetheart</span>
+                <span class="todo-tooltip">Go get your own list</span>
+              </div>
+              <div class="todo-item done" onclick="showTip(this)">
+                <div class="todo-circle">
+                  <svg viewBox="0 0 11 11" fill="none">
+                    <path d="M2 5.5l2.5 2.5L9 3" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <span class="todo-text">Found a company</span>
+                <span class="todo-tooltip">Go get your own list</span>
+              </div>
+              <div class="todo-item" onclick="showTip(this)">
+                <div class="todo-circle"></div>
+                <span class="todo-text">Ship two more projects</span>
+                <span class="todo-tooltip">Go get your own list</span>
+              </div>
+              <div class="todo-item" onclick="showTip(this)">
+                <div class="todo-circle"></div>
+                <span class="todo-text">Learn motion design</span>
+                <span class="todo-tooltip">Go get your own list</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- GUESTBOOK COMPARISON -->
+  <section class="guestbook-section" id="guestbook-full">
+    <div class="container">
+      <div class="guestbook-shell" id="gbShell">
+        <div class="guestbook-split">
+
+          <div class="guestbook-left">
+            <div class="gb-heading">
+              <div class="gb-heading-row">
+                <span class="skills-label">Guestbook</span>
+                <button class="gb-dark-toggle" onclick="toggleGbDark()" title="Toggle dark mode" id="gbDarkBtn">
+                  <svg id="gbDarkIcon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+                </button>
+              </div>
+              <p class="guestbook-title">Leave a note and get on the wall.</p>
+            </div>
+
+            <form id="gbFormFull" data-gb-scope="Full" onsubmit="submitGuestbookEntry(event)" novalidate class="gb-inline-form">
+              <div class="gb-inline-field">
+                <label class="gb-inline-label" for="gbNameFull">
+                  Name
+                  <span class="gb-inline-counter"><span id="nameCounterFull">0</span>/20</span>
+                </label>
+                <input id="gbNameFull" class="gb-inline-input" type="text" placeholder="Your name" autocomplete="off" maxlength="20" oninput="document.getElementById('nameCounterFull').textContent=this.value.length" />
+              </div>
+
+              <div class="gb-inline-field">
+                <label class="gb-inline-label" for="gbMessageFull">
+                  Message
+                  <span class="gb-inline-counter"><span id="msgCounterFull">0</span>/50</span>
+                </label>
+                <textarea id="gbMessageFull" class="gb-inline-textarea" placeholder="Write something..." maxlength="50" oninput="document.getElementById('msgCounterFull').textContent=this.value.length"></textarea>
+              </div>
+
+              <div class="gb-switch-row">
+                <label class="gb-switch" for="visibilityToggleFull">
+                  <input type="checkbox" id="visibilityToggleFull" checked onchange="setGuestbookVisibility(this.checked ? 'public' : 'private')" />
+                  <span class="gb-switch-track"></span>
+                </label>
+                <span class="gb-switch-label">Public</span>
+              </div>
+
+              <div class="gb-inline-footer">
+                <span class="gb-status" id="gbStatusFull"></span>
+                <button class="gb-submit" type="submit" id="gbSubmitFull">Submit</button>
+              </div>
+            </form>
+
+            <input id="gbCityFull" type="hidden" />
+          </div>
+
+          <div class="guestbook-right">
+            <div class="gb-preview-grid" id="gbPreviewGridFull">
+              <div class="gb-loading">
+                <div class="gb-loading-dots"><span></span><span></span><span></span></div>
+              </div>
+            </div>
+            <button type="button" id="gbViewAllBtnFull" onclick="openGuestbookAllModal('Full')" class="gb-view-all-text" style="margin-top:32px;text-align:right;width:100%;">View all stamps (<span id="entryCountFull">—</span>) →</button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="gb-modal gb-all-modal" id="gbAllModalFull" onclick="closeGuestbookAllModal(event, 'Full')">
+    <div class="gb-modal-panel" role="dialog" aria-modal="true" aria-labelledby="gbAllModalTitleFull">
+      <button type="button" class="gb-modal-close" onclick="closeGuestbookAllModal(null, 'Full')" aria-label="Close stamp collection">×</button>
+      <div class="gb-all-card">
+        <div class="gb-all-top">
+          <div>
+            <span class="skills-label" id="gbAllModalTitleFull">Stamp collection</span>
+            <p class="gb-all-title">Every public guestbook mark in one place.</p>
+          </div>
+        </div>
+        <div class="gb-all-grid" id="gbAllGridFull">
+          <div class="gb-loading">
+            <div class="gb-loading-dots"><span></span><span></span><span></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <section class="contact-section">
+    <div class="container">
+      <div class="contact-card">
+        <p class="contact-eyebrow">Say hi or talk about projects</p>
+        <a href="mailto:francismensah02@gmail.com" class="contact-email">francismensah02@gmail.com</a>
+        <div class="contact-socials">
+          <a href="https://instagram.com" target="_blank" rel="noopener" class="contact-social-link">Instagram ↗</a>
+          <a href="https://layers.to" target="_blank" rel="noopener" class="contact-social-link">Layers ↗</a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener" class="contact-social-link">LinkedIn ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <span class="footer-credit">Designed by Francis • Built by Fara ©️ 2025</span>
+        <div class="footer-email-wrap">
+          <a href="mailto:francismensah02@gmail.com" class="footer-email">Francismensah02@gmail.com</a>
+          <div class="footer-copy-wrap">
+            <span class="copy-tooltip" id="copy-tooltip">Email copied</span>
+            <button class="footer-copy" title="Copy email" id="copy-btn" onclick="copyEmail()">
+              <svg id="copy-icon" width="14" height="14" viewBox="0 0 16 16" fill="none">
+                <rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"/>
+                <path d="M3 11H2a1 1 0 01-1-1V2a1 1 0 011-1h8a1 1 0 011 1v1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+              </svg>
+              <svg id="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none" style="display:none">
+                <path d="M3 8l3.5 3.5L13 4.5" stroke="#1ed760" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <span class="footer-time" id="footer-time"></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script>
+    const GUESTBOOK_SUPABASE_URL = 'https://hjardagpfprwzeyhvxhh.supabase.co';
+    const GUESTBOOK_SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhqYXJkYWdwZnByd3pleWh2eGhoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc3MzI4MjQsImV4cCI6MjA5MzMwODgyNH0.2htvx--udNr8MD0icLH0cRtnOD_v8XXusGzzBSedP08';
+
+    let guestbookClient;
+    try {
+      guestbookClient = window.supabase.createClient(GUESTBOOK_SUPABASE_URL, GUESTBOOK_SUPABASE_KEY);
+    } catch (e) {
+      console.error('Supabase client failed to initialise:', e);
+      const errMsg = '<p class="gb-empty">Could not connect to guestbook.</p>';
+      ['gbPreviewGrid', 'gbAllGrid', 'gbPreviewGridFull', 'gbAllGridFull'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = errMsg;
+      });
+    }
+
+    const STAMP_PATH = "M7.5 0C8.32843 0 8.97748 0.686473 9.22204 1.47798C9.85234 3.5179 11.7531 5 14 5C16.2469 5 18.1477 3.5179 18.778 1.47798C19.0225 0.686472 19.6716 0 20.5 0C21.3284 0 21.9775 0.686473 22.222 1.47798C22.8523 3.5179 24.7531 5 27 5C29.2469 5 31.1477 3.5179 31.778 1.47798C32.0225 0.686472 32.6716 0 33.5 0C34.3284 0 34.9775 0.686473 35.222 1.47798C35.8523 3.5179 37.7531 5 40 5C42.2469 5 44.1477 3.5179 44.778 1.47798C45.0225 0.686472 45.6716 0 46.5 0C47.3284 0 47.9775 0.686473 48.222 1.47798C48.8523 3.5179 50.7531 5 53 5C55.2469 5 57.1477 3.5179 57.778 1.47798C58.0225 0.686472 58.6716 0 59.5 0C60.3284 0 60.9775 0.686473 61.222 1.47798C61.8523 3.5179 63.7531 5 66 5C68.2469 5 70.1477 3.5179 70.778 1.47798C71.0225 0.686472 71.6716 0 72.5 0C73.3284 0 73.9775 0.686473 74.222 1.47798C74.8523 3.5179 76.7531 5 79 5C81.2469 5 83.1477 3.5179 83.778 1.47798C84.0225 0.686472 84.6716 0 85.5 0C86.3284 0 86.9775 0.686473 87.222 1.47798C87.8523 3.5179 89.7531 5 92 5C94.2469 5 96.1477 3.5179 96.778 1.47798C97.0225 0.686472 97.6716 0 98.5 0C99.3284 0 99.9775 0.686473 100.222 1.47798C100.852 3.5179 102.753 5 105 5C107.247 5 109.148 3.5179 109.778 1.47798C110.023 0.686472 110.672 0 111.5 0C112.328 0 112.977 0.686473 113.222 1.47798C113.852 3.5179 115.753 5 118 5C120.247 5 122.148 3.5179 122.778 1.47798C123.023 0.686472 123.672 0 124.5 0C125.328 0 125.977 0.686473 126.222 1.47798C126.757 3.20886 128.206 4.53814 130.006 4.90117C130.548 5.01044 131 5.44795 131 6.00053C131 6.55307 130.548 6.99057 130.006 7.09987C127.721 7.56101 126 9.58011 126 12.001C126 14.2478 127.482 16.1484 129.522 16.7788C130.314 17.0234 131 17.6725 131 18.501C131 19.3294 130.314 19.9785 129.522 20.2231C127.482 20.8536 126 22.7542 126 25.001C126 27.2478 127.482 29.1484 129.522 29.7788C130.314 30.0234 131 30.6725 131 31.501C131 32.3294 130.314 32.9785 129.522 33.2231C127.482 33.8536 126 35.7542 126 38.001C126 40.2478 127.482 42.1484 129.522 42.7788C130.314 43.0234 131 43.6725 131 44.501C131 45.3294 130.314 45.9785 129.522 46.2231C127.482 46.8536 126 48.7542 126 51.001C126 53.2478 127.482 55.1484 129.522 55.7788C130.314 56.0234 131 56.6725 131 57.501C131 58.3294 130.314 58.9785 129.522 59.2231C127.482 59.8536 126 61.7542 126 64.001C126 66.2478 127.482 68.1484 129.522 68.7788C130.314 69.0234 131 69.6725 131 70.501C131 71.3294 130.314 71.9785 129.522 72.2231C127.482 72.8536 126 74.7542 126 77.001C126 79.2478 127.482 81.1484 129.522 81.7788C130.314 82.0234 131 82.6725 131 83.501C131 84.3294 130.314 84.9785 129.522 85.2231C127.482 85.8536 126 87.7542 126 90.001C126 92.2478 127.482 94.1484 129.522 94.7788C130.314 95.0234 131 95.6725 131 96.501C131 97.3294 130.314 97.9785 129.522 98.2231C127.482 98.8536 126 100.754 126 103.001C126 105.248 127.482 107.148 129.522 107.779C130.314 108.023 131 108.673 131 109.501C131 110.329 130.314 110.979 129.522 111.223C127.482 111.854 126 113.754 126 116.001C126 118.248 127.482 120.148 129.522 120.779C130.314 121.023 131 121.673 131 122.501C131 123.329 130.314 123.979 129.522 124.223C127.482 124.854 126 126.754 126 129.001C126 131.248 127.482 133.149 129.523 133.779C130.314 134.023 131 134.672 131 135.5C131 136.329 130.314 136.977 129.522 137.222C127.482 137.852 126 139.753 126 142C126 144.675 128.101 146.859 130.743 146.993C130.886 146.997 131 147.114 131 147.257V148.48C131 149.319 130.304 149.977 129.503 150.228C127.473 150.864 126 152.76 126 155C126 157.675 128.101 159.859 130.743 159.993C130.886 159.997 131 160.114 131 160.257V161.48C131 162.319 130.304 162.977 129.503 163.228C127.473 163.864 126 165.76 126 168C126 168.57 126.096 169.118 126.272 169.628C126.465 170.19 126.465 170.81 126.272 171.372C126.255 171.421 126.238 171.472 126.222 171.522C125.978 172.314 125.328 173 124.5 173C123.672 173 123.023 172.314 122.778 171.522C122.148 169.482 120.247 168 118 168C115.753 168 113.852 169.482 113.222 171.522C112.977 172.314 112.328 173 111.5 173C110.672 173 110.023 172.314 109.778 171.522C109.148 169.482 107.247 168 105 168C102.753 168 100.852 169.482 100.222 171.522C99.9775 172.314 99.3284 173 98.5 173C97.6716 173 97.0225 172.314 96.778 171.522C96.1477 169.482 94.2469 168 92 168C89.7531 168 87.8523 169.482 87.222 171.522C86.9775 172.314 86.3284 173 85.5 173C84.6716 173 84.0225 172.314 83.778 171.522C83.1477 169.482 81.2469 168 79 168C76.7531 168 74.8523 169.482 74.222 171.522C73.9775 172.314 73.3284 173 72.5 173C71.6716 173 71.0225 172.314 70.778 171.522C70.1477 169.482 68.2469 168 66 168C63.7531 168 61.8523 169.482 61.222 171.522C60.9775 172.314 60.3284 173 59.5 173C58.6716 173 58.0225 172.314 57.778 171.522C57.1477 169.482 55.2469 168 53 168C50.7531 168 48.8523 169.482 48.222 171.522C47.9775 172.314 47.3284 173 46.5 173C45.6716 173 45.0225 172.314 44.778 171.522C44.1477 169.482 42.2469 168 40 168C37.7531 168 35.8523 169.482 35.222 171.522C34.9775 172.314 34.3284 173 33.5 173C32.6716 173 32.0225 172.314 31.778 171.522C31.1477 169.482 29.2469 168 27 168C24.7531 168 22.8523 169.482 22.222 171.522C21.9775 172.314 21.3284 173 20.5 173C19.6716 173 19.0225 172.314 18.778 171.522C18.1477 169.482 16.2469 168 14 168C11.7531 168 9.85234 169.482 9.22204 171.522C8.97748 172.314 8.32843 173 7.5 173C6.67157 173 6.02236 172.314 5.77702 171.522C5.76133 171.472 5.74487 171.422 5.72763 171.372C5.53375 170.81 5.53375 170.19 5.72763 169.628C5.90393 169.118 6 168.57 6 168C6 165.239 3.76142 163 1 163C0.479792 163 0 162.613 0 162.093V160.906C0 160.386 0.479748 160 1 160C3.76142 160 6 157.761 6 155C6 152.239 3.76142 150 1 150C0.479792 150 0 149.613 0 149.093V147.906C0 147.386 0.479748 147 1 147C3.76142 147 6 144.761 6 142C6 139.239 3.76142 137 1 137C0.479792 137 0 136.613 0 136.093V134.907C0 134.387 0.479765 134.001 1 134.001C3.76142 134.001 6 131.762 6 129.001C5.99993 126.24 3.76138 124.001 1 124.001C0.479807 124.001 0 123.614 0 123.094V121.907C0 121.387 0.479765 121.001 1 121.001C3.76142 121.001 6 118.762 6 116.001C5.99993 113.24 3.76138 111.001 1 111.001C0.479807 111.001 0 110.614 0 110.094V108.907C0 108.387 0.479765 108.001 1 108.001C3.76142 108.001 6 105.762 6 103.001C5.99993 100.24 3.76138 98.001 1 98.001C0.479807 98.001 0 97.6141 0 97.094V95.9071C0 95.3869 0.479765 95.0009 1 95.001C3.76142 95.001 6 92.7624 6 90.001C5.99993 87.2396 3.76138 85.001 1 85.001C0.479807 85.001 0 84.6141 0 84.094V82.9071C0 82.3869 0.479765 82.0009 1 82.001C3.76142 82.001 6 79.7624 6 77.001C5.99993 74.2396 3.76138 72.001 1 72.001C0.479807 72.001 0 71.6141 0 71.094V69.9071C0 69.3869 0.479765 69.0009 1 69.001C3.76142 69.001 6 66.7624 6 64.001C5.99993 61.2396 3.76138 59.001 1 59.001C0.479807 59.001 0 58.6141 0 58.094V56.9071C0 56.3869 0.479765 56.0009 1 56.001C3.76142 56.001 6 53.7624 6 51.001C5.99993 48.2396 3.76138 46.001 1 46.001C0.479807 46.001 0 45.6141 0 45.094V43.9071C0 43.3869 0.479765 43.0009 1 43.001C3.76142 43.001 6 40.7624 6 38.001C5.99993 35.2396 3.76138 33.001 1 33.001C0.479807 33.001 0 32.6141 0 32.094V30.9071C0 30.3869 0.479765 30.0009 1 30.001C3.76142 30.001 6 27.7624 6 25.001C5.99993 22.2396 3.76138 20.001 1 20.001C0.479807 20.001 0 19.6141 0 19.094V17.9071C0 17.3869 0.479765 17.0009 1 17.001C3.76142 17.001 6 14.7624 6 12.001C5.99993 9.23961 3.76138 7.00098 1 7.00098C0.479807 7.00102 0 6.61415 0 6.09396V5.90614C0 5.38589 0.479748 5 1 5C3.24691 5 5.14766 3.5179 5.77796 1.47798C6.02252 0.686472 6.67157 0 7.5 0Z";
+
+    const STAMP_THEMES = [
+      { bg: '#AACC96', text: '#25533F' },
+      { bg: '#25533F', text: '#AACC96' },
+      { bg: '#F4BEAE', text: '#876029' },
+      { bg: '#52A5CE', text: '#FCE7B7' },
+      { bg: '#FF7BAC', text: '#6D1F42' },
+      { bg: '#876029', text: '#F4BEAE' },
+      { bg: '#6D1F42', text: '#F2EBF0' },
+      { bg: '#D3B6D3', text: '#6D1F42' },
+      { bg: '#FCE7B7', text: '#EF6F3C' },
+      { bg: '#B8CEE8', text: '#25533F' },
+      { bg: '#EF6F3C', text: '#FCE7B7' },
+      { bg: '#AFAB23', text: '#6D1F42' },
+    ];
+
+    const STAMP2_THEMES = [
+      { bg: '#F2EBEB', text: '#cf32c8' },
+      { bg: '#EBEEF6', text: '#2860d8' },
+      { bg: '#F3ECEA', text: '#d72a1e' },
+      { bg: '#EBF2EC', text: '#16823a' },
+      { bg: '#F2EEF8', text: '#7c3dd2' },
+      { bg: '#F2F1EB', text: '#8a6f18' },
+    ];
+
+    let guestbookMode = 'message';
+    let guestbookVisibility = 'public';
+    let guestbookPreviewIndex = 0;
+    let guestbookPreviewTimer;
+
+    function getGbElement(base, scope = '') {
+      return document.getElementById(`${base}${scope}`);
+    }
+
+    function toggleGbDark() {
+      const shell = document.getElementById('gbShell');
+      const icon = document.getElementById('gbDarkIcon');
+      const isDark = shell.classList.toggle('gb-dark');
+      icon.innerHTML = isDark
+        ? '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>'
+        : '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>';
+    }
+
+    function syncGuestbookModalOverflow() {
+      document.body.style.overflow = document.querySelector('.gb-modal.open') ? 'hidden' : '';
+    }
+
+    function openGuestbookModal() {
+      const modal = document.getElementById('gbModal');
+      if (!modal) return;
+      modal.classList.add('open');
+      syncGuestbookModalOverflow();
+      setTimeout(() => document.getElementById('gbName')?.focus(), 50);
+    }
+
+    function closeGuestbookModal(event) {
+      const modal = document.getElementById('gbModal');
+      if (!modal) return;
+      if (event && event.target !== modal) return;
+      modal.classList.remove('open');
+      syncGuestbookModalOverflow();
+    }
+
+    function openGuestbookAllModal(scope = '') {
+      const modal = getGbElement('gbAllModal', scope);
+      if (!modal) return;
+      modal.classList.add('open');
+      syncGuestbookModalOverflow();
+    }
+
+    function closeGuestbookAllModal(event, scope = '') {
+      const modal = getGbElement('gbAllModal', scope);
+      if (!modal) return;
+      if (event && event.target !== modal) return;
+      modal.classList.remove('open');
+      syncGuestbookModalOverflow();
+    }
+
+    function setGuestbookVisibility(value) {
+      guestbookVisibility = value;
+    }
+
+    function updateGuestbookCounter(inputId, counterId, max) {
+      const len = document.getElementById(inputId).value.length;
+      document.getElementById(counterId).textContent = `${len}/${max}`;
+    }
+
+    function setGuestbookStatus(msg, type, scope = '') {
+      const el = getGbElement('gbStatus', scope);
+      if (!el) return;
+      el.textContent = msg;
+      el.className = 'gb-status' + (type ? ` ${type}` : '');
+    }
+
+    function escapeGuestbookText(value) {
+      return String(value)
+        .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    async function submitGuestbookEntry(event) {
+      event.preventDefault();
+      const scope = event.currentTarget.dataset.gbScope || '';
+
+      const nameInput = getGbElement('gbName', scope);
+      const messageInput = getGbElement('gbMessage', scope);
+      const submitButton = getGbElement('gbSubmit', scope);
+      const name = nameInput.value.trim();
+      if (!name) { setGuestbookStatus('Please enter your name.', 'error', scope); return; }
+
+      const entry = { name, visibility: guestbookVisibility, entry_type: guestbookMode };
+      const message = messageInput.value.trim();
+      if (!message) { setGuestbookStatus('Please enter a message.', 'error', scope); return; }
+      entry.message = message;
+
+      submitButton.disabled = true;
+      submitButton.textContent = '...';
+      setGuestbookStatus('Submitting...', '', scope);
+
+      const { error } = await guestbookClient.from('guestbook').insert([entry]);
+
+      if (error) {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Submit';
+        console.error(error);
+        setGuestbookStatus('Something went wrong. Try again.', 'error', scope);
+        return;
+      }
+
+      submitButton.disabled = true;
+      submitButton.textContent = 'Added';
+      setGuestbookStatus('', '', scope);
+      nameInput.value = '';
+      messageInput.value = '';
+      const nameCounter = getGbElement('nameCounter', scope);
+      const msgCounter = getGbElement('msgCounter', scope);
+      if (nameCounter) nameCounter.textContent = '0';
+      if (msgCounter) msgCounter.textContent = '0';
+
+      setTimeout(() => loadGuestbookEntries(), 400);
+
+      setTimeout(() => {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Submit';
+      }, 3000);
+    }
+
+    function renderGuestbookCard(entry, i) {
+      const theme = STAMP_THEMES[i % STAMP_THEMES.length];
+      const date = new Date(entry.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+      const safeName = escapeGuestbookText(entry.name);
+      const content = entry.entry_type === 'emoji'
+        ? `<div class="gb-card-msg-wrap"><div class="gb-card-emojis">${escapeGuestbookText(entry.emojis || '')}</div></div>`
+        : `<div class="gb-card-msg-wrap"><p class="gb-card-msg">${escapeGuestbookText(entry.message || '')}</p></div>`;
+
+      return `
+        <div class="gb-card" style="--stamp-bg:${theme.bg};--stamp-text:${theme.text};">
+          <svg class="gb-stamp-svg" viewBox="0 0 131 173" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+            <path d="${STAMP_PATH}" fill="${theme.bg}"/>
+          </svg>
+          <div class="gb-card-inner">
+            <div class="gb-stamp-header">
+              <span class="gb-stamp-num">#${i + 1}</span>
+            </div>
+            <p class="gb-card-name">${safeName}</p>
+            ${content}
+            <div class="gb-stamp-footer">
+              <span class="gb-stamp-date-text">${date}</span>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    // stamp2: saved perforated stamp with the compact auto-scroll idea from the previous version.
+    function renderGuestbookStamp2Card(entry, i) {
+      const theme = STAMP2_THEMES[i % STAMP2_THEMES.length];
+      const date = new Date(entry.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+      const safeName = escapeGuestbookText(entry.name);
+      const content = entry.entry_type === 'emoji'
+        ? `<div class="gb-card-msg-wrap"><div class="gb-card-emojis">${escapeGuestbookText(entry.emojis || '')}</div></div>`
+        : `<div class="gb-card-msg-wrap"><p class="gb-card-msg">${escapeGuestbookText(entry.message || '')}</p></div>`;
+
+      return `
+        <div class="gb-card" style="--stamp-bg:${theme.bg};--stamp-text:${theme.text};">
+          <svg class="gb-stamp-svg" viewBox="0 0 131 173" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+            <path d="${STAMP_PATH}" fill="${theme.bg}"/>
+          </svg>
+          <div class="gb-card-inner">
+            <div class="gb-stamp-header">
+              <span class="gb-stamp-num">#${i + 1}</span>
+            </div>
+            <p class="gb-card-name">${safeName}</p>
+            ${content}
+            <div class="gb-stamp-footer">
+              <span class="gb-stamp-date-text">${date}</span>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    function renderGuestbookPaletteCard(entry, i) {
+      const theme = STAMP_THEMES[i % STAMP_THEMES.length];
+      const safeName = escapeGuestbookText(entry.name);
+      const message = entry.entry_type === 'emoji'
+        ? escapeGuestbookText(entry.emojis || '')
+        : escapeGuestbookText(entry.message || '');
+
+      return `
+        <div class="gb-card gb-card--palette" style="--stamp-bg:${theme.bg};--stamp-text:${theme.text};">
+          <div class="gb-card-inner">
+            <p class="gb-card-name">${safeName}</p>
+            <div class="gb-card-msg-wrap">
+              <p class="gb-card-msg">${message}</p>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    function renderGuestbookEntries(entries) {
+      const previewGrid = getGbElement('gbPreviewGrid');
+      const previewGridFull = getGbElement('gbPreviewGrid', 'Full');
+      const allGrid = getGbElement('gbAllGrid');
+      const allGridFull = getGbElement('gbAllGrid', 'Full');
+      const viewAllBtn = getGbElement('gbViewAllBtn');
+      const viewAllBtnFull = getGbElement('gbViewAllBtn', 'Full');
+      const entryCount = getGbElement('entryCount');
+      const entryCountFull = getGbElement('entryCount', 'Full');
+      if (entryCount) entryCount.textContent = entries.length;
+      if (entryCountFull) entryCountFull.textContent = entries.length;
+      window.clearInterval(guestbookPreviewTimer);
+
+      if (entries.length === 0) {
+        const empty = '<p class="gb-empty">No entries yet. Be the first to sign.</p>';
+        [previewGrid, previewGridFull, allGrid, allGridFull].forEach((grid) => {
+          if (grid) grid.innerHTML = empty;
+        });
+        if (viewAllBtn) viewAllBtn.textContent = 'View all stamps (0) →';
+        if (viewAllBtnFull) viewAllBtnFull.textContent = 'View all stamps (0) →';
+        return;
+      }
+
+      if (previewGrid) {
+        const compactCards = entries.map(renderGuestbookPaletteCard).join('');
+        const duplicateCards = entries.map((entry, index) => (
+          renderGuestbookPaletteCard(entry, index).replace('<div class="gb-card gb-card--palette"', '<div class="gb-card gb-card--palette" aria-hidden="true"')
+        )).join('');
+        previewGrid.innerHTML = `<div class="gb-scroll-track">${compactCards}${duplicateCards}</div>`;
+      }
+
+      guestbookPreviewIndex = 0;
+      if (previewGridFull) {
+        const stamp2Cards = entries.map(renderGuestbookStamp2Card).join('');
+        const duplicateStamp2Cards = entries.map((entry, index) => (
+          renderGuestbookStamp2Card(entry, index).replace('<div class="gb-card"', '<div class="gb-card" aria-hidden="true"')
+        )).join('');
+        previewGridFull.innerHTML = `<div class="gb-stamp2-vertical-track">${stamp2Cards}${duplicateStamp2Cards}</div>`;
+      }
+
+      const allCards = entries.map(renderGuestbookStamp2Card).join('');
+      if (allGrid) allGrid.innerHTML = allCards;
+      if (allGridFull) allGridFull.innerHTML = allCards;
+      if (viewAllBtn) viewAllBtn.textContent = `View all stamps (${entries.length}) →`;
+      if (viewAllBtnFull) viewAllBtnFull.textContent = `View all stamps (${entries.length}) →`;
+    }
+
+    function updateGuestbookPreviewReel(grid) {
+      const cards = Array.from(grid.querySelectorAll('.gb-card'));
+      if (cards.length === 0) return;
+      const previousIndex = (guestbookPreviewIndex - 1 + cards.length) % cards.length;
+      const nextIndex = (guestbookPreviewIndex + 1) % cards.length;
+
+      cards.forEach((card, index) => {
+        card.classList.toggle('is-active', index === guestbookPreviewIndex);
+        card.classList.toggle('is-exiting', cards.length > 1 && index === previousIndex);
+        card.classList.toggle('is-next', cards.length > 1 && index === nextIndex);
+      });
+    }
+
+    async function loadGuestbookEntries() {
+      if (!guestbookClient) return;
+      try {
+        const { data, error } = await guestbookClient
+          .from('guestbook')
+          .select('id,name,message,emojis,entry_type,created_at')
+          .eq('visibility','public')
+          .order('created_at', { ascending: false });
+
+        if (error) throw error;
+        renderGuestbookEntries(data || []);
+      } catch (err) {
+        console.error('Guestbook load error — message:', err.message);
+        console.error('Guestbook load error — details:', err.details);
+        console.error('Guestbook load error — hint:', err.hint);
+        console.error('Guestbook load error — code:', err.code);
+        const errorMsg = '<p class="gb-empty">Could not load entries.</p>';
+        ['gbPreviewGrid', 'gbAllGrid', 'gbPreviewGridFull', 'gbAllGridFull'].forEach((id) => {
+          const el = document.getElementById(id);
+          if (el) el.innerHTML = errorMsg;
+        });
+      }
+    }
+
+    if (guestbookClient) loadGuestbookEntries();
+
+    window.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        closeGuestbookModal();
+        closeGuestbookAllModal();
+        closeGuestbookAllModal(null, 'Full');
+      }
+    });
+  </script>
+
+  <script>
+    function scrollAbout(dir) {
+      const container = document.getElementById('aboutImages');
+      const itemWidth = container.querySelector('.about-img').offsetWidth + 12;
+      container.scrollBy({ left: dir * itemWidth, behavior: 'smooth' });
+      setTimeout(updateAboutBtns, 350);
+    }
+
+    function updateAboutBtns() {
+      const c = document.getElementById('aboutImages');
+      document.getElementById('aboutPrev').classList.toggle('hidden', c.scrollLeft <= 4);
+      document.getElementById('aboutNext').classList.toggle('hidden', c.scrollLeft + c.clientWidth >= c.scrollWidth - 4);
+    }
+
+    document.getElementById('aboutImages').addEventListener('scroll', updateAboutBtns);
+
+    function showTip(el) {
+      el.classList.add('show-tip');
+      setTimeout(() => el.classList.remove('show-tip'), 1800);
+    }
+
+    function updateTime() {
+      const now = new Date();
+      let h = now.getHours();
+      const m = String(now.getMinutes()).padStart(2, '0');
+      const ampm = h >= 12 ? 'PM' : 'AM';
+      h = h % 12 || 12;
+      document.getElementById('footer-time').textContent = h + ':' + m + ' ' + ampm;
+    }
+    updateTime();
+    setInterval(updateTime, 10000);
+
+    function copyEmail() {
+      navigator.clipboard.writeText('francismensah02@gmail.com').then(() => {
+        document.getElementById('copy-icon').style.display = 'none';
+        document.getElementById('check-icon').style.display = 'block';
+        const tip = document.getElementById('copy-tooltip');
+        tip.classList.add('show');
+        setTimeout(() => {
+          document.getElementById('copy-icon').style.display = 'block';
+          document.getElementById('check-icon').style.display = 'none';
+          tip.classList.remove('show');
+        }, 2000);
+      });
+    }
+  </script>
+
+  <script>
+    /* ── SKETCHBOOK (hidden — guards prevent errors) ── */
+    const canvas = document.getElementById('sketchCanvas');
+    const ctx = canvas ? canvas.getContext('2d') : null;
+    let drawing = false;
+    let penSize = 2;
+    let history = [];
+
+    function resizeCanvas() {
+      if (!canvas) return;
+      const wrap = canvas.parentElement;
+      const w = wrap.clientWidth;
+      const h = wrap.clientHeight;
+      if (w === 0 || h === 0) return;
+      const dpr = window.devicePixelRatio || 1;
+      const snap = canvas.width > 0 && canvas.height > 0
+        ? ctx.getImageData(0, 0, canvas.width, canvas.height)
+        : null;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      ctx.scale(dpr, dpr);
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.strokeStyle = '#1a1a1a';
+    }
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    function getPos(e) {
+      const r = canvas.getBoundingClientRect();
+      const src = e.touches ? e.touches[0] : e;
+      return { x: src.clientX - r.left, y: src.clientY - r.top };
+    }
+
+    function startDraw(e) {
+      e.preventDefault();
+      drawing = true;
+      history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+      const p = getPos(e);
+      ctx.beginPath();
+      ctx.moveTo(p.x, p.y);
+      ctx.lineWidth = penSize;
+    }
+
+    function draw(e) {
+      if (!drawing) return;
+      e.preventDefault();
+      const p = getPos(e);
+      ctx.lineTo(p.x, p.y);
+      ctx.stroke();
+    }
+
+    function stopDraw() { drawing = false; }
+
+    canvas.addEventListener('mousedown', startDraw);
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup', stopDraw);
+    canvas.addEventListener('mouseleave', stopDraw);
+    canvas.addEventListener('touchstart', startDraw, { passive: false });
+    canvas.addEventListener('touchmove', draw, { passive: false });
+    canvas.addEventListener('touchend', stopDraw);
+
+    function setPen(btn) {
+      document.querySelectorAll('.sketch-pen').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      penSize = parseInt(btn.dataset.size);
+    }
+
+    function undoSketch() {
+      if (history.length === 0) return;
+      ctx.putImageData(history.pop(), 0, 0);
+    }
+
+    function clearSketch() {
+      history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function sendSketch() {
+      canvas.toBlob(blob => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'sketch-for-francis.png';
+        a.click();
+        URL.revokeObjectURL(url);
+        const msg = document.getElementById('sketchSentMsg');
+        msg.style.display = 'inline';
+        setTimeout(() => msg.style.display = 'none', 4000);
+        setTimeout(() => window.location.href = 'mailto:stylishfrancis@gmail.com?subject=Sketch for you&body=Hey Francis, here\'s a sketch I drew on your site!', 300);
+      }, 'image/png');
+    }
+  </script>
+
+</body>
+</html>
