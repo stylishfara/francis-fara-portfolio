@@ -1614,12 +1614,12 @@
     }
 
     #guestbook-full #gbPreviewGridFull .gb-card-msg {
-      font-size: 22px;
-      line-height: 1.22;
+      font-size: 13px;
+      line-height: 1.25;
     }
 
     #guestbook-full #gbPreviewGridFull .gb-card-name {
-      font-size: 18px;
+      font-size: 13px;
     }
 
     @keyframes gb-stamp2-vertical-scroll {
@@ -1720,6 +1720,7 @@
       display: flex;
       flex-direction: column;
       padding: 14% 12% 12%;
+      overflow: hidden;
     }
 
     .gb-stamp-header {
@@ -1754,11 +1755,12 @@
     }
 
     .gb-card-name {
-      font-family: 'Caveat', cursive;
-      font-size: 14px;
-      font-weight: 600;
+      font-family: 'Geist Mono', monospace;
+      font-size: 26px;
+      font-weight: 500;
       line-height: 1.1;
-      letter-spacing: 0;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
       color: var(--stamp-text);
       margin-bottom: 6px;
       word-break: break-word;
