@@ -394,6 +394,13 @@
     }
 
     /* ENTRIES GRID */
+    .gb-grid-wrap {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px;
+      overflow: hidden;
+    }
+
     .gb-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1004,9 +1011,11 @@
           <p class="stamp-title">Stamp Collection (<span id="entryCount">—</span>)</p>
           <div class="stamp-line"></div>
         </div>
-        <div class="gb-grid" id="gbGrid">
-          <div class="gb-loading">
-            <div class="gb-loading-dots"><span></span><span></span><span></span></div>
+        <div class="gb-grid-wrap">
+          <div class="gb-grid" id="gbGrid">
+            <div class="gb-loading">
+              <div class="gb-loading-dots"><span></span><span></span><span></span></div>
+            </div>
           </div>
         </div>
       </div>
