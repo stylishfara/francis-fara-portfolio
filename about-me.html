@@ -32,6 +32,7 @@
       font-size: 15px;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      padding-top: 80px;
     }
 
     /* ── NAV ── */
@@ -39,15 +40,17 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      flex-wrap: nowrap;
-      padding: 32px 48px;
-      background: rgba(250,250,250,0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      position: sticky;
+      padding: 20px 48px;
+      position: fixed;
       top: 0;
+      left: 0;
+      right: 0;
       z-index: 100;
+      background: transparent;
+      pointer-events: none;
     }
+
+    nav > * { pointer-events: auto; }
 
     .nav-brand {
       text-decoration: none;
@@ -68,39 +71,38 @@
     }
 
     .nav-links {
-      display: flex;
-      gap: 8px;
       list-style: none;
       flex-shrink: 0;
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
+      display: flex;
+      gap: 2px;
+      background: #ffffff;
+      border-radius: 999px;
+      padding: 5px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.10), 0 0 0 1px rgba(0,0,0,0.06);
     }
 
     .nav-links a {
       text-decoration: none;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 500;
-      color: var(--text-sec);
-      background: #fff;
-      border: 1px solid #e8e8e8;
+      color: #888;
       border-radius: 999px;
-      padding: 7px 16px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-      transition: color 0.15s, box-shadow 0.15s;
+      padding: 8px 18px;
+      transition: color 0.15s, background 0.15s;
       display: block;
+      white-space: nowrap;
     }
 
     .nav-links a.active {
-      font-weight: 600;
-      color: var(--text);
-      border-color: #d8d8d8;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      background: #efefef;
+      color: #111;
     }
 
     .nav-links a:hover {
-      color: var(--text);
-      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      color: #111;
     }
 
     /* ── CONTAINER ── */
@@ -1988,7 +1990,7 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       /* Nav */
-      nav { padding: 14px 20px; }
+      nav { padding: 16px 20px; }
       .container { padding: 0 20px; }
 
       /* Cards stack */

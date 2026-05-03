@@ -24,6 +24,7 @@
     html { overflow-x: clip; scroll-behavior: smooth; }
 
     body {
+      padding-top: 80px;
       background: var(--bg);
       color: var(--text);
       font-family: 'Geist', -apple-system, sans-serif;
@@ -35,18 +36,20 @@
 
     /* NAV */
     nav {
-      position: sticky;
+      position: fixed;
       top: 0;
+      left: 0;
+      right: 0;
       z-index: 100;
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 20px 48px;
-      border-bottom: 1px solid var(--border);
-      background: rgba(250,250,250,0.88);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: transparent;
+      pointer-events: none;
     }
+
+    nav > * { pointer-events: auto; }
 
     .nav-brand {
       text-decoration: none;
@@ -66,22 +69,33 @@
     }
 
     .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 32px;
       list-style: none;
+      flex-shrink: 0;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 2px;
+      background: #ffffff;
+      border-radius: 999px;
+      padding: 5px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.10), 0 0 0 1px rgba(0,0,0,0.06);
     }
 
     .nav-links a {
-      font-size: 14px;
-      font-weight: 400;
-      color: var(--text-sec);
       text-decoration: none;
-      transition: color 0.15s;
+      font-size: 14px;
+      font-weight: 500;
+      color: #888;
+      border-radius: 999px;
+      padding: 8px 18px;
+      transition: color 0.15s, background 0.15s;
+      display: block;
+      white-space: nowrap;
     }
 
-    .nav-links a:hover { color: var(--text); }
-    .nav-links a.active { color: var(--text); font-weight: 500; }
+    .nav-links a:hover { color: #111; }
+    .nav-links a.active { background: #efefef; color: #111; }
 
     /* LAYOUT */
     .container {
@@ -859,7 +873,6 @@
     /* RESPONSIVE */
     @media (max-width: 768px) {
       nav { padding: 16px 20px; }
-      .nav-links { gap: 18px; }
       .container { padding: 0 20px; }
       .hero { padding: 48px 0 40px; }
       .gb-grid {
@@ -893,10 +906,7 @@
 
     @media (max-width: 480px) {
       nav { padding: 14px 12px; }
-      .nav-brand img { height: 24px; }
       .nav-brand-text { display: none; }
-      .nav-links { gap: 9px; }
-      .nav-links a { font-size: 12px; }
       .container { padding: 0 16px; }
       .gb-form-wrap,
       .gb-form-card {
