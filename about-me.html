@@ -1941,33 +1941,37 @@
       .guestbook-left { position: static; top: auto; }
       .guestbook-right { max-height: none; }
 
-      /* Stamp preview — horizontal scroll strip on mobile */
+      /* Stamp preview — right-to-left marquee on mobile */
       #guestbook-full .gb-preview-grid {
         display: block !important;
         width: calc(100% + 40px) !important;
         margin-left: -20px !important;
         height: 160px !important;
-        overflow-x: auto !important;
-        overflow-y: hidden !important;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        padding: 10px 20px !important;
-        scrollbar-width: none;
+        overflow: hidden !important;
+        padding: 10px 0 !important;
+        position: relative;
       }
-      #guestbook-full .gb-preview-grid::-webkit-scrollbar { display: none; }
       #guestbook-full .gb-preview-grid::before,
       #guestbook-full .gb-preview-grid::after { display: none !important; }
-      /* Override vertical track → horizontal flex row */
+      /* Horizontal marquee track */
       #guestbook-full .gb-stamp2-vertical-track {
         display: flex !important;
         flex-direction: row !important;
         gap: 10px !important;
-        animation: none !important;
+        animation: gb-marquee-rtl 20s linear infinite !important;
         transform: none !important;
         height: 100%;
         align-items: center;
+        width: max-content;
       }
-      /* Cards in horizontal strip */
+      #guestbook-full #gbPreviewGridFull:hover .gb-stamp2-vertical-track {
+        animation-play-state: paused !important;
+      }
+      @keyframes gb-marquee-rtl {
+        from { transform: translateX(0); }
+        to   { transform: translateX(-50%); }
+      }
+      /* Cards in the marquee strip */
       #guestbook-full .gb-preview-grid .gb-card {
         position: relative !important;
         left: auto !important;
@@ -1979,15 +1983,14 @@
         width: 82px !important;
         height: auto !important;
         aspect-ratio: 131 / 173;
-        scroll-snap-align: start;
         transition: none !important;
         z-index: auto !important;
         margin: 0 !important;
       }
       #guestbook-full .gb-preview-grid .gb-card-msg { font-size: 13px !important; line-height: 1.2; }
       #guestbook-full .gb-preview-grid .gb-card-name { font-size: 9px !important; }
-      /* Hide duplicate cards (used for infinite scroll animation, not needed on mobile) */
-      #guestbook-full .gb-preview-grid .gb-card[aria-hidden="true"] { display: none !important; }
+      /* Show duplicate cards — needed for seamless loop */
+      #guestbook-full .gb-preview-grid .gb-card[aria-hidden="true"] { display: block !important; }
 
       /* Stamp collection modal grid — 2 columns */
       .gb-all-grid,
