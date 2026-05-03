@@ -1937,12 +1937,57 @@
       .guestbook-intro { align-items: flex-start; flex-direction: column; width: 100%; }
 
       /* Guestbook split — stack form above stamps */
-      .guestbook-split { grid-template-columns: 1fr; gap: 28px; }
+      .guestbook-split { grid-template-columns: 1fr; gap: 20px; }
       .guestbook-left { position: static; top: auto; }
       .guestbook-right { max-height: none; }
 
-      /* Stamp preview grid — 2 columns on mobile */
-      .gb-preview-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 8px; }
+      /* Stamp preview — horizontal scroll strip on mobile */
+      #guestbook-full .gb-preview-grid {
+        display: block !important;
+        width: calc(100% + 40px) !important;
+        margin-left: -20px !important;
+        height: 160px !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        padding: 10px 20px !important;
+        scrollbar-width: none;
+      }
+      #guestbook-full .gb-preview-grid::-webkit-scrollbar { display: none; }
+      #guestbook-full .gb-preview-grid::before,
+      #guestbook-full .gb-preview-grid::after { display: none !important; }
+      /* Override vertical track → horizontal flex row */
+      #guestbook-full .gb-stamp2-vertical-track {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 10px !important;
+        animation: none !important;
+        transform: none !important;
+        height: 100%;
+        align-items: center;
+      }
+      /* Cards in horizontal strip */
+      #guestbook-full .gb-preview-grid .gb-card {
+        position: relative !important;
+        left: auto !important;
+        top: auto !important;
+        transform: none !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        flex: 0 0 82px !important;
+        width: 82px !important;
+        height: auto !important;
+        aspect-ratio: 131 / 173;
+        scroll-snap-align: start;
+        transition: none !important;
+        z-index: auto !important;
+        margin: 0 !important;
+      }
+      #guestbook-full .gb-preview-grid .gb-card-msg { font-size: 13px !important; line-height: 1.2; }
+      #guestbook-full .gb-preview-grid .gb-card-name { font-size: 9px !important; }
+      /* Hide duplicate cards (used for infinite scroll animation, not needed on mobile) */
+      #guestbook-full .gb-preview-grid .gb-card[aria-hidden="true"] { display: none !important; }
 
       /* Stamp collection modal grid — 2 columns */
       .gb-all-grid,
@@ -1951,9 +1996,10 @@
       .gb-all-top { flex-direction: column; padding-right: 36px; gap: 8px; margin-bottom: 16px; }
 
       /* Guestbook full section */
-      #guestbook-full .guestbook-shell { padding: 24px 20px 24px 28px; }
+      #guestbook-full .guestbook-shell { padding: 24px 20px 24px 20px; }
       #guestbook-full .guestbook-left { min-height: auto; }
       #guestbook-full .gb-heading { margin-left: 0; }
+      #guestbook-full .gb-view-all-text { text-align: right !important; margin-top: 12px; }
 
       /* Form */
       .gb-inline-form { margin-left: 0; }
