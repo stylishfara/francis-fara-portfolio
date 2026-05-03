@@ -318,16 +318,17 @@
     .cool-modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.55);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+      background: rgba(0,0,0,0.88);
       z-index: 1000;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.2s ease;
+      padding: 40px 80px;
+      gap: 0;
     }
 
     .cool-modal-overlay.open {
@@ -336,13 +337,11 @@
     }
 
     .cool-modal {
-      background: #fff;
-      border-radius: 18px;
-      overflow: hidden;
-      width: min(860px, 94vw);
+      width: 100%;
+      max-width: 900px;
       display: flex;
       flex-direction: column;
-      transform: scale(0.96);
+      transform: scale(0.97);
       transition: transform 0.2s ease;
     }
 
@@ -352,10 +351,11 @@
 
     .cool-modal-stage {
       position: relative;
-      background: #f0f0f0;
+      background: #1a1a1a;
+      width: 100%;
       aspect-ratio: 16 / 9;
       overflow: hidden;
-      flex-shrink: 0;
+      border-radius: 12px;
     }
 
     .cool-modal-stage img {
@@ -375,64 +375,61 @@
       font-weight: 500;
       padding: 4px 10px;
       border-radius: 999px;
-      backdrop-filter: blur(4px);
     }
 
     .cool-modal-close {
-      position: absolute;
-      top: 14px;
-      right: 14px;
-      width: 32px;
-      height: 32px;
-      background: rgba(255,255,255,0.92);
-      border: 1px solid rgba(0,0,0,0.08);
+      position: fixed;
+      top: 20px;
+      right: 24px;
+      width: 36px;
+      height: 36px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.18);
       border-radius: 50%;
-      color: #111;
-      font-size: 18px;
-      line-height: 1;
+      color: #fff;
+      font-size: 20px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      transition: background 0.15s;
     }
 
+    .cool-modal-close:hover { background: rgba(255,255,255,0.22); }
+
     .cool-modal-nav {
-      position: absolute;
+      position: fixed;
       top: 50%;
       transform: translateY(-50%);
       width: 44px;
       height: 44px;
-      background: rgba(255,255,255,0.92);
-      border: 1px solid rgba(0,0,0,0.08);
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.18);
       border-radius: 50%;
-      color: #111;
+      color: #fff;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
       transition: background 0.15s;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.18);
     }
 
-    .cool-modal-nav:hover { background: #fff; }
-    .cool-modal-nav--prev { left: 16px; }
-    .cool-modal-nav--next { right: 16px; }
-    .cool-modal-nav:disabled { opacity: 0.25; cursor: default; }
+    .cool-modal-nav:hover { background: rgba(255,255,255,0.2); }
+    .cool-modal-nav--prev { left: 20px; }
+    .cool-modal-nav--next { right: 20px; }
+    .cool-modal-nav:disabled { opacity: 0.2; cursor: default; }
 
     .cool-modal-info {
-      padding: 24px 28px 28px;
+      padding: 20px 4px 0;
       display: flex;
       flex-direction: column;
+      gap: 10px;
     }
 
     .cool-modal-title {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 500;
-      color: var(--text);
-      margin-bottom: 12px;
+      color: #fff;
       letter-spacing: -0.3px;
     }
 
@@ -441,39 +438,23 @@
       align-items: center;
       gap: 8px;
       flex-wrap: wrap;
-      margin-bottom: 16px;
     }
 
     .cool-modal-chip {
       font-size: 12px;
       font-weight: 500;
-      color: var(--text-sec);
-      background: #f1f1f1;
-      border: 1px solid #e8e8e8;
+      color: rgba(255,255,255,0.6);
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
       border-radius: 999px;
       padding: 4px 12px;
     }
 
-    .cool-modal-link {
-      font-size: 12px;
-      color: var(--text-sec);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      margin-left: auto;
-      display: flex;
-      align-items: center;
-      gap: 3px;
-    }
-
-    .cool-modal-divider {
-      height: 1px;
-      background: var(--border);
-      margin-bottom: 14px;
-    }
+    .cool-modal-divider { display: none; }
 
     .cool-modal-desc {
       font-size: 14px;
-      color: var(--text-sec);
+      color: rgba(255,255,255,0.5);
       line-height: 1.6;
     }
 
