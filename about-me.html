@@ -1196,7 +1196,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 0;
-      align-items: start;
+      align-items: stretch;
       position: relative;
     }
 
@@ -1227,11 +1227,13 @@
     .guestbook-right {
       min-width: 0;
       padding-left: 20px;
+      display: flex;
+      flex-direction: column;
     }
 
     .gb-view-all-text {
       display: block;
-      margin-top: 32px;
+      margin-top: auto;
       background: none;
       border: none;
       padding: 0;
