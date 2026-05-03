@@ -1195,18 +1195,37 @@
     .guestbook-split {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 40px;
+      gap: 0;
       align-items: start;
+      position: relative;
+    }
+
+    .guestbook-split::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: repeating-linear-gradient(
+        to bottom,
+        var(--border) 0px,
+        var(--border) 6px,
+        transparent 6px,
+        transparent 12px
+      );
+      transform: translateX(-50%);
+      pointer-events: none;
     }
 
     .guestbook-left {
       position: sticky;
       top: 100px;
+      padding-right: 40px;
     }
 
     .guestbook-right {
       min-width: 0;
-      border-left: 1px solid var(--border);
       padding-left: 40px;
     }
 
