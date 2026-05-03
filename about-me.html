@@ -50,12 +50,16 @@
     }
 
     .nav-brand {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--text);
       text-decoration: none;
-      letter-spacing: -0.3px;
       flex-shrink: 0;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-brand img {
+      height: 30px;
+      width: auto;
+      display: block;
     }
 
     .nav-links {
@@ -2105,7 +2109,7 @@
 
   <!-- NAV -->
   <nav>
-    <a href="index.html" class="nav-brand">Francis Fara</a>
+    <a href="index.html" class="nav-brand"><img src="me/fara.webp" alt="Francis Fara" /></a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="about-me.html" class="active">About me</a></li>
@@ -2284,14 +2288,22 @@
           <div class="sec-card">
             <span class="skills-label">To Do List</span>
             <div class="todo-list">
-              <div class="todo-item" onclick="showTip(this)">
-                <div class="todo-circle"></div>
+              <div class="todo-item done" onclick="showTip(this)">
+                <div class="todo-circle">
+                  <svg viewBox="0 0 11 11" fill="none">
+                    <path d="M2 5.5l2.5 2.5L9 3" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
                 <span class="todo-text">Engage my high school sweetheart</span>
                 <span class="todo-tooltip">Go get your own list</span>
               </div>
-              <div class="todo-item" onclick="showTip(this)">
-                <div class="todo-circle"></div>
-                <span class="todo-text">Cofound a startup</span>
+              <div class="todo-item done" onclick="showTip(this)">
+                <div class="todo-circle">
+                  <svg viewBox="0 0 11 11" fill="none">
+                    <path d="M2 5.5l2.5 2.5L9 3" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <span class="todo-text">Co-found a startup</span>
                 <span class="todo-tooltip">Go get your own list</span>
               </div>
               <div class="todo-item" onclick="showTip(this)">

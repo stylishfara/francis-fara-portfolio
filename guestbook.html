@@ -49,11 +49,15 @@
     }
 
     .nav-brand {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--text);
       text-decoration: none;
-      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-brand img {
+      height: 30px;
+      width: auto;
+      display: block;
     }
 
     .nav-links {
@@ -884,7 +888,7 @@
 
     @media (max-width: 480px) {
       nav { padding: 14px 12px; }
-      .nav-brand { font-size: 14px; }
+      .nav-brand img { height: 24px; }
       .nav-links { gap: 9px; }
       .nav-links a { font-size: 12px; }
       .container { padding: 0 16px; }
@@ -902,7 +906,7 @@
 <body>
 
   <nav>
-    <a href="index.html" class="nav-brand">Francis Fara</a>
+    <a href="index.html" class="nav-brand"><img src="me/fara.webp" alt="Francis Fara" /></a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="about-me.html">About me</a></li>

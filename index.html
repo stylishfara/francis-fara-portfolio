@@ -50,12 +50,16 @@
     }
 
     .nav-brand {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--text);
       text-decoration: none;
-      letter-spacing: -0.3px;
       flex-shrink: 0;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-brand img {
+      height: 30px;
+      width: auto;
+      display: block;
     }
 
     .nav-links {
@@ -1127,7 +1131,7 @@
 
   <!-- NAV -->
   <nav>
-    <a href="index.html" class="nav-brand">Francis Fara</a>
+    <a href="index.html" class="nav-brand"><img src="me/fara.webp" alt="Francis Fara" /></a>
     <ul class="nav-links">
       <li><a href="index.html" class="active">Home</a></li>
       <li><a href="about-me.html">About me</a></li>
