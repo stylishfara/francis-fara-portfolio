@@ -2029,6 +2029,7 @@
       /* Guestbook split — stack form above stamps (override ID-specificity rule) */
       #guestbook-full .guestbook-split,
       .guestbook-split { grid-template-columns: 1fr !important; gap: 20px; }
+      .guestbook-split::after { display: none !important; }
       .guestbook-left { position: static; top: auto; }
       .guestbook-right { max-height: none; }
 
