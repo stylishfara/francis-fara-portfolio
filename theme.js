@@ -35,6 +35,28 @@
     });
   }
 
+  window.playThemeToggleSound = function playThemeToggleSound(isDark) {
+    try {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContext) return;
+      const ctx = new AudioContext();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(isDark ? 280 : 520, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(isDark ? 160 : 680, ctx.currentTime + 0.12);
+      gain.gain.setValueAtTime(0.18, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.18);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.18);
+      osc.onended = () => ctx.close();
+    } catch (error) {
+      // Browsers can block audio in some contexts; the theme change should still work.
+    }
+  };
+
   window.toggleTheme = function toggleTheme() {
     const isDark = root.classList.toggle('dark');
     try {
@@ -45,6 +67,7 @@
 
     const gbShell = document.getElementById('gbShell');
     if (gbShell) gbShell.classList.toggle('gb-dark', isDark);
+    window.playThemeToggleSound(isDark);
     setThemeIcon(isDark);
   };
 

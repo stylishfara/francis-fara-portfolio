@@ -33,8 +33,8 @@ body {
 }
 
 .theme-toggle {
-  width: 34px;
-  height: 34px;
+  width: 40px;
+  height: 40px;
   border-radius: 999px;
   border: 1px solid var(--border);
   background: rgba(255, 255, 255, 0.62);
@@ -59,8 +59,8 @@ body {
 }
 
 .theme-toggle svg {
-  width: 15px;
-  height: 15px;
+  width: 17px;
+  height: 17px;
   display: block;
 }
 
@@ -320,14 +320,102 @@ html.dark .guestbook-shell {
 }
 
 @media (max-width: 768px) {
-  .nav-links + .theme-toggle {
-    position: fixed;
-    right: 16px;
-    bottom: 28px;
+  body {
+    padding-top: 118px !important;
+    padding-bottom: 48px !important;
+  }
+
+  body > nav:has(.nav-links) {
+    position: fixed !important;
+    top: 0 !important;
+    bottom: auto !important;
+    left: 0 !important;
+    right: 0 !important;
+    display: flex !important;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between !important;
+    gap: 12px;
+    padding: 14px 20px 16px !important;
+    pointer-events: none;
+  }
+
+  body > nav:has(.nav-links)::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: rgba(250, 250, 250, 0.82);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  html.dark body > nav:has(.nav-links)::before {
+    background: rgba(17, 17, 17, 0.82);
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+  }
+
+  body > nav:has(.nav-links)::after {
+    content: "";
+    order: 3;
+    flex: 0 0 100%;
+    height: 0;
+  }
+
+  body > nav:has(.nav-links) .nav-brand {
+    display: flex !important;
+    min-width: 0;
+  }
+
+  body > nav:has(.nav-links) .nav-brand img {
+    height: 28px;
+  }
+
+  body > nav:has(.nav-links) .nav-brand-text {
+    display: inline !important;
+  }
+
+  body > nav:has(.nav-links) .theme-toggle {
+    position: fixed !important;
+    top: 18px !important;
+    right: 20px !important;
+    z-index: 120;
+    display: inline-flex !important;
+    order: 2;
+    margin-left: auto;
+  }
+
+  body > nav:has(.nav-links) .nav-links {
+    order: 4;
+    position: relative !important;
+    left: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+    flex: 0 0 auto;
+    margin: 0 auto;
   }
 
   body:not(:has(.nav-links)) .theme-toggle {
     margin-left: auto;
+  }
+
+  body > nav:not(:has(.nav-links)) {
+    gap: 24px;
+  }
+
+  body > nav:not(:has(.nav-links)) .nav-back {
+    flex: 0 0 auto;
+  }
+
+  body > nav:not(:has(.nav-links)) .nav-title {
+    margin-left: auto;
+    min-width: 0;
+    max-width: 62vw;
+    overflow: hidden;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .hero-heading,
