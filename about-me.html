@@ -1989,8 +1989,10 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
-      /* Nav */
-      nav { padding: 16px 20px; }
+      body { padding-top: 0; padding-bottom: 90px; }
+      nav { top: auto; bottom: 0; padding: 0 0 28px; justify-content: center; }
+      .nav-brand { display: none; }
+      .nav-links { position: relative; left: auto; transform: none; }
       .container { padding: 0 20px; }
 
       /* Cards stack */
