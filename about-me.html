@@ -5,6 +5,8 @@
   <link rel="icon" type="image/png" href="me/logo.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The mind behind the work — Francis Fara</title>
+  <script>if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark');</script>
+  <script src="theme.js"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-SGVHLEDZZE"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SGVHLEDZZE');</script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -26,6 +28,56 @@
     }
 
     html { scroll-behavior: smooth; }
+
+    /* ── DARK MODE VARIABLES ── */
+    html.dark {
+      --bg:        #111111;
+      --card:      #1c1c1c;
+      --inner:     #252525;
+      --border:    #2c2c2c;
+      --text:      #e8e8e8;
+      --text-sec:  #a0a0a0;
+      --text-muted:#666666;
+      --label:     #606060;
+      --blue:      #5599ff;
+    }
+
+    /* ── DARK MODE OVERRIDES ── */
+    html.dark body { background: var(--bg); color: var(--text); }
+    html.dark .nav-links { background: #1c1c1c; box-shadow: 0 2px 20px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06); }
+    html.dark .nav-links a.active { background: #2c2c2c; color: #e8e8e8; }
+    html.dark .nav-links a:hover { color: #e8e8e8; }
+    html.dark .sec-card { background: var(--card); }
+    html.dark .sp-coming-soon { background: #252525; color: #777; }
+    html.dark .contentify-icon { background: #252525; border-color: #333; }
+    html.dark .side-project-icon { border-color: #2c2c2c; }
+    html.dark .sketch-canvas-wrap { background-color: #1a1a1a; }
+    html.dark .sketch-pen-dot { background: #e8e8e8; }
+    html.dark .todo-circle { border-color: #444; }
+    html.dark .contact-social-link:hover { border-color: #444; }
+    html.dark .contact-card { background: var(--card); }
+    html.dark .guestbook-action { background: #e8e8e8; color: #111; }
+    html.dark .about-img { background: #252525; }
+
+    /* ── THEME TOGGLE BUTTON ── */
+    .theme-toggle {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-sec);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      pointer-events: auto;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+    .theme-toggle:hover { background: var(--inner); }
+    html.dark .theme-toggle { border-color: #2c2c2c; color: #888; }
+    html.dark .theme-toggle:hover { background: #252525; }
 
     body {
       background: var(--bg);
@@ -767,33 +819,11 @@
       margin-bottom: 0;
     }
 
-    .gb-dark-toggle {
-      background: none;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      width: 30px;
-      height: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 14px;
-      transition: background 0.2s, border-color 0.2s;
-      color: var(--text-muted);
-      flex-shrink: 0;
-    }
-    .gb-dark-toggle:hover { background: var(--inner); }
-
     #guestbook-full .guestbook-shell.gb-dark {
       background: #141414 !important;
-      border-color: #ffffff !important;
-      box-shadow: 0 0 0 1px rgba(192,192,192,0.3);
+      border-color: #2c2c2c !important;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.06);
     }
-    .guestbook-shell.gb-dark .gb-dark-toggle {
-      border-color: #333;
-      color: #888;
-    }
-    .guestbook-shell.gb-dark .gb-dark-toggle:hover { background: #222; }
     .guestbook-shell.gb-dark .skills-label { color: #c0c0c0; }
     .guestbook-shell.gb-dark .guestbook-title { color: #e8e8e8; }
     .guestbook-shell.gb-dark .gb-heading-row { border-color: #2a2a2a; }
@@ -2143,6 +2173,7 @@
       .contact-email { font-size: 18px; }
     }
   </style>
+  <link rel="stylesheet" href="theme.css" />
 </head>
 <body>
 
@@ -2154,6 +2185,9 @@
       <li><a href="about-me.html" class="active">About me</a></li>
       <li><a href="blog.html">Blog</a></li>
     </ul>
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle dark mode">
+      <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+    </button>
   </nav>
 
   <section id="about">
@@ -2375,9 +2409,6 @@
             <div class="gb-heading">
               <div class="gb-heading-row">
                 <span class="skills-label">Guestbook</span>
-                <button class="gb-dark-toggle" onclick="toggleGbDark()" title="Toggle dark mode" id="gbDarkBtn">
-                  <svg id="gbDarkIcon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
-                </button>
               </div>
               <p class="guestbook-title">Leave a note and get on the wall.</p>
             </div>
@@ -2559,16 +2590,6 @@
         osc.stop(ctx.currentTime + 0.18);
         osc.onended = () => ctx.close();
       } catch (_) {}
-    }
-
-    function toggleGbDark() {
-      const shell = document.getElementById('gbShell');
-      const icon = document.getElementById('gbDarkIcon');
-      const isDark = shell.classList.toggle('gb-dark');
-      playToggleSound(isDark);
-      icon.innerHTML = isDark
-        ? '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>'
-        : '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>';
     }
 
     function syncGuestbookModalOverflow() {
@@ -2988,6 +3009,31 @@
         setTimeout(() => window.location.href = 'mailto:stylishfrancis@gmail.com?subject=Sketch for you&body=Hey Francis, here\'s a sketch I drew on your site!', 300);
       }, 'image/png');
     }
+
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      updateThemeIcon(isDark);
+      const gbShell = document.getElementById('gbShell');
+      if (gbShell) {
+        if (isDark) gbShell.classList.add('gb-dark');
+        else gbShell.classList.remove('gb-dark');
+      }
+    }
+    function updateThemeIcon(isDark) {
+      const icon = document.getElementById('themeIcon');
+      if (!icon) return;
+      icon.innerHTML = isDark
+        ? '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>'
+        : '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>';
+    }
+    updateThemeIcon(document.documentElement.classList.contains('dark'));
+    document.addEventListener('DOMContentLoaded', function() {
+      if (document.documentElement.classList.contains('dark')) {
+        const gbShell = document.getElementById('gbShell');
+        if (gbShell) gbShell.classList.add('gb-dark');
+      }
+    });
   </script>
 
 </body>

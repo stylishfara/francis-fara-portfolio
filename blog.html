@@ -5,6 +5,7 @@
   <link rel="icon" type="image/png" href="me/logo.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Blog — Francis Fara</title>
+  <script src="theme.js"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-SGVHLEDZZE"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SGVHLEDZZE');</script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -154,6 +155,7 @@
       .coming-soon-heading { font-size: 26px; }
     }
   </style>
+  <link rel="stylesheet" href="theme.css" />
 </head>
 <body>
 
@@ -164,6 +166,9 @@
       <li><a href="about-me.html">About me</a></li>
       <li><a href="blog.html" class="active">Blog</a></li>
     </ul>
+    <button class="theme-toggle" data-theme-toggle onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode">
+      <svg data-theme-icon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+    </button>
   </nav>
 
   <div class="coming-soon">

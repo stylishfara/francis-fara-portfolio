@@ -1,0 +1,359 @@
+html.dark {
+  color-scheme: dark;
+  --bg: #111111;
+  --bg-soft: #171717;
+  --bg-card: #1c1c1c;
+  --card: #1c1c1c;
+  --inner: #252525;
+  --border: #2c2c2c;
+  --border-dark: #3a3a3a;
+  --text: #e8e8e8;
+  --text-primary: #e8e8e8;
+  --text-framer: #c8c8c8;
+  --text-secondary: #a0a0a0;
+  --text-sec: #a0a0a0;
+  --text-muted: #8a8a8a;
+  --label: #737373;
+  --link: #6aa6ff;
+  --blue: #6aa6ff;
+}
+
+html.dark body {
+  background: var(--bg);
+  color: var(--text-primary, var(--text));
+}
+
+html,
+body {
+  max-width: 100%;
+}
+
+body {
+  overflow-x: clip;
+}
+
+.theme-toggle {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.62);
+  color: var(--text-secondary, var(--text-sec));
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  pointer-events: auto;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.theme-toggle:hover {
+  background: var(--inner, #e6e6e6);
+  color: var(--text-primary, var(--text));
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--blue, #1a6cf0);
+  outline-offset: 3px;
+}
+
+.theme-toggle svg {
+  width: 15px;
+  height: 15px;
+  display: block;
+}
+
+html.dark .theme-toggle {
+  background: rgba(28, 28, 28, 0.82);
+  border-color: #333333;
+  color: #c8c8c8;
+}
+
+html.dark .theme-toggle:hover {
+  background: #252525;
+  color: #f2f2f2;
+}
+
+html.dark nav {
+  border-color: var(--border);
+}
+
+html.dark body:not(:has(.nav-links)) nav {
+  background: rgba(17, 17, 17, 0.88);
+}
+
+html.dark .nav-links {
+  background: #1c1c1c;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+html.dark .nav-links a {
+  color: #a0a0a0;
+}
+
+html.dark .nav-links a:hover {
+  color: #f2f2f2;
+}
+
+html.dark .nav-links a.active {
+  background: #2c2c2c;
+  color: #f2f2f2;
+}
+
+html.dark .nav-brand,
+html.dark .nav-back {
+  color: var(--text-primary, #e8e8e8);
+}
+
+html.dark .nav-brand img {
+  filter: invert(1) brightness(1.35);
+}
+
+html.dark .nav-back:hover {
+  color: #ffffff;
+}
+
+html.dark .nav-title {
+  color: var(--text-muted);
+}
+
+html.dark .hero-heading .tagline,
+html.dark .coming-soon-sub {
+  color: var(--text-secondary, var(--text-sec));
+}
+
+html.dark .coming-soon-label,
+html.dark .stat-label,
+html.dark .meta-label,
+html.dark .section-label,
+html.dark .image-caption,
+html.dark .next-label,
+html.dark .footer-credit,
+html.dark .footer-email {
+  color: var(--text-muted);
+}
+
+html.dark .stat-bar-inner,
+html.dark .meta-row,
+html.dark .meta-item,
+html.dark .divider,
+html.dark .divider-sm,
+html.dark .footer-inner {
+  border-color: var(--border);
+}
+
+html.dark .hero-image,
+html.dark .case-image,
+html.dark .process-layer-image,
+html.dark .about-img {
+  background: #1f1f1f;
+}
+
+html.dark .research-item,
+html.dark .impact-item,
+html.dark .sec-card,
+html.dark .proj-card,
+html.dark .proj-body,
+html.dark .contact-card,
+html.dark .contentify-wrap,
+html.dark .cool-cell {
+  background: var(--card);
+  border-color: var(--border);
+}
+
+html.dark .body-text p,
+html.dark .reflection-block p,
+html.dark .process-layer-text,
+html.dark .research-item-text,
+html.dark .impact-copy,
+html.dark .impact-label {
+  color: var(--text-secondary, var(--text-sec));
+}
+
+html.dark .body-text strong,
+html.dark .research-item-title,
+html.dark .process-layer-title,
+html.dark .impact-number,
+html.dark .next-title,
+html.dark .meta-value,
+html.dark .coming-soon-heading {
+  color: var(--text-primary, var(--text));
+}
+
+html.dark .research-item-num {
+  color: #555555;
+}
+
+html.dark .meta-link,
+html.dark .footer-email {
+  color: var(--link, var(--blue));
+}
+
+html.dark .proj-tag,
+html.dark .skill-pill,
+html.dark .sp-coming-soon,
+html.dark .contentify-icon {
+  background: var(--inner);
+  border-color: #333333;
+  color: #a0a0a0;
+}
+
+html.dark .tabs-list,
+html.dark .cool-modal,
+html.dark .cool-modal-info {
+  background: #1c1c1c;
+}
+
+html.dark .tab-trigger.active,
+html.dark .cool-modal-chip,
+html.dark .cool-modal-nav {
+  background: #252525;
+  color: #e8e8e8;
+  border-color: #3a3a3a;
+}
+
+html.dark .cool-modal-stage {
+  background: #141414;
+}
+
+html.dark .cool-modal-desc {
+  color: #a0a0a0;
+}
+
+html.dark .todo-tooltip {
+  background: #252525;
+  color: #e8e8e8;
+  border: 1px solid #333333;
+}
+
+html.dark .todo-tooltip::after {
+  border-top-color: #252525;
+}
+
+html.dark .gb-modal {
+  background: rgba(0, 0, 0, 0.62);
+}
+
+html.dark .gb-all-card {
+  background: #171717;
+  border-color: #2c2c2c;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+}
+
+html.dark .gb-all-title {
+  color: #a0a0a0;
+}
+
+html.dark .gb-modal-close {
+  background: #1f1f1f;
+  border-color: #333333;
+  color: #c8c8c8;
+}
+
+html.dark .gb-modal-close:hover {
+  background: #252525;
+  color: #f2f2f2;
+}
+
+html.dark .gb-form-card {
+  background: #171717;
+  border-color: #3a3328;
+}
+
+html.dark .gb-form-top,
+html.dark .gb-footer {
+  border-color: #2c2a26;
+}
+
+html.dark .gb-mode-tabs {
+  background: #252525;
+}
+
+html.dark .gb-mode-tab.active,
+html.dark .gb-input,
+html.dark .gb-textarea,
+html.dark .gb-emoji-btn,
+html.dark .gb-switch-track {
+  background: #1f1f1f;
+  border-color: #333333;
+  color: #e8e8e8;
+}
+
+html.dark .gb-input::placeholder,
+html.dark .gb-textarea::placeholder {
+  color: #8a8a8a;
+}
+
+html.dark .gb-mode-tab,
+html.dark .gb-label,
+html.dark .gb-counter,
+html.dark .gb-switch-label,
+html.dark .gb-status,
+html.dark .hero-sub {
+  color: var(--text-secondary, #a0a0a0);
+}
+
+html.dark .gb-emoji-btn:hover {
+  background: #2a2a2a;
+}
+
+html.dark .gb-emoji-btn.selected,
+html.dark .gb-switch input:checked + .gb-switch-track {
+  background: #25354d;
+  border-color: #4d76b8;
+  color: #d6e7ff;
+}
+
+html.dark .gb-submit,
+html.dark .guestbook-action,
+html.dark .guestbook-sign-btn {
+  background: #e8e8e8;
+  color: #111111;
+}
+
+html.dark .guestbook-card,
+html.dark .guestbook-shell {
+  background: #171717;
+  color: #e8e8e8;
+  border-color: #2c2c2c;
+}
+
+@media (max-width: 768px) {
+  .nav-links + .theme-toggle {
+    position: fixed;
+    right: 16px;
+    bottom: 28px;
+  }
+
+  body:not(:has(.nav-links)) .theme-toggle {
+    margin-left: auto;
+  }
+
+  .hero-heading,
+  .proj-title,
+  .proj-desc,
+  .coming-soon-heading {
+    overflow-wrap: break-word;
+    max-width: 100%;
+  }
+
+  .container,
+  .projects-grid,
+  .proj-card,
+  .proj-body,
+  .proj-media {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .proj-meta {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .proj-tag {
+    align-self: flex-start;
+  }
+}

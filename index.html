@@ -5,6 +5,8 @@
   <link rel="icon" type="image/png" href="me/logo.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Francis Fara — Portfolio</title>
+  <script>if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark');</script>
+  <script src="theme.js"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-SGVHLEDZZE"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SGVHLEDZZE');</script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -26,6 +28,77 @@
     }
 
     html { scroll-behavior: smooth; }
+
+    /* ── DARK MODE VARIABLES ── */
+    html.dark {
+      --bg:        #111111;
+      --card:      #1c1c1c;
+      --inner:     #252525;
+      --border:    #2c2c2c;
+      --text:      #e8e8e8;
+      --text-sec:  #a0a0a0;
+      --text-muted:#666666;
+      --label:     #606060;
+      --blue:      #5599ff;
+    }
+
+    /* ── DARK MODE OVERRIDES ── */
+    html.dark body { background: var(--bg); color: var(--text); }
+    html.dark .nav-links { background: #1c1c1c; box-shadow: 0 2px 20px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06); }
+    html.dark .nav-links a.active { background: #2c2c2c; color: #e8e8e8; }
+    html.dark .nav-links a:hover { color: #e8e8e8; }
+    html.dark .tabs-list { background: #1c1c1c; }
+    html.dark .tab-trigger.active { background: #252525; box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04); }
+    html.dark .pm-lavender { background: #221f30; }
+    html.dark .pm-teal     { background: #182824; }
+    html.dark .pm-peach    { background: #28201c; }
+    html.dark .pm-sky      { background: #1a2530; }
+    html.dark .pm-sage     { background: #1a261e; }
+    html.dark .pm-rose     { background: #281c22; }
+    html.dark .pm-warm     { background: #22201a; }
+    html.dark .proj-card { background: var(--card); }
+    html.dark .proj-body { background: var(--card); }
+    html.dark .proj-title { color: #c8c8c8; }
+    html.dark .proj-tag { background: #252525; color: #888; border-color: #333; }
+    html.dark .cool-cell { background: #1c1c1c; border-color: rgba(60,60,60,0.6); }
+    html.dark .skill-pill { background: #252525; }
+    html.dark .process-title { color: var(--text); }
+    html.dark .process-item.open .process-title { color: var(--text); }
+    html.dark .process-num { color: #555; }
+    html.dark .process-item.open .process-icon { background: var(--text); border-color: var(--text); color: #111; }
+    html.dark .contentify-wrap { background: #1c1c1c; }
+    html.dark .cool-modal { background: #1c1c1c; }
+    html.dark .cool-modal-stage { background: #141414; }
+    html.dark .cool-modal-nav { background: #252525; border-color: #3a3a3a; color: #e8e8e8; }
+    html.dark .cool-modal-nav:hover { background: #2e2e2e; }
+    html.dark .cool-modal-info { background: #1c1c1c; }
+    html.dark .cool-modal-title { color: var(--text); }
+    html.dark .cool-modal-link { color: #5599ff; }
+    html.dark .cool-modal-chip { background: #252525; color: #888; }
+    html.dark .sec-card { background: var(--card); }
+    html.dark .sec-card--dark { background: #181818; border-color: #242424; }
+    html.dark .about-img { background: #252525; }
+    html.dark .hero-heading .tagline { color: #666; }
+
+    /* ── THEME TOGGLE BUTTON ── */
+    .theme-toggle {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-sec);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      pointer-events: auto;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+    .theme-toggle:hover { background: var(--inner); }
+    html.dark .theme-toggle { border-color: #2c2c2c; color: #888; }
+    html.dark .theme-toggle:hover { background: #252525; }
 
     body {
       background: var(--bg);
@@ -1226,6 +1299,7 @@
       .nav-brand-text { display: none; }
     }
   </style>
+  <link rel="stylesheet" href="theme.css" />
 </head>
 <body>
 
@@ -1237,6 +1311,9 @@
       <li><a href="about-me.html">About me</a></li>
       <li><a href="blog.html">Blog</a></li>
     </ul>
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle dark mode">
+      <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+    </button>
   </nav>
 
   <!-- HERO -->
@@ -1249,7 +1326,6 @@
         <a href="mailto:francismensah02@gmail.com" class="hero-link">Email ↗</a>
         <a href="https://linkedin.com" target="_blank" rel="noopener" class="hero-link">Linkedin ↗</a>
         <a href="https://layers.to" target="_blank" rel="noopener" class="hero-link">Layers ↗</a>
-        <a href="https://drive.google.com" target="_blank" rel="noopener" class="hero-link">Resume ↗</a>
       </div>
     </div>
   </section>
@@ -1792,6 +1868,20 @@
       if (e.key === 'ArrowLeft') stepCoolModal(-1);
       if (e.key === 'ArrowRight') stepCoolModal(1);
     });
+
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      updateThemeIcon(isDark);
+    }
+    function updateThemeIcon(isDark) {
+      const icon = document.getElementById('themeIcon');
+      if (!icon) return;
+      icon.innerHTML = isDark
+        ? '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>'
+        : '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>';
+    }
+    updateThemeIcon(document.documentElement.classList.contains('dark'));
   </script>
 
 </body>
