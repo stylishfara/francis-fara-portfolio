@@ -64,6 +64,10 @@ body {
   display: block;
 }
 
+.mobile-theme-toggle {
+  display: none;
+}
+
 html.dark .theme-toggle {
   background: rgba(28, 28, 28, 0.82);
   border-color: #333333;
@@ -321,7 +325,7 @@ html.dark .guestbook-shell {
 
 @media (max-width: 768px) {
   body {
-    padding-top: 118px !important;
+    padding-top: 146px !important;
     padding-bottom: 48px !important;
   }
 
@@ -335,8 +339,9 @@ html.dark .guestbook-shell {
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between !important;
-    gap: 12px;
-    padding: 14px 20px 16px !important;
+    row-gap: 18px;
+    column-gap: 12px;
+    padding: 16px 20px 18px !important;
     pointer-events: none;
   }
 
@@ -360,7 +365,7 @@ html.dark .guestbook-shell {
     content: "";
     order: 3;
     flex: 0 0 100%;
-    height: 0;
+    height: 8px;
   }
 
   body > nav:has(.nav-links) .nav-brand {
@@ -378,12 +383,51 @@ html.dark .guestbook-shell {
 
   body > nav:has(.nav-links) .theme-toggle {
     position: fixed !important;
-    top: 18px !important;
-    right: 20px !important;
+    top: 16px !important;
+    left: calc(100vw - 60px) !important;
+    order: 2;
     z-index: 120;
     display: inline-flex !important;
-    order: 2;
-    margin-left: auto;
+    margin-left: 0;
+  }
+
+  .theme-toggle {
+    display: inline-flex !important;
+  }
+
+  html.dark .theme-toggle {
+    background: #252525;
+    border-color: rgba(255, 255, 255, 0.18);
+    color: #f2f2f2;
+  }
+
+  .mobile-theme-toggle {
+    position: fixed;
+    top: 16px;
+    right: 20px;
+    z-index: 400;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.82);
+    color: var(--text-secondary, var(--text-sec));
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-theme-toggle svg {
+    width: 17px;
+    height: 17px;
+    display: block;
+  }
+
+  html.dark .mobile-theme-toggle {
+    background: #e8e8e8;
+    border-color: transparent;
+    color: #111111;
   }
 
   body > nav:has(.nav-links) .nav-links {
@@ -393,7 +437,7 @@ html.dark .guestbook-shell {
     bottom: auto !important;
     transform: none !important;
     flex: 0 0 auto;
-    margin: 0 auto;
+    margin: 0 auto 0;
   }
 
   body:not(:has(.nav-links)) .theme-toggle {

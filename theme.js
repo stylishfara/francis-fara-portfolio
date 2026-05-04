@@ -35,6 +35,22 @@
     });
   }
 
+  function ensureMobileThemeToggle() {
+    if (!document.querySelector('.nav-links') || document.querySelector('.mobile-theme-toggle')) return;
+
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'mobile-theme-toggle';
+    button.setAttribute('data-theme-toggle', '');
+    button.setAttribute('aria-label', 'Toggle dark mode');
+    button.setAttribute('title', 'Toggle dark mode');
+    button.innerHTML = '<svg data-theme-icon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg>';
+    button.addEventListener('click', function () {
+      window.toggleTheme();
+    });
+    document.body.appendChild(button);
+  }
+
   window.playThemeToggleSound = function playThemeToggleSound(isDark) {
     try {
       const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -72,6 +88,7 @@
   };
 
   document.addEventListener('DOMContentLoaded', function () {
+    ensureMobileThemeToggle();
     const isDark = root.classList.contains('dark');
     const gbShell = document.getElementById('gbShell');
     if (gbShell) gbShell.classList.toggle('gb-dark', isDark);
