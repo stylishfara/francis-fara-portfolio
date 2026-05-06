@@ -6,6 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>WalletWise Mobile App — Francis Mensah</title>
   <script src="theme.js"></script>
+  <script src="posthog.js"></script>
+  <script>
+    posthog.init('phc_viVKBQneVFAckTTDWg3SQBKJx4jW6d2sC4XVUhUvrPCt', { api_host: 'https://us.i.posthog.com', defaults: '2026-01-30' });
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&amp;family=Geist+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
@@ -826,6 +830,15 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    document.querySelector('.meta-link').addEventListener('click', function() {
+      posthog.capture('app_store_link_clicked', { project: 'WalletWise', href: this.getAttribute('href') });
+    });
+    document.querySelector('.next-project').addEventListener('click', function() {
+      posthog.capture('next_project_clicked', { from: 'WalletWise', to: 'Pesawise Mobile App', href: this.getAttribute('href') });
+    });
+  </script>
 
 </body>
 </html>

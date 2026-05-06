@@ -12,7 +12,8 @@
       "Bash(sips -g pixelWidth -g pixelHeight \"/Users/admistrator/Documents/Francis Fara/Coding/Porfolio/images/form-builder-risk.png\")",
       "Read(//Users/admistrator/.claude/**)",
       "Read(//Users/admistrator/.agents/skills/shadcn/**)",
-      "Edit(~/.claude/skills/case2/**)"
+      "Edit(~/.claude/skills/case2/**)",
+      "Bash(git commit -m ' *)"
     ],
     "additionalDirectories": [
       "/Users/admistrator/.claude/skills"

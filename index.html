@@ -7,6 +7,10 @@
   <title>Francis Fara — Portfolio</title>
   <script>if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark');</script>
   <script src="theme.js"></script>
+  <script src="posthog.js"></script>
+  <script>
+    posthog.init('phc_viVKBQneVFAckTTDWg3SQBKJx4jW6d2sC4XVUhUvrPCt', { api_host: 'https://us.i.posthog.com', defaults: '2026-01-30' });
+  </script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-SGVHLEDZZE"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SGVHLEDZZE');</script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -1648,6 +1652,7 @@
       document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
       trigger.classList.add('active');
       document.getElementById('tab-' + tabId).classList.add('active');
+      posthog.capture('portfolio_tab_switched', { tab: tabId });
     }
 
     function updateTime() {
@@ -1740,8 +1745,27 @@
           document.getElementById('check-icon').style.display = 'none';
           tip.classList.remove('show');
         }, 2000);
+        posthog.capture('email_copied');
       });
     }
+
+    // PostHog: track social/hero link clicks
+    document.querySelectorAll('.hero-link').forEach(function(link) {
+      link.addEventListener('click', function() {
+        posthog.capture('social_link_clicked', { label: link.textContent.trim(), href: link.getAttribute('href') });
+      });
+    });
+
+    // PostHog: track project card clicks
+    document.querySelectorAll('.proj-card').forEach(function(card) {
+      card.addEventListener('click', function() {
+        var titleEl = card.querySelector('.proj-title, .proj-name, h3, h2');
+        posthog.capture('project_card_clicked', {
+          project: titleEl ? titleEl.textContent.trim() : card.getAttribute('href'),
+          href: card.getAttribute('href')
+        });
+      });
+    });
   </script>
 
   <!-- COOL PROJECT MODAL -->
@@ -1818,6 +1842,7 @@
     function openCoolModal(id) {
       const p = coolProjects[id];
       if (!p) return;
+      posthog.capture('cool_project_opened', { project: id, title: p.title });
       coolModalImages = p.images;
       coolModalIndex = 0;
 
